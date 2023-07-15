@@ -1,0 +1,15 @@
+import turtle
+
+turtle.hideturtle()
+turtle.pensize(2)
+turtle.speed(0.1)
+turtle.bgcolor("black")
+colors = ["red", "green", "blue", "yellow"]
+for i in range(500):
+    turtle.pencolor(colors[i % 4])
+    turtle.forward(i * 4)
+    turtle.left(90)
+turtle.penup()
+for i in range(100):
+    turtle.forward(100000000000000)
+    turtle.right(20)

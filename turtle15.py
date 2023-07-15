@@ -1,0 +1,21 @@
+import turtle
+
+turtle.hideturtle()
+turtle.pensize(4)
+turtle.bgcolor('black')
+turtle.speed(5)
+turtle.pencolor('red')
+turtle.forward(100)
+turtle.left(90)
+turtle.forward(100)
+turtle.left(90)
+turtle.forward(100)
+turtle.left(90)
+turtle.forward(100)
+turtle.left(90)
+turtle.forward(50)
+turtle.pencolor('green')
+turtle.circle(50)
+turtle.penup()
+for i in range(200):
+    turtle.forward(100)
