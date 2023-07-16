@@ -3,16 +3,16 @@ import random
 from comm.common import slow_print, tuichu
 
 
-def huoqu_new_dideng(list, ret_list):
-    word = random.choice(list)
+def huoqu_new_dideng(src_list, ret_list):
+    word = random.choice(src_list)
     empty = random.randint(0, 3)
     new = word[:empty] + '( )' + word[empty + 1:]
     ret_list.append(word[empty])
     return new
 
 
-def huoqu_new_zhongdeng(list, ret_list):
-    word = random.choice(list)
+def huoqu_new_zhongdeng(src_list, ret_list):
+    word = random.choice(src_list)
     empty = random.randint(0, 3)
     empty2 = random.randint(0, 3)
     if empty == empty2:
@@ -30,8 +30,8 @@ def huoqu_new_zhongdeng(list, ret_list):
     return new
 
 
-def huoqu_new_gaodeng(list, ret_list):
-    word = random.choice(list)
+def huoqu_new_gaodeng(src_list, ret_list):
+    word = random.choice(src_list)
     empty = random.randint(0, 3)
     empty2 = random.randint(0, 3)
     empty3 = random.randint(0, 3)
@@ -47,15 +47,14 @@ def huoqu_new_gaodeng(list, ret_list):
     empty = sorted_list[0]
     empty2 = sorted_list[1]
     empty3 = sorted_list[2]
-    new = word[:empty] + '( )' + word[empty + 1:empty2] + '( )' \
-          + word[empty2 + 1:empty3] + '( )' + word[empty3 + 1:]
+    new = word[:empty] + '( )' + word[empty + 1:empty2] + '( )' + word[empty2 + 1:empty3] + '( )' + word[empty3 + 1:]
     ret_list.append(word[empty])
     ret_list.append(word[empty2])
     ret_list.append(word[empty3])
     return new
 
 
-def ChengYuTianKong():
+def cheng_yu_tian_kong():
     src_list = ['铺天盖地', '心急如焚', '杯弓蛇影', '开卷有益', '随遇而安', '指鹿为马', '负荆请罪', '四面楚歌',
                 '杯水车薪', '一叶知秋', '图穷匕见', '病入膏肓', '毛遂自荐', '邯郸学步', '杞人忧天', '画蛇添足',
                 '守株待兔', '惊弓之鸟', '亡羊补牢', '自相矛盾', '难兄难弟', '狐假虎威', '刻舟求剑', '东施效颦',
@@ -77,22 +76,21 @@ def ChengYuTianKong():
         print('1.低等\n2.中等\n3.高等')
         shuru = input('请选择难度,输入数字或文字,输入q退出:')
         tuichu(shuru)
-        is_diDeng = shuru == '1' or shuru == '低等'
-        is_zhongDeng = shuru == '2' or shuru == '中等'
-        is_gaoDeng = shuru == '3' or shuru == '高等'
-        if not is_diDeng and not is_zhongDeng and not is_gaoDeng:
+        is_dideng = shuru == '1' or shuru == '低等'
+        is_zhong_deng = shuru == '2' or shuru == '中等'
+        is_gao_deng = shuru == '3' or shuru == '高等'
+        if not is_dideng and not is_zhong_deng and not is_gao_deng:
             print(shuru, '是一个无效的字符,请重新选择难度!\n')
             continue
         e = 1
         while True:
             nandu = '低'
-            if is_zhongDeng:
+            if is_zhong_deng:
                 nandu = '中'
-            elif is_gaoDeng:
+            elif is_gao_deng:
                 nandu = '高'
             print('下一局是{}等难度第 {} 局'.format(nandu, e))
             huoqu = input('是否前往？输入其他字符前往，输入0退出:')
-            # tuichu(huoqu, '已退出', '0')
             if huoqu == '0':
                 break
 
@@ -102,44 +100,34 @@ def ChengYuTianKong():
                 print('\n--------------------第 {} 关--------------------'.format(n))
                 ret_list = []
                 input_list = []
-                if is_diDeng:
+                new = ""
+                if is_dideng:
                     new = huoqu_new_dideng(src_list, ret_list)
-                    print(new)
-                elif is_zhongDeng:
+                elif is_zhong_deng:
                     new = huoqu_new_zhongdeng(src_list, ret_list)
-                    print(new)
-                elif is_gaoDeng:
+                elif is_gao_deng:
                     new = huoqu_new_gaodeng(src_list, ret_list)
-                    print(new)
-
-                y = 1
+                print(new)
                 is_break = False
-                for k in ret_list:
-                    white = input('请填写第' + str(y) + '个括号(只填括号里的字, 输入q退出):')
+                for k, v in enumerate(ret_list, start=1):
+                    white = input('请填写第' + str(k) + '个括号(只填括号里的字, 输入q退出):')
                     if white == 'q':
                         is_break = True
                         break
                     input_list.append(white)
-                    y += 1
-
                 if is_break:
                     break
-
                 if input_list == ret_list:
                     print('\n**********此关顺利通过**********\n')
                     score = score + 10
                 else:
                     print('\n**********未过关**********\n')
-                    k = 1
-                    for i in ret_list:
+                    for k, i in enumerate(ret_list, start=1):
                         print('第' + str(k) + '个括号的正确答案为:' + i)
-                        k += 1
-
                 n = n + 1
-
             print('最终得分为: ', score, '分,现在,新的一局要开始了')
             e = e + 1
 
 
 if __name__ == '__main__':
-    ChengYuTianKong()
+    cheng_yu_tian_kong()
