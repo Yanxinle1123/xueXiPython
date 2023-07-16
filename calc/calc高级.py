@@ -2,62 +2,64 @@ import re
 import tkinter
 import tkinter.messagebox
 
-Control = tkinter.Tk()
-Control.geometry('300x270+400+100')
-Control.resizable(False, False)
-Control.title("计算器")
+calc_main = tkinter.Tk()
+calc_main.geometry('300x270+400+100')
+# calc_main.configure(bg='gray')
+calc_main.resizable(False, False)
+calc_main.title("计算器")
+btn_height = 30
 
 
-def Key(btn):
-    Get_content = contentVar.get()
-    if Get_content.startswith('.'):
-        Get_content = '0' + Get_content
-        if btn in '0123456789':
-            Get_content += btn
-        elif btn == '.':
-            lastPart = re.split(r'\+ | - | \* | /', Get_content)[-1]
-            if '.' in lastPart:
-                tkinter.messagebox.showerror('错误', '小数点重复出现')
-                return
-            else:
-                Get_content += btn
-        elif btn == 'C':
-            Get_content = ''
-        elif btn == '=':
-            try:
-                Get_content = str(eval(Get_content))
+def key_char(btn):
+    get_content = content_var.get()
+    if get_content.startswith('.'):
+        get_content = '0' + get_content
+    if btn in '0123456789':
+        get_content += btn
+    elif btn == '.':
+        last_part = re.split(r'\+ | - | \* | /', get_content)[-1]
+        if '.' in last_part:
+            tkinter.messagebox.showerror('错误', '小数点重复出现')
+            return
+        else:
+            get_content += btn
 
-            except:
-                tkinter.messagebox.showerror('错误', '算式有误')
+    elif btn == 'C':
+        get_content = ''
+    elif btn == '=':
+        try:
+            get_content = str(eval(get_content))
+        except:
+            tkinter.messagebox.showerror('错误', '算式有误')
+            return
 
-                return
-        elif btn in operators:
-            if Get_content.endswith(operators):
-                tkinter.cessagebox.showerror('错误', '不允许存在连续的运算符')
-                return
-            Get_content += btn
-        elif btn == 'Sqrt':
-            n = Get_content.split('.')
-            if all(map(lambda x: x.isdigit(), n)):
-                Get_content = eval(Get_content) ** 0.5
+    elif btn in operators:
+        if get_content.endswith(operators):
+            tkinter.messagebox.showerror('错误', '不允许存在连续的运算符')
+            return
+        get_content += btn
 
-            else:
-                tkinter.messagebox.showerror('错误', '无法开平方')
+    elif btn == 'Sqrt':
+        n = get_content.split('.')
+        if all(map(lambda x: x.isdigit(), n)):
+            get_content = eval(get_content) ** 0.5
+        else:
+            tkinter.messagebox.showerror('错误', '无法开平方')
+            return
+    print('get_content', get_content)
+    content_var.set(get_content)
 
-                return
-        contentVar.set(Get_content)
 
+content_var = tkinter.StringVar(calc_main, '')
+content_input = tkinter.Entry(calc_main, textvariable=content_var)
+content_input['state'] = 'readonly'
+content_input.place(x=10, y=10, width=280, height=btn_height)
 
-contentVar = tkinter.StringVar(Control, '')
-contentEntry = tkinter.Entry(Control, textvariable=contentVar)
-contentEntry['state'] = 'readonly'
-contentEntry.place(x=10, y=10, width=280, height=20)
+btn_clear = tkinter.Button(calc_main, text='C', bg='red', command=lambda: key_char('C'))
+btn_clear.place(x=40, y=40, width=80, height=btn_height)
 
-btnClear = tkinter.Button(Control, text='C', bg='orange', command=lambda: Key('C'))
-btnClear.place(x=40, y=40, width=80, height=20)
-
-btnComputer = tkinter.Button(Control, text='=', bg='purple', command=lambda: Key('='))
-btnComputer.place(x=170, y=40, width=80, height=20)
+btn_equal = tkinter.Button(calc_main, text='=', bg='blue', command=lambda: key_char('='))
+btn_equal.place(x=170, y=40, width=80, height=btn_height)
 
 digits = list('0123456789.') + ['Sqrt']
 index = 0
@@ -65,12 +67,12 @@ for row in range(4):
     for col in range(3):
         d = digits[index]
         index += 1
-        btnDigit = tkinter.Button(Control, text=d, bg='blue', command=lambda x=d: Key(x))
-
-        btnDigit.place(x=20 + col * 70, y=80 + row * 50, width=50, height=20)
+        btn_digit = tkinter.Button(calc_main, text=d, bg='yellow', command=lambda x=d: key_char(x))
+        btn_digit.place(x=20 + col * 70, y=80 + row * 50, width=50, height=btn_height)
 
 operators = ('+', '-', '*', '/', '**', '//')
 for index, operator in enumerate(operators):
-    btnOperator = tkinter.Button(Control, text=operator, bg='green', command=lambda x=operator: Key(x))
-    btnOperator.place(x=230, y=80 + index * 30, width=50, height=20)
-Control.mainloop()
+    btn_opers = tkinter.Button(calc_main, text=operator, bg='pink', command=lambda x=operator: key_char(x))
+    btn_opers.place(x=230, y=80 + index * 30, width=50, height=btn_height)
+
+calc_main.mainloop()
