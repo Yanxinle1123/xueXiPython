@@ -1,6 +1,7 @@
 import re
 import tkinter
 import tkinter.messagebox
+from tkinter import ttk
 
 calc_main = tkinter.Tk()
 calc_main.geometry('300x270+400+100')
@@ -8,6 +9,9 @@ calc_main.geometry('300x270+400+100')
 calc_main.resizable(False, False)
 calc_main.title("计算器")
 btn_height = 30
+
+style = ttk.Style()
+style.configure("style_red", background="red", foreground="white", font=("Arial", 12))
 
 
 def key_char(btn):
