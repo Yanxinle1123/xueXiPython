@@ -2,8 +2,8 @@ import sys
 import time
 
 
-def tuichu(guess_str, tishi='已退出'):
-    if guess_str == 'q':
+def tuichu(input_str, tishi='已退出', tuichu_str='q'):
+    if input_str == tuichu_str:
         print(tishi)
         sys.exit()
 
