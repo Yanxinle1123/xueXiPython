@@ -4,16 +4,16 @@ def huo_bi_zhuan_huan():
         try:
             huoqu = input(
                 '1.美元转人名币\n2.人民币转美元\n3.港币转人名币\n4.人名币转港币\n5.美元转港币\n6.港币转美元\n请选择转换方式(输入数字,输入q退出):')
-            if huoqu == 'q' or huoqu == 'Q':
+            if huoqu.lower() == 'q':
                 print('已退出')
                 break
             elif huoqu == '1':
                 shuru = float(input('请输入美元:'))
-                jieguo = shuru / 6.48
+                jieguo = shuru * 6.48
                 print('对应的人名币为:', jieguo)
             elif huoqu == '2':
                 shuru = float(input('请输入人名币:'))
-                jieguo = shuru * 6.48
+                jieguo = shuru / 6.48
                 print('对应的美元为:', jieguo)
             elif huoqu == '3':
                 shuru = float(input('请输入港币:'))
