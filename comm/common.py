@@ -8,7 +8,7 @@ def tuichu(input_str, tishi='已退出', tuichu_str='q'):
         sys.exit()
 
 
-def slow_print(text, delay=0.25):
+def slow_print(text, delay=0.1):
     for char in text:
         print(char, end='', flush=True)
         time.sleep(delay)
