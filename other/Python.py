@@ -1,4 +1,5 @@
 import random
+from datetime import datetime
 
 from colorama import Fore
 from googletrans import Translator
@@ -34,12 +35,14 @@ def python():
         elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q':
             break
         elif huoqu == 'time' or huoqu == 'date':
-            current_time = time.time()
-            local_time = time.localtime(current_time)
-            hour = local_time.tm_hour
-            minute = local_time.tm_min
-            second = local_time.tm_sec
-            print("现在时间是：{}时{}分{}秒".format(hour, minute, second))
+            def show_current_datetime():
+                now = datetime.now()
+                print("现在是 {} 年 {} 月 {} 日 {} 时 {} 分 {} 秒".format(now.year, now.month, now.day, now.hour,
+                                                                          now.minute, now.second))
+
+            if __name__ == '__main__':
+                show_current_datetime()
+
         elif huoqu == 'game':
             print('已显示游戏')
             while True:
