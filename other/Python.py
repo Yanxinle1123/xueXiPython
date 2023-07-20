@@ -815,7 +815,7 @@ def python():
                 print()  # 输出空行以提升可读性
         else:
             print(Fore.RED + '\n指令', huoqu, '无效')
-            print('建议输入  查询指令')
+            print('建议输入 / 查询指令')
             print(Fore.CYAN + '')
 
 
