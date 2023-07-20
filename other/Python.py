@@ -1,5 +1,6 @@
 import random
 
+from colorama import Fore
 from googletrans import Translator
 
 import time
@@ -7,6 +8,7 @@ from comm.common import slow_print
 
 
 def python():
+    print(Fore.CYAN + '')
     print('指令说明:')
     print('1. time,date(显示当前时间)')
     print('2. game(显示游戏)')
@@ -812,8 +814,9 @@ def python():
 
                 print()  # 输出空行以提升可读性
         else:
-            print('指令', huoqu, '无效')
+            print(Fore.RED + '\n指令', huoqu, '无效')
             print('建议输入 / 查询指令')
+            print(Fore.CYAN + '')
 
 
 if __name__ == '__main__':
