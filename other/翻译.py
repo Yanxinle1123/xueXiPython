@@ -12,14 +12,14 @@ def translate_text(text, src_lang, dest_lang):
     return result.text
 
 
-def validate_language(lang):
-    # 验证语言选项
-    valid_options = ['zh-CN', 'en']
-
-    if lang in valid_options:
-        return True
-    else:
-        return False
+def get_input(prompt, valid_options):
+    # 循环直到用户输入有效选项
+    while True:
+        option = input(prompt)
+        if option in valid_options:
+            return option
+        else:
+            print("无效的选项，请重新输入。")
 
 
 # 主循环
@@ -29,7 +29,7 @@ while True:
     print("2. 英文翻译为中文")
     print("输入 q 退出")
 
-    option = input("请选择选项: ")
+    option = get_input("请选择选项: ", ["1", "2", "q"])
 
     if option == "1":
         src_lang = 'zh-CN'
@@ -40,9 +40,6 @@ while True:
     elif option.lower() == "q":
         print("程序已退出。")
         break
-    else:
-        print("无效的选项，请重新输入。")
-        continue
 
     text = input("请输入要翻译的文本：")
 
