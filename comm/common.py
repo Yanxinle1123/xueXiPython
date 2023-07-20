@@ -15,7 +15,7 @@ def slow_print(text, delay=0.1):
     print()  # 换行
 
 
-def slow_input(text, delay=0.25):
+def slow_input(text, delay=0.1):
     for char in text:
         print(char, end='', flush=True)
         time.sleep(delay)

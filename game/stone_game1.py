@@ -1,16 +1,16 @@
 import random
 
-from comm.common import slow_print
+from comm.common import slow_print, slow_input
 
 
 def stone_game():
     slow_print('* * * * 石 头 剪 刀 布 * * * *')
-    print('下面你将和计算机来一场石头剪刀布游戏 !')
+    slow_print('下 面 你 将 和 计 算 机 来 一 场 石 头 剪 刀 布 游 戏 !')
     n = 1
     while True:
         computerfen = 0
         wanjiafen = 0
-        huoqu = input('一次共 6 局, 是否开始(输入q退出,输入c继续):')
+        huoqu = slow_input('一 次 共 6 局 , 是 否 开 始 ( 输 入 q 退 出 , 输 入 c 继 续 ) : ')
         if huoqu == 'q':
             print('已退出')
             break
