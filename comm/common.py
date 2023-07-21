@@ -26,3 +26,10 @@ def tuichu2(input_str, tishi='已退出', tuichu_str='n'):
     if input_str == tuichu_str:
         print(tishi)
         sys.exit()
+
+
+def slow_print2(text, delay=0.25):
+    for char in text:
+        print(char, end='', flush=True)
+        time.sleep(delay)
+    print()

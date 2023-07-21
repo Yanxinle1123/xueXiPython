@@ -1,3 +1,4 @@
+import platform
 import random
 from datetime import datetime
 
@@ -9,17 +10,20 @@ from comm.common import slow_print
 
 
 def python():
+    print(
+        Fore.YELLOW + '------------------------------------------------------------综合程序------------------------------------------------------------')
     print(Fore.CYAN + '')
-    print('指令说明:')
-    print('1. time,date(显示当前时间)')
-    print('2. game(显示游戏)')
-    print('3. calc(计算用户输入的公式)')
-    print('4. area(计算面积)')
-    print('5. volume(计算体积)')
-    print('6. quit,exit,q(退出)')
-    print('7. ead(加密和解密)')
-    print('8. trans(翻译)')
-    print('9. /(查询指令)')
+    slow_print('指令说明:', 0.1)
+    slow_print('1. time,date(显示当前时间)', 0.1)
+    slow_print('2. game(显示游戏)', 0.1)
+    slow_print('3. calc(计算用户输入的公式)', 0.1)
+    slow_print('4. area(计算面积)', 0.1)
+    slow_print('5. volume(计算体积)', 0.1)
+    slow_print('6. quit,exit,q(退出)', 0.1)
+    slow_print('7. ead(加密和解密)', 0.1)
+    slow_print('8. trans(翻译)', 0.1)
+    slow_print('9. computer(操作系统信息)', 0.1)
+    slow_print('10. /(查询指令)', 0.1)
     while True:
         huoqu = input('>>>')
         if huoqu == '/':
@@ -31,8 +35,26 @@ def python():
             print('6. quit,exit,q(退出)')
             print('7. ead(加密和解密)')
             print('8. trans(翻译)')
-            print('9. /(查询指令)')
+            print('9. computer(操作系统信息)')
+            print('10. /(查询指令)')
+        elif huoqu == 'computer':
+            print(
+                '-------------------------------------------------------电脑信息-------------------------------------------------------')
+            print("操作系统名称：", platform.system())
+            print("操作系统版本：", platform.release())
+            print("操作系统详细版本：", platform.version())
+            print("硬件架构：", platform.machine())
+            print("处理器名称：", platform.processor())
+            print("操作系统位数：", platform.architecture()[0])
+            print("Python 版本：", platform.python_version())
+            print("Python 编译器：", platform.python_compiler())
+            print("Python 构建信息：", platform.python_build())
+            print(
+                '---------------------------------------------------------------------------------------------------------------------')
+
         elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q':
+            print(
+                Fore.YELLOW + '-------------------------------------------------------------------------------------------------------------------------------')
             break
         elif huoqu == 'time' or huoqu == 'date':
             def show_current_datetime():
