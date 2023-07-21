@@ -10,21 +10,11 @@ def junfen():
     while True:
         try:
             print("---------------第 {} 次---------------".format(e))
-            equation = input('是否要去掉最高数和最低数(y / 其他字符):')
             huoqu_str = input('请输入数字的数量(输入q退出):')
             if huoqu_str == 'q':
                 print('已退出')
                 break
-            huoqu = int(huoqu_str)
-            zuihouhuoqu = huoqu + 1
-            for i in range(1, zuihouhuoqu):
-                print('请输入第', i, '个数:', end='')
-                score = float(input())
-                list.append(score)
-            zonghe = sum(list)
-            jieguo = zonghe / huoqu
-            print('平均值为:', jieguo)
-            e = e + 1
+            equation = input('是否要去掉最高数和最低数(y / n):')
             if equation == 'y':
                 huoqu = int(huoqu_str)
                 zuihouhuoqu = huoqu + 1
@@ -39,9 +29,23 @@ def junfen():
                 print('去掉最高分:', zuigaofen)
                 list.remove(max)
                 zonghe = sum(list)
+                jieguo = zonghe / (huoqu - 2)
+                print('平均值为:', jieguo)
+                e = e + 1
+            elif equation == 'n':
+                huoqu = int(huoqu_str)
+                zuihouhuoqu = huoqu + 1
+                for i in range(1, zuihouhuoqu):
+                    print('请输入第', i, '个数:', end='')
+                    score = float(input())
+                    list.append(score)
+                zonghe = sum(list)
                 jieguo = zonghe / huoqu
                 print('平均值为:', jieguo)
                 e = e + 1
+            else:
+                print(Fore.RED + '选项有误')
+                print(Fore.MAGENTA + '')
         except:
             print(Fore.RED + '输入有误')
             print(Fore.MAGENTA + '')
