@@ -1,6 +1,6 @@
 def pingjunfen():
     while True:
-        fenshu1 = float(input('请输入数字:'))
+        fenshu1 = float(input("请输入数字:"))
         fenshu2 = float(input('请输入数字:'))
         fenshu3 = float(input('请输入数字:'))
         junfen = (fenshu1 + fenshu2 + fenshu3) / 3

@@ -9,6 +9,7 @@ def junfen():
     e = 1
     while True:
         try:
+            list.clear()
             print("---------------第 {} 次---------------".format(e))
             huoqu_str = input('请输入数字的数量(输入q退出):')
             if huoqu_str == 'q':
@@ -17,17 +18,23 @@ def junfen():
             equation = input('是否要去掉最高数和最低数(y / n):')
             if equation == 'y':
                 huoqu = int(huoqu_str)
+                if huoqu < 3:
+                    print(Fore.RED + '数字数量不能小于 3')
+                    print(Fore.MAGENTA + ' ')
+                    continue
                 zuihouhuoqu = huoqu + 1
                 for i in range(1, zuihouhuoqu):
                     print('请输入第', i, '个数:', end='')
                     score = float(input())
                     list.append(score)
+
                 zuidifen = min(list)
                 zuigaofen = max(list)
                 print('去掉最低分:', zuidifen)
-                list.remove(min)
+                list.remove(zuidifen)
                 print('去掉最高分:', zuigaofen)
-                list.remove(max)
+                list.remove(zuigaofen)
+
                 zonghe = sum(list)
                 jieguo = zonghe / (huoqu - 2)
                 print('平均值为:', jieguo)
