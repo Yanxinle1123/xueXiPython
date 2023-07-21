@@ -10,8 +10,8 @@ def junfen():
     while True:
         try:
             print("---------------第 {} 次---------------".format(e))
-            huoqu_str = input('请输入数字的数量(输入q退出):')
             equation = input('是否要去掉最高数和最低数(y / 其他字符):')
+            huoqu_str = input('请输入数字的数量(输入q退出):')
             if huoqu_str == 'q':
                 print('已退出')
                 break
