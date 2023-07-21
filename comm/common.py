@@ -20,3 +20,9 @@ def slow_input(text, delay=0.1):
         print(char, end='', flush=True)
         time.sleep(delay)
     return input()  # 换行
+
+
+def tuichu2(input_str, tishi='已退出', tuichu_str='n'):
+    if input_str == tuichu_str:
+        print(tishi)
+        sys.exit()
