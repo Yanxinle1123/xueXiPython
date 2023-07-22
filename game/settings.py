@@ -24,8 +24,8 @@ class Settings:
         self.bullets_allowed = 300
 
         #
-        self.alien_speed = 20
-        self.fleet_drop_speed = 25
+        self.alien_speed = 15
+        self.fleet_drop_speed = 10
         self.fleet_direction = 1
 
         # 飞船设置
