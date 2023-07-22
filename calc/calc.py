@@ -1,7 +1,7 @@
 def calculator():
     print("现在是一个计算器")
     while True:
-        equation = input("请输入计算公式（输入q退出）：")
+        equation = input("请输入计算公式,不能带有[]和{}(输入q退出) :")
         if equation == 'q':
             print("已退出计算器")
             break

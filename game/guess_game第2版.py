@@ -1,7 +1,5 @@
 import random
 
-from comm.common import tuichu
-
 
 def tiShiFu(key):
     prefix = "---------"
@@ -13,7 +11,9 @@ def guess_game_ShengJiBan():
     print('现在是一个猜数游戏的升级版!')
     while True:
         huoqu_str = input('请输入一个1到100的数 (输入q退出) : ')
-        tuichu(huoqu_str)
+        if huoqu == 'q':
+            print('已退出')
+            break
         try:
             huoqu = int(huoqu_str)
             if huoqu > number + 10:
