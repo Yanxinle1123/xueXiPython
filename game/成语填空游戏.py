@@ -1,6 +1,6 @@
 import random
 
-from comm.common import slow_print, tuichu
+from comm.common import slow_print
 
 
 def huoqu_new_dideng(src_list, ret_list):
@@ -75,7 +75,9 @@ def cheng_yu_tian_kong():
     while True:
         print('1.低等\n2.中等\n3.高等')
         shuru = input('请选择难度,输入数字或文字,输入q退出:')
-        tuichu(shuru)
+        if shuru == 'q':
+            print('已退出')
+            break
         is_dideng = shuru == '1' or shuru == '低等'
         is_zhong_deng = shuru == '2' or shuru == '中等'
         is_gao_deng = shuru == '3' or shuru == '高等'
