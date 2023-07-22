@@ -137,6 +137,10 @@ class AlienInvasion:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
 
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            self._fire_bullet()
+
     def _check_keydown_events(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
