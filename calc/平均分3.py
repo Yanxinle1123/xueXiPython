@@ -3,6 +3,7 @@ from colorama import Fore
 list = []
 
 
+# 工作中
 def junfen():
     print(Fore.CYAN + '这是一个可以计算平均数的程序')
     print(Fore.MAGENTA + '')
