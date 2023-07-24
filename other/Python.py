@@ -54,12 +54,19 @@ def python():
         elif huoqu == 'computer':
             computer()
         elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q':
-            print(Fore.YELLOW + '')
-            print('*****    ****  ****         *           ****      *      *   *******')
-            print(Fore.MAGENTA + '*   *    *  *  *  *         *           *   *       *  *     *')
-            print(Fore.RED + '*****    *  *  *  *     *****           ****          *      *******')
-            print(Fore.YELLOW + '    *    *  *  *  *     *   *           *   *         *      *')
-            print(Fore.CYAN + '*****    ****  ****     *****           ****          *      *******')
+            print('')
+            print(
+                Fore.RED + '  *******        ****         ****       ******             *****       *       *     *********')
+            print(
+                Fore.GREEN + Fore.YELLOW + '*              *      *     *      *     *      *           *    *        *   *       *')
+            print(
+                Fore.YELLOW + '*              *      *     *      *     *       *          *    *          *         *')
+            print(
+                Fore.GREEN + '*   *******    *      *     *      *     *       *          *****           *         *********')
+            print(Fore.CYAN + '*       *      *      *     *      *     *       *          *    *          *         *')
+            print(Fore.BLUE + '*       *      *      *     *      *     *      *           *    *          *         *')
+            print(
+                Fore.MAGENTA + '  *******        ****         ****       ******             *****           *         *********')
             break
         elif huoqu == 'pi':
             pi50wei()
@@ -111,8 +118,8 @@ def python():
         elif huoqu == 'trans':
             trans()
         else:
-            print(Fore.RED + '\n指令', huoqu, '无效')
-            print('建议输入 / 查询指令')
+            print('\n\033[31m\033[1m指令\033[0m', Fore.YELLOW + huoqu, '\033[31m\033[1m无效\033[0m')
+            print('\033[31m\033[1m建议输入 / 查询指令\033[0m')
             print(Fore.CYAN + '')
 
 
