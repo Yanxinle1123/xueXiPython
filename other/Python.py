@@ -17,8 +17,8 @@ from game.stone_game2 import stone
 from game.古诗填空 import gushiyouxi
 from game.成语填空游戏 import cheng_yu_tian_kong
 from other.computer import computer
-from other.time import shijian
 from other.加密和解密 import ead
+from other.时间 import shijian
 from other.翻译 import trans
 
 
