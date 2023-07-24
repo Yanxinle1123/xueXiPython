@@ -1,55 +1,50 @@
+from colored import Fore
 from googletrans import Translator
 
 
 def trans():
-    def translate_text(text, src_lang, dest_lang):
-        # 创建翻译器对象
-        translator = Translator(service_urls=['translate.google.com'])
+    print(Fore.YELLOW + '')
+    # 创建翻译器对象
+    translator = Translator(service_urls=['translate.google.com'])
+    # 支持的语言代码
+    LANGUAGES = {
+        'en': '英语',
+        'zh-CN': '中文（简体）',
+        'ja': '日语',
+    }
 
-        # 翻译文本
-        result = translator.translate(text, src=src_lang, dest=dest_lang)
-
-        # 返回翻译结果
+    def translate(text, dest_lang):
+        result = translator.translate(text, dest=dest_lang)
+        # 输出翻译结果
         return result.text
 
-    def get_input(prompt, valid_options):
-        # 循环直到用户输入有效选项
-        while True:
-            option = input(prompt)
-            if option in valid_options:
-                return option
-            else:
-                print("无效的选项，请重新输入。")
-
-    # 主循环
+    # 测试
+    n = 1
     while True:
-        print("请选择翻译方向：")
-        print("1. 中文翻译为英文")
-        print("2. 英文翻译为中文")
-        print("输入 q 退出")
-
-        option = get_input("请选择选项: ", ["1", "2", "q"])
-
-        if option == "1":
-            src_lang = 'zh-CN'
-            dest_lang = 'en'
-        elif option == "2":
-            src_lang = 'en'
-            dest_lang = 'zh-CN'
-        elif option.lower() == "q":
-            print("程序已退出。")
-            break
-
-        text = input("请输入要翻译的文本：")
-
         try:
-            translated_text = translate_text(text, src_lang, dest_lang)
-            print("翻译结果：", translated_text)
+            # 输入要翻译的文本
+            print('------------------------------第 {} 次------------------------------'.format(n))
+            text = input('请输入要翻译的文本（输入 q 退出）：')
+            if text == 'q':
+                print('已退出')
+                break
+            # 获取目标语言
+            print('支持的语言代码：')
+            for code, lang in LANGUAGES.items():
+                print(code, '-', lang)
+            dest_lang = input('请输入目标语言代码：')
+            # 翻译文本
+            result = translate(text, dest_lang)
+            # 输出翻译结果
+            print('翻译结果：', result)
+            n = n + 1
+        except ValueError as e:
+            print('错误：' + str(e))
+            n = n + 1
         except Exception as e:
-            print("翻译发生错误:", str(e))
+            print('错误：' + str(e))
+            n = n + 1
 
-        print()  # 输出空行以提升可读性
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     trans()
