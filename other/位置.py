@@ -2,7 +2,7 @@ import geocoder
 
 
 def address():
-    g = geocoder.ip('me')
+    g = geocoder.ipinfo('me')
     latitude, longitude = g.latlng
     print(f"经度: {longitude},纬度: {latitude}")
 

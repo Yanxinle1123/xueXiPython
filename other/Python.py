@@ -1,5 +1,7 @@
 import time
 
+import numpy as np
+from Levenshtein import distance
 from colorama import Fore
 
 from calc.calc import calculator
@@ -33,7 +35,7 @@ def python():
     slow_print(Fore.GREEN + Fore.BLUE + '*        *       *               *          *          *       *', 0.002)
     slow_print(Fore.BLUE + '*        *       *               *          *          *       *', 0.002)
     slow_print(Fore.MAGENTA + '*        *       *********       ******     ******       *****', 0.002)
-    time.sleep(1)
+    time.sleep(0.9)
     print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
     print('指令说明:')
     print('1. time, date(显示当前时间)')
@@ -41,11 +43,11 @@ def python():
     print('3. calc(计算用户输入的公式)')
     print('4. area(计算面积)')
     print('5. volume(计算体积)')
-    print('6. quit,exit,q(退出)')
+    print('6. quit, exit, q, goodbye(退出)')
     print('7. ead(加密和解密)')
     print('8. trans(翻译)')
     print('9. computer(操作系统信息)')
-    print('10. pi(获取圆周率的后50位数字)')
+    print('10. pi(获取圆周率)')
     print('11. address(获取当前经纬度)')
     print('12. /(查询指令)')
     while True:
@@ -56,18 +58,38 @@ def python():
             print('3. calc(计算用户输入的公式)')
             print('4. area(计算面积)')
             print('5. volume(计算体积)')
-            print('6. quit,exit,q(退出)')
+            print('6. quit, exit, q, goodbye(退出)')
             print('7. ead(加密和解密)')
             print('8. trans(翻译)')
             print('9. computer(操作系统信息)')
             print('10. pi(获取圆周率的后50位数字)')
             print('11. address(获取当前经纬度)')
             print('12. /(查询指令)')
+        elif huoqu == 'hello':
+            slow_print(Fore.RED + '*        *       *****', 0.01)
+            slow_print(Fore.RED + Fore.YELLOW + '*        *         *', 0.01)
+            slow_print(Fore.YELLOW + '*        *         *', 0.01)
+            slow_print(Fore.GREEN + '**********         *', 0.01)
+            slow_print(Fore.BLUE + '*        *         *', 0.01)
+            slow_print(Fore.CYAN + '*        *         *', 0.01)
+            slow_print(Fore.MAGENTA + '*        *       *****', 0.01)
+            print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
+        elif huoqu == 'hi':
+            slow_print(Fore.RED + '*        *       *********       *          *            *****', 0.002)
+            slow_print(Fore.RED + Fore.YELLOW + '*        *       *               *          *          *       *',
+                       0.002)
+            slow_print(Fore.YELLOW + '*        *       *               *          *          *       *', 0.002)
+            slow_print(Fore.GREEN + '**********       *********       *          *          *       *', 0.002)
+            slow_print(Fore.GREEN + Fore.BLUE + '*        *       *               *          *          *       *',
+                       0.002)
+            slow_print(Fore.BLUE + '*        *       *               *          *          *       *', 0.002)
+            slow_print(Fore.MAGENTA + '*        *       *********       ******     ******       *****', 0.002)
+            print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
         elif huoqu == 'computer':
             computer()
         elif huoqu == 'address':
             address()
-        elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q':
+        elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q' or huoqu == 'goodbye':
             print('')
             slow_print(
                 Fore.RED + '  *******        ****         ****       ******             *****       *       *     *********',
@@ -145,9 +167,25 @@ def python():
         elif huoqu == 'trans':
             trans()
         else:
+            def find_closest_word(user_input, words):
+                min_distance = np.inf
+                closest = None
+                for word in words:
+                    d = distance(user_input.lower(), word.lower())
+                    if d < min_distance:
+                        min_distance = d
+                        closest = word
+                return closest
+
             print('\n\033[31m\033[1m指令\033[0m', Fore.YELLOW + huoqu, '\033[31m\033[1m无效\033[0m')
             print('\033[31m\033[1m建议输入 / 查询指令\033[0m')
-            print(Fore.CYAN + '')
+            words = ["time", "date", "address", "game", "calc", "area", "q", "quit", "exit", "ead", "pi", "volume",
+                     "trans", "goodbye"]
+            closest = find_closest_word(huoqu, words)
+            print(Fore.RED + f"\033[31m\033[1m与", Fore.YELLOW + huoqu, '\033[31m\033[1m最接近的指令是',
+                  Fore.YELLOW + closest)
+
+            print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
 
 
 if __name__ == '__main__':
