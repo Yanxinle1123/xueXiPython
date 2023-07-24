@@ -8,8 +8,8 @@ class Scoreboard:
         self.settings = ai_game.settings
         self.stats = ai_game.stats
 
-        self.text_color = (30, 30, 30)
-        self.font = pygame.font.SysFont(None, 48)
+        self.text_color = (255, 0, 0)
+        self.font = pygame.font.SysFont(None, 28)
 
         self.prep_score()
 
@@ -20,4 +20,8 @@ class Scoreboard:
 
         self.score_rect = self.score_image.get_rect()
         self.score_rect.right = self.score_rect.right - 20
+        # self.score_rect.top = self.score_rect.top + 20
         self.score_rect.top = 20
+
+    def show_score(self):
+        self.screen.blit(self.score_image, self.score_rect)

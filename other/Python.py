@@ -1,6 +1,7 @@
 from colorama import Fore
 
 from calc.calc import calculator
+from calc.pi的后50位 import pi50wei
 from calc.华氏度转摄氏度 import HuaShiDuZhuanSheShiDuAndSheShiDuZhuanHuaShiDu
 from calc.年龄计算器 import NianNingJiSuanQi
 from calc.日期计算器 import daycalc
@@ -34,7 +35,8 @@ def python():
     print('7. ead(加密和解密)', 0.08)
     print('8. trans(翻译)', 0.08)
     print('9. computer(操作系统信息)', 0.08)
-    print('10. /(查询指令)', 0.08)
+    print('10. pi(获取圆周率的后50位数字)')
+    print('11. /(查询指令)', 0.08)
     while True:
         huoqu = input('>>>')
         if huoqu == '/':
@@ -46,14 +48,17 @@ def python():
             print('6. quit,exit,q(退出)')
             print('7. ead(加密和解密)')
             print('8. trans(翻译)')
-            print('9. computer(操作系统信息)')
-            print('10. /(查询指令)')
+            print('9. computer(操作系统信息)', 0.08)
+            print('10. pi(获取圆周率的后50位数字)')
+            print('11. /(查询指令)', 0.08)
         elif huoqu == 'computer':
             computer()
         elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q':
             print(
                 Fore.YELLOW + '-------------------------------------------------------------------------------------------------------------------------------')
             break
+        elif huoqu == 'pi':
+            pi50wei()
         elif huoqu == 'time' or huoqu == 'date':
             shijian()
         elif huoqu == 'game':
