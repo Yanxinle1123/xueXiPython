@@ -1,3 +1,5 @@
+import time
+
 from colorama import Fore
 
 from calc.calc import calculator
@@ -17,6 +19,7 @@ from game.stone_game2 import stone
 from game.古诗填空 import gushiyouxi
 from game.成语填空游戏 import cheng_yu_tian_kong
 from other.computer import computer
+from other.位置 import address
 from other.加密和解密 import ead
 from other.时间 import shijian
 from other.翻译 import trans
@@ -30,7 +33,8 @@ def python():
     slow_print(Fore.GREEN + Fore.BLUE + '*        *       *               *          *          *       *', 0.002)
     slow_print(Fore.BLUE + '*        *       *               *          *          *       *', 0.002)
     slow_print(Fore.MAGENTA + '*        *       *********       ******     ******       *****', 0.002)
-    slow_print(Fore.CYAN + '', 0.2)
+    time.sleep(1)
+    print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
     print('指令说明:')
     print('1. time, date(显示当前时间)')
     print('2. game(显示游戏)')
@@ -42,7 +46,8 @@ def python():
     print('8. trans(翻译)')
     print('9. computer(操作系统信息)')
     print('10. pi(获取圆周率的后50位数字)')
-    print('11. /(查询指令)')
+    print('11. address(获取当前经纬度)')
+    print('12. /(查询指令)')
     while True:
         huoqu = input('>>>')
         if huoqu == '/':
@@ -56,9 +61,12 @@ def python():
             print('8. trans(翻译)')
             print('9. computer(操作系统信息)')
             print('10. pi(获取圆周率的后50位数字)')
-            print('11. /(查询指令)')
+            print('11. address(获取当前经纬度)')
+            print('12. /(查询指令)')
         elif huoqu == 'computer':
             computer()
+        elif huoqu == 'address':
+            address()
         elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q':
             print('')
             slow_print(
