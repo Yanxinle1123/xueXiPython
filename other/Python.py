@@ -54,8 +54,12 @@ def python():
         elif huoqu == 'computer':
             computer()
         elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q':
-            print(
-                Fore.YELLOW + '-------------------------------------------------------------------------------------------------------------------------------')
+            print(Fore.YELLOW + '')
+            print('*****    ****  ****         *           ****      *      *   *******')
+            print(Fore.MAGENTA + '*   *    *  *  *  *         *           *   *       *  *     *')
+            print(Fore.RED + '*****    *  *  *  *     *****           ****          *      *******')
+            print(Fore.YELLOW + '    *    *  *  *  *     *   *           *   *         *      *')
+            print(Fore.CYAN + '*****    ****  ****     *****           ****          *      *******')
             break
         elif huoqu == 'pi':
             pi50wei()
