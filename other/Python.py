@@ -26,7 +26,7 @@ def python():
         Fore.YELLOW + '------------------------------------------------------------综合程序------------------------------------------------------------')
     print(Fore.CYAN + '')
     print('指令说明:')
-    print('1. time,date(显示当前时间)')
+    print('1. time, date(显示当前时间)')
     print('2. game(显示游戏)')
     print('3. calc(计算用户输入的公式)')
     print('4. area(计算面积)')
@@ -40,7 +40,7 @@ def python():
     while True:
         huoqu = input('>>>')
         if huoqu == '/':
-            print('1. time,date(显示当前时间)')
+            print('1. time, date(显示当前时间)')
             print('2. game(显示游戏)')
             print('3. calc(计算用户输入的公式)')
             print('4. area(计算面积)')
@@ -48,9 +48,9 @@ def python():
             print('6. quit,exit,q(退出)')
             print('7. ead(加密和解密)')
             print('8. trans(翻译)')
-            print('9. computer(操作系统信息)', 0.08)
+            print('9. computer(操作系统信息)')
             print('10. pi(获取圆周率的后50位数字)')
-            print('11. /(查询指令)', 0.08)
+            print('11. /(查询指令)')
         elif huoqu == 'computer':
             computer()
         elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q':
