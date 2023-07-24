@@ -11,6 +11,7 @@ from calc.水仙花数 import QiuShuiXianHuaShu
 from calc.计算体积 import tiJi
 from calc.计算面积 import mianj
 from calc.货币转换 import huo_bi_zhuan_huan
+from comm.common import slow_print
 from game.guess_game第2版 import guess_game_ShengJiBan
 from game.stone_game2 import stone
 from game.古诗填空 import gushiyouxi
@@ -22,9 +23,14 @@ from other.翻译 import trans
 
 
 def python():
-    print(
-        Fore.YELLOW + '------------------------------------------------------------综合程序------------------------------------------------------------')
-    print(Fore.CYAN + '')
+    slow_print(Fore.RED + '*        *       *********       *          *            *****', 0.002)
+    slow_print(Fore.RED + Fore.YELLOW + '*        *       *               *          *          *       *', 0.002)
+    slow_print(Fore.YELLOW + '*        *       *               *          *          *       *', 0.002)
+    slow_print(Fore.GREEN + '**********       *********       *          *          *       *', 0.002)
+    slow_print(Fore.GREEN + Fore.BLUE + '*        *       *               *          *          *       *', 0.002)
+    slow_print(Fore.BLUE + '*        *       *               *          *          *       *', 0.002)
+    slow_print(Fore.MAGENTA + '*        *       *********       ******     ******       *****', 0.002)
+    slow_print(Fore.CYAN + '', 0.2)
     print('指令说明:')
     print('1. time, date(显示当前时间)')
     print('2. game(显示游戏)')
@@ -55,18 +61,27 @@ def python():
             computer()
         elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q':
             print('')
-            print(
-                Fore.RED + '  *******        ****         ****       ******             *****       *       *     *********')
-            print(
-                Fore.GREEN + Fore.YELLOW + '*              *      *     *      *     *      *           *    *        *   *       *')
-            print(
-                Fore.YELLOW + '*              *      *     *      *     *       *          *    *          *         *')
-            print(
-                Fore.GREEN + '*   *******    *      *     *      *     *       *          *****           *         *********')
-            print(Fore.CYAN + '*       *      *      *     *      *     *       *          *    *          *         *')
-            print(Fore.BLUE + '*       *      *      *     *      *     *      *           *    *          *         *')
-            print(
-                Fore.MAGENTA + '  *******        ****         ****       ******             *****           *         *********')
+            slow_print(
+                Fore.RED + '  *******        ****         ****       ******             *****       *       *     *********',
+                0.001)
+            slow_print(
+                Fore.GREEN + Fore.YELLOW + '*              *      *     *      *     *      *           *    *        *   *       *',
+                0.001)
+            slow_print(
+                Fore.YELLOW + '*              *      *     *      *     *       *          *    *          *         *',
+                0.001)
+            slow_print(
+                Fore.GREEN + '*   *******    *      *     *      *     *       *          *****           *         *********',
+                0.001)
+            slow_print(
+                Fore.CYAN + '*       *      *      *     *      *     *       *          *    *          *         *',
+                0.001)
+            slow_print(
+                Fore.BLUE + '*       *      *      *     *      *     *      *           *    *          *         *',
+                0.001)
+            slow_print(
+                Fore.MAGENTA + '  *******        ****         ****       ******             *****           *         *********',
+                0.001)
             break
         elif huoqu == 'pi':
             pi50wei()
