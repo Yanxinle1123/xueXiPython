@@ -75,7 +75,7 @@ def python():
         elif huoqu == 'game':
             print('已显示游戏')
             while True:
-                shuru = input('1. guess_game\n2.stone_game\n3. idioms\n4.ap_game\n请选择(输入数字,输入q退出)>>>')
+                shuru = input('1. guess_game\n2.stone_game\n3. idioms\n4.ap_game\n请选择(输入数字, 输入q退出)>>>')
                 if shuru == 'q':
                     print('已退出')
                     break
@@ -88,27 +88,31 @@ def python():
                 elif shuru == '4':
                     gushiyouxi()
         elif huoqu == 'calc':
-            print(
-                '1. 计算器\n2. 日期计算器\n3. 计算水仙花数\n4. 计算是否是闰年\n5. 计算是否构成三角形\n6. 温度转换\n7. 年龄计算器\n8. 货币转换')
-            shuru = input('请选择(输入数字)>>>')
-            if shuru == '1':
-                calculator()
-            elif shuru == '2':
-                daycalc()
-            elif shuru == '3':
-                QiuShuiXianHuaShu()
-            elif shuru == '4':
-                PanDuanRunNian()
-            elif shuru == '5':
-                sanjiaoxing()
-            elif shuru == '6':
-                HuaShiDuZhuanSheShiDuAndSheShiDuZhuanHuaShiDu()
-            elif shuru == '7':
-                NianNingJiSuanQi()
-            elif shuru == '8':
-                huo_bi_zhuan_huan()
-            else:
-                print('输入有误')
+            while True:
+                print(
+                    '1. 计算器\n2. 日期计算器\n3. 计算水仙花数\n4. 计算是否是闰年\n5. 计算是否构成三角形\n6. 温度转换\n7. 年龄计算器\n8. 货币转换')
+                shuru = input('请选择(输入数字, 输入q退出)>>>')
+                if shuru == '1':
+                    calculator()
+                elif shuru == '2':
+                    daycalc()
+                elif shuru == '3':
+                    QiuShuiXianHuaShu()
+                elif shuru == '4':
+                    PanDuanRunNian()
+                elif shuru == '5':
+                    sanjiaoxing()
+                elif shuru == '6':
+                    HuaShiDuZhuanSheShiDuAndSheShiDuZhuanHuaShiDu()
+                elif shuru == '7':
+                    NianNingJiSuanQi()
+                elif shuru == '8':
+                    huo_bi_zhuan_huan()
+                elif shuru == 'q':
+                    print('已退出')
+                    break
+                else:
+                    print('输入有误')
         elif huoqu == 'area':
             mianj()
         elif huoqu == 'volume':
