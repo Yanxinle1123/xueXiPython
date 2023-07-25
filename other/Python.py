@@ -15,12 +15,15 @@ from calc.水仙花数 import QiuShuiXianHuaShu
 from calc.计算体积 import tiJi
 from calc.计算面积 import mianj
 from calc.货币转换 import huo_bi_zhuan_huan
-from comm.common import slow_print
 from game.guess_game第2版 import guess_game_ShengJiBan
 from game.stone_game2 import stone
 from game.古诗填空 import gushiyouxi
 from game.成语填空游戏 import cheng_yu_tian_kong
 from other.computer import computer
+from other.goodbye import goodbye
+from other.hello import hello
+from other.hi import hi
+from other.thanks import thankyou
 from other.位置 import address
 from other.加密和解密 import ead
 from other.时间 import shijian
@@ -28,13 +31,7 @@ from other.翻译 import trans
 
 
 def python():
-    slow_print(Fore.RED + '*        *       *********       *          *            *****', 0.002)
-    slow_print(Fore.RED + Fore.YELLOW + '*        *       *               *          *          *       *', 0.002)
-    slow_print(Fore.YELLOW + '*        *       *               *          *          *       *', 0.002)
-    slow_print(Fore.GREEN + '**********       *********       *          *          *       *', 0.002)
-    slow_print(Fore.GREEN + Fore.BLUE + '*        *       *               *          *          *       *', 0.002)
-    slow_print(Fore.BLUE + '*        *       *               *          *          *       *', 0.002)
-    slow_print(Fore.MAGENTA + '*        *       *********       ******     ******       *****', 0.002)
+    hello()
     time.sleep(0.9)
     print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
     print('指令说明:')
@@ -66,53 +63,28 @@ def python():
             print('11. address(获取当前经纬度)')
             print('12. /(查询指令)')
         elif huoqu == 'hello':
-            slow_print(Fore.RED + '*        *       *****', 0.01)
-            slow_print(Fore.RED + Fore.YELLOW + '*        *         *', 0.01)
-            slow_print(Fore.YELLOW + '*        *         *', 0.01)
-            slow_print(Fore.GREEN + '**********         *', 0.01)
-            slow_print(Fore.BLUE + '*        *         *', 0.01)
-            slow_print(Fore.CYAN + '*        *         *', 0.01)
-            slow_print(Fore.MAGENTA + '*        *       *****', 0.01)
+            hi()
             print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
         elif huoqu == 'hi':
-            slow_print(Fore.RED + '*        *       *********       *          *            *****', 0.002)
-            slow_print(Fore.RED + Fore.YELLOW + '*        *       *               *          *          *       *',
-                       0.002)
-            slow_print(Fore.YELLOW + '*        *       *               *          *          *       *', 0.002)
-            slow_print(Fore.GREEN + '**********       *********       *          *          *       *', 0.002)
-            slow_print(Fore.GREEN + Fore.BLUE + '*        *       *               *          *          *       *',
-                       0.002)
-            slow_print(Fore.BLUE + '*        *       *               *          *          *       *', 0.002)
-            slow_print(Fore.MAGENTA + '*        *       *********       ******     ******       *****', 0.002)
+            hello()
             print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
         elif huoqu == 'computer':
             computer()
         elif huoqu == 'address':
             address()
-        elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q' or huoqu == 'goodbye':
+        elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q':
+            while True:
+                shuru = input('你喜欢这个程序吗(y/n) :')
+                if shuru == 'y' or shuru == 'n':
+                    thankyou()
+                    break
+                else:
+                    print('输入有误')
             print('')
-            slow_print(
-                Fore.RED + '  *******        ****         ****       ******             *****       *       *     *********',
-                0.001)
-            slow_print(
-                Fore.GREEN + Fore.YELLOW + '*              *      *     *      *     *      *           *    *        *   *       *',
-                0.001)
-            slow_print(
-                Fore.YELLOW + '*              *      *     *      *     *       *          *    *          *         *',
-                0.001)
-            slow_print(
-                Fore.GREEN + '*   *******    *      *     *      *     *       *          *****           *         *********',
-                0.001)
-            slow_print(
-                Fore.CYAN + '*       *      *      *     *      *     *       *          *    *          *         *',
-                0.001)
-            slow_print(
-                Fore.BLUE + '*       *      *      *     *      *     *      *           *    *          *         *',
-                0.001)
-            slow_print(
-                Fore.MAGENTA + '  *******        ****         ****       ******             *****           *         *********',
-                0.001)
+            goodbye()
             break
+        elif huoqu == 'goodbye':
+            goodbye()
         elif huoqu == 'pi':
             pi50wei()
         elif huoqu == 'time' or huoqu == 'date':
