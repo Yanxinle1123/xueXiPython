@@ -27,6 +27,7 @@ from other.thanks import thankyou
 from other.位置 import address
 from other.加密和解密 import ead
 from other.时间 import shijian
+from other.查询日历 import rili
 from other.翻译 import trans
 
 
@@ -46,7 +47,8 @@ def python():
     print('9. computer(操作系统信息)')
     print('10. pi(获取圆周率)')
     print('11. address(获取当前经纬度)')
-    print('12. /(查询指令)')
+    print('12. calendar(查询日历)')
+    print('13. /(查询指令)')
     while True:
         huoqu = input('>>>')
         if huoqu == '/':
@@ -61,7 +63,8 @@ def python():
             print('9. computer(操作系统信息)')
             print('10. pi(获取圆周率的后50位数字)')
             print('11. address(获取当前经纬度)')
-            print('12. /(查询指令)')
+            print('12. calendar(查询日历)')
+            print('13. /(查询指令)')
         elif huoqu == 'hello':
             hi()
             print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
@@ -70,6 +73,8 @@ def python():
             print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
         elif huoqu == 'computer':
             computer()
+        elif huoqu == 'calendar':
+            rili()
         elif huoqu == 'address':
             address()
         elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q':
@@ -153,7 +158,7 @@ def python():
             print('\n\033[31m\033[1m指令\033[0m', Fore.YELLOW + huoqu, '\033[31m\033[1m无效\033[0m')
             print('\033[31m\033[1m建议输入 / 查询指令\033[0m')
             words = ["time", "date", "address", "game", "calc", "area", "q", "quit", "exit", "ead", "pi", "volume",
-                     "trans", "goodbye"]
+                     "trans", "goodbye", "calendar"]
             closest = find_closest_word(huoqu, words)
             print(Fore.RED + f"\033[31m\033[1m与", Fore.YELLOW + huoqu, '\033[31m\033[1m最接近的指令是',
                   Fore.YELLOW + closest)
