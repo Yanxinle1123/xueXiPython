@@ -1,0 +1,20 @@
+import pyautogui
+
+p = pyautogui
+p.moveTo(208, 744)
+pyautogui.scroll(300)
+p.moveTo(100, 111)
+p.click()
+p.moveTo(860, 920)
+p.click()
+p.press('enter')
+p.press('enter', presses=0, interval=0)
+p.write('import')
+p.press('space')
+p.press('space', presses=0, interval=0)
+p.write('turtle')
+p.press('enter')
+p.press('enter', presses=0, interval=0)
+p.press('enter')
+p.press('enter', presses=0, interval=0)
+p.write('turtle.')
