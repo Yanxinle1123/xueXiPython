@@ -85,6 +85,7 @@ def python():
             break
         elif huoqu == 'goodbye':
             goodbye()
+            break
         elif huoqu == 'pi':
             pi50wei()
         elif huoqu == 'time' or huoqu == 'date':
