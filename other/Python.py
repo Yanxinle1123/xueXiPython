@@ -27,6 +27,7 @@ from other.hello import hello
 from other.thanks import thankyou
 from other.位置 import address
 from other.加密和解密 import ead
+from other.加密和解密2 import ead2
 from other.时间 import shijian
 from other.查询日历 import rili
 from other.翻译 import trans
@@ -142,7 +143,12 @@ def python():
         elif huoqu == 'volume':
             tiJi()
         elif huoqu == 'ead':
-            ead()
+            shuru = input('你要那种加密方法(1.凯撒密码, 其他字符.替换密码):')
+            if shuru == '1':
+                ead()
+            else:
+                ead2()
+            print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
         elif huoqu == 'trans':
             trans()
         else:
