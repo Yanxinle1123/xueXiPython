@@ -1,3 +1,5 @@
+import time
+
 import pyautogui
 
 p = pyautogui
@@ -41,3 +43,16 @@ p.write('turtle.forward(100)\n')
 p.write('turtle.left(95)')
 p.moveTo(1272, 43)
 p.click()
+p.moveTo(1275, 1097)
+time.sleep(8)
+p.click()
+p.click()
+p.moveTo(95, 1020)
+p.rightClick()
+p.moveTo(165, 690)
+p.click()
+p.moveTo(926, 620)
+p.click()
+p.moveTo(1691, 680)
+p.click()
+p.hotkey('command', 'fn', 'f2')

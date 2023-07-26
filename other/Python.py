@@ -19,10 +19,11 @@ from game.guess_game第2版 import guess_game_ShengJiBan
 from game.stone_game2 import stone
 from game.古诗填空 import gushiyouxi
 from game.成语填空游戏 import cheng_yu_tian_kong
+from other.RainbowHELLO import rainbowHELLO
+from other.RainbowHI import rainbowHI
 from other.computer import computer
 from other.goodbye import goodbye
 from other.hello import hello
-from other.hi import hi
 from other.thanks import thankyou
 from other.位置 import address
 from other.加密和解密 import ead
@@ -66,10 +67,10 @@ def python():
             print('12. calendar(查询日历)')
             print('13. /(查询指令)')
         elif huoqu == 'hello':
-            hi()
+            rainbowHI()
             print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
         elif huoqu == 'hi':
-            hello()
+            rainbowHELLO()
             print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
         elif huoqu == 'computer':
             computer()
