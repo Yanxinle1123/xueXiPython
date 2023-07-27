@@ -6,6 +6,7 @@ from colorama import Fore
 
 from calc.calc import calculator
 from calc.pi的后50位 import pi50wei
+from calc.九九乘法表 import mult_table
 from calc.华氏度转摄氏度 import HuaShiDuZhuanSheShiDuAndSheShiDuZhuanHuaShiDu
 from calc.年龄计算器 import NianNingJiSuanQi
 from calc.日期计算器 import daycalc
@@ -50,7 +51,8 @@ def python():
     print('10. pi(获取圆周率)')
     print('11. address(获取当前经纬度)')
     print('12. calendar(查询日历)')
-    print('13. /(查询指令)')
+    print('13. mult-table(查询九九乘法表)')
+    print('14. /(查询指令)')
     while True:
         huoqu = input('>>>')
         if huoqu == '/':
@@ -66,7 +68,8 @@ def python():
             print('10. pi(获取圆周率的后50位数字)')
             print('11. address(获取当前经纬度)')
             print('12. calendar(查询日历)')
-            print('13. /(查询指令)')
+            print('13. mult-table(查询九九乘法表)')
+            print('14. /(查询指令)')
         elif huoqu == 'hello':
             rainbowHI()
             print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
@@ -95,6 +98,8 @@ def python():
             break
         elif huoqu == 'pi':
             pi50wei()
+        elif huoqu == 'mult-table':
+            mult_table()
         elif huoqu == 'time' or huoqu == 'date':
             shijian()
         elif huoqu == 'game':
@@ -168,7 +173,7 @@ def python():
             print('\n\033[31m\033[1m指令\033[0m', Fore.YELLOW + huoqu, '\033[31m\033[1m无效\033[0m')
             print('\033[31m\033[1m建议输入 / 查询指令\033[0m')
             words = ["time", "date", "address", "game", "calc", "area", "q", "quit", "exit", "ead", "pi", "volume",
-                     "trans", "goodbye", "calendar"]
+                     "trans", "goodbye", "calendar", 'mult-table']
             closest = find_closest_word(huoqu, words)
             print(Fore.RED + f"\033[31m\033[1m与", Fore.YELLOW + huoqu, '\033[31m\033[1m最接近的指令是',
                   Fore.YELLOW + closest)
