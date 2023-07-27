@@ -149,7 +149,8 @@ def python():
             tiJi()
         elif huoqu == 'ead':
             while True:
-                shuru = input('你要那种加密方法(1.凯撒密码, 其他字符.替换密码, q.退出):')
+                shuru = input(
+                    Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '你要那种加密方法(1.凯撒密码, 其他字符.替换密码, q.退出):')
                 if shuru == '1':
                     ead()
                 elif shuru == 'q':
