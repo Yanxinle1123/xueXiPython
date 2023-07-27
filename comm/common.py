@@ -1,6 +1,8 @@
 import sys
 import time
 
+from colored import Fore
+
 
 def tuichu(input_str, tishi='已退出', tuichu_str='q'):
     if input_str == tuichu_str:
@@ -33,3 +35,24 @@ def slow_print2(text, delay=0.25):
         print(char, end='', flush=True)
         time.sleep(delay)
     print()
+
+
+def print_brown(input_str):
+    print(Fore.RGB(255, 170, 0) + input_str)
+
+
+def print_green(input_str):
+    print(Fore.RGB(125, 250, 85) + input_str)
+
+
+def print_blue(input_str):
+    print(Fore.RGB(50, 150, 225) + input_str)
+
+
+def print_red(input_str):
+    print(Fore.RGB(225, 0, 50) + input_str)
+
+
+def input_green(input_str):
+    result = input(Fore.RGB(125, 250, 85) + input_str)
+    return result
