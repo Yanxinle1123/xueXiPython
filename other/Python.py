@@ -28,7 +28,7 @@ from other.hello import hello
 from other.thanks import thankyou
 from other.位置 import address
 from other.加密和解密 import ead
-from other.加密和解密2 import ead2
+from other.加密和解密3 import ead3
 from other.时间 import shijian
 from other.查询日历 import rili
 from other.翻译 import trans
@@ -156,7 +156,7 @@ def python():
                     print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
                     break
                 else:
-                    ead2()
+                    ead3()
         elif huoqu == 'trans':
             trans()
         else:
