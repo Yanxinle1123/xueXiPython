@@ -22,10 +22,10 @@ def encrypt(text):
 
 
 def decrypt(text):
-    encrypted_codes = text.split(", ")
+    encrypted_codes = text.split(",")
     decrypted_text = ''
     for encrypted_code in encrypted_codes:
-        code = (int(encrypted_code)) // chushu
+        code = (int(encrypted_code)) // chengshu
         decrypted_text += chr(code)
     return decrypted_text
 
