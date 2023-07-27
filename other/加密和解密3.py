@@ -14,11 +14,11 @@ def encrypt(text):
     return encrypted_text[:-1], encrypted_text.count(",")
 
 
-def decrypt(text):
+def decrypt(text, miyao):
     encrypted_codes = text.split(",")
     decrypted_text = ''
     for encrypted_code in encrypted_codes:
-        code = (int(encrypted_code)) // chengshu
+        code = (int(encrypted_code)) // miyao
         decrypted_text += chr(code)
     return decrypted_text
 
@@ -27,9 +27,8 @@ def ead3():
     print(Fore.RGB(255, 170, 0) + '这是一个可以加密解密的程序')
     r = 1
     while True:
-        print(Fore.RGB(125, 250,
-                       85) + '----------------------------------------第 {} 次----------------------------------------'.format(
-            r))
+        print(Fore.RGB(125, 250, 85) +
+              '----------------------------------------第 {} 次----------------------------------------'.format(r))
         huoqu = input('请输入要加密的内容(输入q退出):')
 
         if huoqu == 'q':
@@ -46,7 +45,7 @@ def ead3():
                 break
             miyao = input('请输入密钥:')
 
-            decrypted_text = decrypt(miwen)
+            decrypted_text = decrypt(miwen, int(miyao))
             print(Fore.RGB(225, 255, 0) + "明文:", decrypted_text)
 
             r = r + 1
