@@ -5,11 +5,11 @@ from colored import Fore
 chengshu = random.randint(10, 60)
 
 
-def encrypt(text, miyao):
+def encrypt(text):
     encrypted_text = ""
     for char in text:
         code = ord(char)
-        encrypted_code = str(code * miyao)
+        encrypted_code = str(code * chengshu)
         encrypted_text += encrypted_code + ","
     return encrypted_text[:-1], encrypted_text.count(",")
 
@@ -26,8 +26,6 @@ def decrypt(text, miyao):
 def ead3():
     print(Fore.RGB(255, 170, 0) + '这是一个可以加密解密的程序')
     r = 1
-    print(Fore.RGB(255, 170, 0) + '本次程序密钥:', chengshu)
-    miyao = input('请输入密钥:')
     while True:
         print(Fore.RGB(171, 91,
                        187) + '----------------------------------------第 {} 次----------------------------------------'.format(
@@ -46,7 +44,7 @@ def ead3():
             if miwen == 'q':
                 print(Fore.RGB(255, 170, 0) + "已退出")
                 break
-
+            miyao = input('请输入密钥:')
             decrypted_text = decrypt(miwen, int(miyao))
             print(Fore.RGB(225, 255, 0) + "明文:", decrypted_text)
 
