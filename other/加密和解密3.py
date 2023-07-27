@@ -26,14 +26,12 @@ def decrypt(text, miyao):
 
 
 def ead3():
-    # print(Fore.RGB(255, 170, 0) + '这是一个可以加密解密的程序')
     print_brown('这是一个可以加密解密的程序')
     r = 1
     while True:
         print(Fore.RGB(171, 91, 187) +
               '----------------------------------------第 {} 次----------------------------------------'.format(r))
         huoqu = input_green('请输入要加密的内容(输入q退出):')
-
         if huoqu == 'q':
             print_brown("已退出")
             break
@@ -42,7 +40,6 @@ def ead3():
             print(Fore.RGB(225, 255, 0) + "密文长度:", length)
             print(Fore.RGB(255, 170, 0) + '密钥:', chengshu)
             print_blue("密文:" + encrypted_text)
-
             miwen = input(Fore.RGB(125, 250, 85) + "请输入要解密的内容(输入q退出): ")
             if miwen == 'q':
                 print(Fore.RGB(255, 170, 0) + "已退出")
@@ -50,10 +47,9 @@ def ead3():
             miyao = input('请输入密钥:')
             decrypted_text = decrypt(miwen, int(miyao))
             print(Fore.RGB(225, 255, 0) + "明文:", decrypted_text)
-
             r = r + 1
         except:
-            print_red("输入有误")
+            print_red("密钥输入有误")
 
 
 if __name__ == '__main__':
