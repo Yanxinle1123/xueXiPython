@@ -4,13 +4,6 @@ from colored import Fore
 
 chengshu = random.randint(10, 60)
 
-list = []
-if len(list) == 0:
-    list.clear()
-else:
-    chushu_str = list[0]
-    chushu = int(chushu_str)
-
 
 def encrypt(text):
     encrypted_text = ""
@@ -38,7 +31,7 @@ def ead3():
                        85) + '----------------------------------------第 {} 次----------------------------------------'.format(
             r))
         huoqu = input('请输入要加密的内容(输入q退出):')
-        list.clear()
+
         if huoqu == 'q':
             print(Fore.RGB(255, 170, 0) + "已退出")
             break
@@ -52,10 +45,10 @@ def ead3():
                 print(Fore.RGB(255, 170, 0) + "已退出")
                 break
             miyao = input('请输入密钥:')
-            list.append(miyao)
+
             decrypted_text = decrypt(miwen)
             print(Fore.RGB(225, 255, 0) + "明文:", decrypted_text)
-            list.clear()
+
             r = r + 1
         except:
             print(Fore.RGB(225, 0, 50) + "输入有误")
