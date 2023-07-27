@@ -56,3 +56,20 @@ def print_red(input_str):
 def input_green(input_str):
     result = input(Fore.RGB(125, 250, 85) + input_str)
     return result
+
+
+def print_yellow(input_str):
+    print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + input_str)
+
+
+def input_yellow(input_str):
+    result = input(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + input_str)
+    return result
+
+
+def print_yellow2(input_str):
+    print(Fore.RGB(225, 255, 0) + input_str)
+
+
+def print_purple(input_str):
+    print(Fore.RGB(171, 91, 187) + input_str)

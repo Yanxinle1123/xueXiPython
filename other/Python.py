@@ -16,6 +16,7 @@ from calc.水仙花数 import QiuShuiXianHuaShu
 from calc.计算体积 import tiJi
 from calc.计算面积 import mianj
 from calc.货币转换 import huo_bi_zhuan_huan
+from comm.common import print_yellow, input_yellow
 from game.guess_game第2版 import guess_game_ShengJiBan
 from game.stone_game2 import stone
 from game.古诗填空 import gushiyouxi
@@ -36,9 +37,8 @@ from other.翻译 import trans
 
 def python():
     hello()
-    time.sleep(0.9)
-    print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
-    print('指令说明:')
+    time.sleep(0.5)
+    print_yellow('指令说明:')
     print('1. time, date(显示当前时间)')
     print('2. game(显示游戏)')
     print('3. calc(计算用户输入的公式)')
@@ -54,7 +54,7 @@ def python():
     print('13. mult-table(查询九九乘法表)')
     print('14. /(查询指令)')
     while True:
-        huoqu = input('>>>')
+        huoqu = input_yellow('>>>')
         if huoqu == '/':
             print('1. time, date(显示当前时间)')
             print('2. game(显示游戏)')
@@ -72,10 +72,10 @@ def python():
             print('14. /(查询指令)')
         elif huoqu == 'hello':
             rainbowHI()
-            print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
+            print_yellow('')
         elif huoqu == 'hi':
             rainbowHELLO()
-            print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
+            print_yellow('')
         elif huoqu == 'computer':
             computer()
         elif huoqu == 'calendar':
@@ -149,12 +149,10 @@ def python():
             tiJi()
         elif huoqu == 'ead':
             while True:
-                shuru = input(
-                    Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '你要那种加密方法(1.凯撒密码, 其他字符.替换密码, q.退出):')
+                shuru = input_yellow('你要那种加密方法(1.凯撒密码, 其他字符.替换密码, q.退出):')
                 if shuru == '1':
                     ead()
                 elif shuru == 'q':
-                    print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
                     break
                 else:
                     ead3()
@@ -178,8 +176,7 @@ def python():
             closest = find_closest_word(huoqu, words)
             print(Fore.RED + f"\033[31m\033[1m与", Fore.YELLOW + huoqu, '\033[31m\033[1m最接近的指令是',
                   Fore.YELLOW + closest)
-
-            print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + '')
+            print_yellow('')
 
 
 if __name__ == '__main__':
