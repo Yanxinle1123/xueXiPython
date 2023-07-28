@@ -2,7 +2,7 @@ import time
 
 import numpy as np
 from Levenshtein import distance
-from colorama import Fore
+from colored import Fore
 
 from calc.calc import calculator
 from calc.pi的后50位 import pi50wei
@@ -16,7 +16,7 @@ from calc.水仙花数 import QiuShuiXianHuaShu
 from calc.计算体积 import tiJi
 from calc.计算面积 import mianj
 from calc.货币转换 import huo_bi_zhuan_huan
-from comm.common import print_yellow, input_yellow
+from comm.common import print_yellow, input_yellow, print_yellow2, input_yellow2
 from game.guess_game第2版 import guess_game_ShengJiBan
 from game.stone_game2 import stone
 from game.单词游戏 import word_game
@@ -39,7 +39,7 @@ from other.翻译 import trans
 def python():
     hello()
     time.sleep(0.5)
-    print_yellow('指令说明:')
+    print_yellow2('\033[1m指令说明:')
     print('1. time, date(显示当前时间)')
     print('2. game(显示游戏)')
     print('3. calc(计算用户输入的公式)')
@@ -55,7 +55,7 @@ def python():
     print('13. mult-table(查询九九乘法表)')
     print('14. /(查询指令)')
     while True:
-        huoqu = input_yellow('>>>')
+        huoqu = input_yellow2('>>>')
         if huoqu == '/':
             print('1. time, date(显示当前时间)')
             print('2. game(显示游戏)')
@@ -155,7 +155,7 @@ def python():
             tiJi()
         elif huoqu == 'ead':
             while True:
-                shuru = input_yellow('你要那种加密方法(1.凯撒密码, 其他字符.替换密码, q.退出):')
+                shuru = input_yellow2('你要那种加密方法(1.凯撒密码, 其他字符.替换密码, q.退出):')
                 if shuru == '1':
                     ead()
                 elif shuru == 'q':
@@ -175,13 +175,13 @@ def python():
                         closest = word
                 return closest
 
-            print('\n\033[31m\033[1m指令\033[0m', Fore.YELLOW + huoqu, '\033[31m\033[1m无效\033[0m')
+            print('\n\033[1m\033[31m指令', Fore.RGB(225, 255, 0) + huoqu, '\033[31m\033[1m无效\033[0m')
             print('\033[31m\033[1m建议输入 / 查询指令\033[0m')
             words = ["time", "date", "address", "game", "calc", "area", "q", "quit", "exit", "ead", "pi", "volume",
                      "trans", "goodbye", "calendar", 'mult-table']
             closest = find_closest_word(huoqu, words)
-            print(Fore.RED + f"\033[31m\033[1m与", Fore.YELLOW + huoqu, '\033[31m\033[1m最接近的指令是',
-                  Fore.YELLOW + closest)
+            print(Fore.RED + f"\033[1m与", Fore.RGB(225, 255, 0) + huoqu, Fore.RED + '\033[1m最接近的指令是',
+                  Fore.RGB(225, 255, 0) + closest)
             print_yellow('')
 
 
