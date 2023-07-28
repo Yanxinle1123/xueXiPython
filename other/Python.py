@@ -19,6 +19,7 @@ from calc.货币转换 import huo_bi_zhuan_huan
 from comm.common import print_yellow, input_yellow
 from game.guess_game第2版 import guess_game_ShengJiBan
 from game.stone_game2 import stone
+from game.单词游戏 import word_game
 from game.古诗填空 import gushiyouxi
 from game.成语填空游戏 import cheng_yu_tian_kong
 from other.RainbowHELLO import rainbowHELLO
@@ -105,7 +106,8 @@ def python():
         elif huoqu == 'game':
             print('已显示游戏')
             while True:
-                shuru = input('1. guess_game\n2.stone_game\n3. idioms\n4.ap_game\n请选择(输入数字, 输入q退出)>>>')
+                shuru = input_yellow(
+                    '1. guess_game\n2.stone_game\n3. idioms\n4.ap_game\n5.word_game\n请选择(输入数字, 输入q退出)>>>')
                 if shuru == 'q':
                     print('已退出')
                     break
@@ -117,6 +119,10 @@ def python():
                     cheng_yu_tian_kong()
                 elif shuru == '4':
                     gushiyouxi()
+                elif shuru == '5':
+                    word_game()
+                else:
+                    print('输入有误')
         elif huoqu == 'calc':
             while True:
                 print(
