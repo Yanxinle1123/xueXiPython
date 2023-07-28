@@ -4,14 +4,18 @@ from comm.common import print_brown, input_green, input_yellow2, print_purple, p
     print_yellow2
 
 word = ['香蕉', '苹果', '西瓜', '橙子', '哈密瓜', '草莓', '冬枣', '葡萄', '柚子', '榴莲', '脐橙', '金桔', '木瓜',
-        '雪梨', '水蜜桃', '龙眼', '荔枝', '百香果', '无花果', '牛油果', '西柚', '柠檬', '猕猴桃', '山楂',
-        '芒果', '石榴', '枇杷']
+        '雪梨', '水蜜桃', '龙眼', '荔枝', '百香果', '无花果', '牛油果', '西柚', '柠檬', '猕猴桃', '山楂', '芒果',
+        '石榴', '枇杷', '书本', '春天', '单词', '答案', '机器人', '人工智能', '电脑', '水杯', '纸巾', '盒子', '冰箱',
+        '龙舌兰', '腊梅', '花瓶', '风扇']
 answer = {'香蕉': 'banana', '苹果': 'apple', '西瓜': 'watermelon', '橙子': 'orange', '哈密瓜': 'Hami melon',
           '草莓': 'strawberry', '冬枣': 'winter jujube', '葡萄': 'grape', '柚子': 'grapefruit', '榴莲': 'durian',
           '脐橙': 'navel orange', '金桔': 'kumquat', '木瓜': 'papaya', '雪梨': 'snow pear', '水蜜桃': 'honey peach',
           '龙眼': 'longan', '荔枝': 'litchi', '百香果': 'passion fruit', '无花果': 'fig', '牛油果': 'avocado',
           '西柚': 'grapefruit', '柠檬': 'lemon', '猕猴桃': 'kiwifruit', '山楂': 'hawthorn', '芒果': 'mango',
-          '石榴': 'pomegranate', '枇杷': 'loquat'}
+          '石榴': 'pomegranate', '枇杷': 'loquat', '书本': 'book', '春天': 'spring', '单词': 'word', '答案': 'answer',
+          '机器人': 'robot', '人工智能': 'artificial intelligence', '电脑': 'computer', '水杯': 'water cup',
+          '纸巾': 'tissue', '盒子': 'box', '冰箱': 'refrigerator', '龙舌兰': 'agave', '腊梅': 'wintersweet',
+          '花瓶': 'vase', '风扇': 'fan'}
 
 
 def word_game():

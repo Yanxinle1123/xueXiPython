@@ -16,10 +16,10 @@ from calc.水仙花数 import QiuShuiXianHuaShu
 from calc.计算体积 import tiJi
 from calc.计算面积 import mianj
 from calc.货币转换 import huo_bi_zhuan_huan
-from comm.common import print_yellow, input_yellow, print_yellow2, input_yellow2
+from comm.common import print_yellow, print_yellow2, input_yellow2, print_red
 from game.guess_game第2版 import guess_game_ShengJiBan
 from game.stone_game2 import stone
-from game.单词游戏 import word_game
+from game.word_game import word_game
 from game.古诗填空 import gushiyouxi
 from game.成语填空游戏 import cheng_yu_tian_kong
 from other.RainbowHELLO import rainbowHELLO
@@ -106,7 +106,7 @@ def python():
         elif huoqu == 'game':
             print('已显示游戏')
             while True:
-                shuru = input_yellow(
+                shuru = input_yellow2(
                     '1. guess_game\n2.stone_game\n3. idioms\n4.ap_game\n5.word_game\n请选择(输入数字, 输入q退出)>>>')
                 if shuru == 'q':
                     print('已退出')
@@ -155,13 +155,15 @@ def python():
             tiJi()
         elif huoqu == 'ead':
             while True:
-                shuru = input_yellow2('你要那种加密方法(1.凯撒密码, 其他字符.替换密码, q.退出):')
+                shuru = input_yellow2('你要那种加密方法(1.凯撒密码, 2.UTF-8编码, q.退出):')
                 if shuru == '1':
                     ead()
+                elif shuru == '2':
+                    ead3()
                 elif shuru == 'q':
                     break
                 else:
-                    ead3()
+                    print_red('选项有误')
         elif huoqu == 'trans':
             trans()
         else:
