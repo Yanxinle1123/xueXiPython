@@ -1,6 +1,6 @@
 import random
 
-from comm.common import print_brown, input_green, input_yellow2, print_purple, print_red, print_yellow, print_green, \
+from comm.common import print_orange, input_green, input_yellow2, print_purple, print_red, print_yellow, print_green, \
     print_yellow2
 
 word = ['香蕉', '苹果', '西瓜', '橙子', '哈密瓜', '草莓', '冬枣', '葡萄', '柚子', '榴莲', '脐橙', '金桔', '木瓜',
@@ -19,7 +19,7 @@ answer = {'香蕉': 'banana', '苹果': 'apple', '西瓜': 'watermelon', '橙子
 
 
 def word_game():
-    print_brown('这是一个单词游戏')
+    print_orange('这是一个单词游戏')
     r = 1
     n = 1
     defen = 0
@@ -36,7 +36,7 @@ def word_game():
             da_an = answer[danci]
             huoqu = input_green('请输入这个水果的单词(输入q退出): ')
             if huoqu == da_an:
-                print_brown('回答正确 !')
+                print_orange('回答正确 !')
                 n = n + 1
                 w = w + 1
                 defen = defen + 10

@@ -37,7 +37,7 @@ def slow_print2(text, delay=0.25):
     print()
 
 
-def print_brown(input_str):
+def print_orange(input_str):
     print(Fore.RGB(255, 170, 0) + input_str)
 
 
