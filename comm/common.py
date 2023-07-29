@@ -78,3 +78,7 @@ def print_purple(input_str):
 def input_yellow2(input_str):
     result = input(Fore.RGB(225, 255, 0) + input_str)
     return result
+
+
+def is_chinese_start(s):
+    return s and 0x4E00 <= ord(s[0]) <= 0x9FA0
