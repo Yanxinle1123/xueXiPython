@@ -10,7 +10,7 @@ def input_with_timeout(prompt, timeout=5):
     print(prompt, end=" ", flush=True)
     fds = [sys.stdin]
     result = []
-    r, w, e = select.select(fds, [], [], timeout)
+    r, _, _ = select.select(fds, [], [], timeout)
     if not r:
         raise TimeoutExpired()
 

@@ -1,5 +1,5 @@
+import select
 import sys
-import threading
 import time
 
 from colored import Fore
@@ -11,22 +11,21 @@ def tuichu(input_str, tishi='已退出', tuichu_str='q'):
         sys.exit()
 
 
+class TimeoutExpired(Exception):
+    pass
+
+
 def input_timeout(prompt, timeout=15):
     print(prompt, end=" ", flush=True)
-    input = []
+    fds = [sys.stdin]
+    result = []
+    r, _, _ = select.select(fds, [], [], timeout)
+    if not r:
+        raise TimeoutExpired()
 
-    def timed_input(input):
-        input.append(input(""))
-
-    t = threading.Thread(target=timed_input, args=(input,))
-    t.start()
-    timer = threading.Timer(timeout, stop_thread, args=[t])
-    timer.start()
-    t.join(timeout)
-    if input:
-        return input[0]
-    else:
-        return None
+    input_str = sys.stdin.readline().rstrip()
+    result.append(input_str)
+    return result[0]
 
 
 def stop_thread(thread):
