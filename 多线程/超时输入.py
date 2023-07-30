@@ -1,33 +1,27 @@
 import threading
 
 
-def input_with_timeout(prompt, timeout):
+def input_with_timeout(prompt, timeout=5):
     print(prompt, end=" ", flush=True)
-    input = []
+    result = []
 
-    def timed_input(input):
-        try:
-            input.append(input(""))
-        except:
-            pass
+    def timed_input(result):
+        result.append(input())
 
-    t = threading.Thread(target=timed_input, args=(input,))
-    t.start()
-    timer = threading.Timer(timeout, stop_thread, args=[t])
+    timer = threading.Timer(timeout, lambda: None)
     timer.start()
-    t.join(timeout)
-    if input:
-        return input[0]
-    else:
-        return None
 
+    input_thread = threading.Thread(target=timed_input, args=(result,))
+    input_thread.start()
+    input_thread.join(timeout)
 
-def stop_thread(thread):
-    thread.cancel()
+    timer.cancel()
+
+    return result[0] if result else None
 
 
 try:
-    output = input_with_timeout("请输入:", 10)
+    output = input_with_timeout("请输入:")
     if output:
         print("你的输入是:", output)
     else:
