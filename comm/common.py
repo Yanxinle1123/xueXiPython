@@ -105,3 +105,7 @@ def input_yellow2(input_str):
 
 def is_chinese_start(s):
     return s and 0x4E00 <= ord(s[0]) <= 0x9FA0
+
+
+def is_chinese_start(s):
+    return s and 0x4E00 <= ord(s[0]) <= 0x9FA0

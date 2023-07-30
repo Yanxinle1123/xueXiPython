@@ -1,32 +1,28 @@
-import threading
+import select
+import sys
+
+
+class TimeoutExpired(Exception):
+    pass
 
 
 def input_with_timeout(prompt, timeout=5):
     print(prompt, end=" ", flush=True)
+    fds = [sys.stdin]
     result = []
+    r, w, e = select.select(fds, [], [], timeout)
+    if not r:
+        raise TimeoutExpired()
 
-    def timed_input(result):
-        result.append(input())
-
-    timer = threading.Timer(timeout, lambda: None)
-    timer.start()
-
-    input_thread = threading.Thread(target=timed_input, args=(result,))
-    input_thread.start()
-    input_thread.join(timeout)
-
-    timer.cancel()
-
-    return result[0] if result else None
+    input_str = sys.stdin.readline().rstrip()
+    result.append(input_str)
+    return result[0]
 
 
 try:
-    output = input_with_timeout("请输入:")
-    if output:
-        print("你的输入是:", output)
-    else:
-        print("抱歉,时间已用完!")
+    output = input_with_timeout("请输入：")
+    print("你的输入是：", output)
+except TimeoutExpired:
+    print("\n时间用完，程序被终止！")
 except KeyboardInterrupt:
-    print("\n程序被中断!")
-finally:
-    threading.Timer(0, lambda: None).start()  # 确保所有线程正确退出
+    print("\n程序被中断！")
