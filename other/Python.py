@@ -107,7 +107,7 @@ def python():
             print('已显示游戏')
             while True:
                 shuru = input_yellow2(
-                    '1. guess_game\n2.stone_game\n3. idioms\n4.ap_game\n5.word_game\n请选择(输入数字, 输入q退出)>>>')
+                    '1. guess_game\n2.stone_game\n3. idioms\n4.ap_game\n5.word_game\n6.keyboard_game\n请选择(输入数字, 输入q退出)>>>')
                 if shuru == 'q':
                     print('已退出')
                     break

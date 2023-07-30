@@ -1,4 +1,5 @@
 import sys
+import threading
 import time
 
 from colored import Fore
@@ -8,6 +9,28 @@ def tuichu(input_str, tishi='已退出', tuichu_str='q'):
     if input_str == tuichu_str:
         print(tishi)
         sys.exit()
+
+
+def input_timeout(prompt, timeout=15):
+    print(prompt, end=" ", flush=True)
+    input = []
+
+    def timed_input(input):
+        input.append(input(""))
+
+    t = threading.Thread(target=timed_input, args=(input,))
+    t.start()
+    timer = threading.Timer(timeout, stop_thread, args=[t])
+    timer.start()
+    t.join(timeout)
+    if input:
+        return input[0]
+    else:
+        return None
+
+
+def stop_thread(thread):
+    thread.cancel()
 
 
 def slow_print(text, delay=0.1):
