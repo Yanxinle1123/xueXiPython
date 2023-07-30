@@ -18,6 +18,7 @@ from calc.计算面积 import mianj
 from calc.货币转换 import huo_bi_zhuan_huan
 from comm.common import print_yellow, print_yellow2, input_yellow2, print_red
 from game.guess_game第2版 import guess_game_ShengJiBan
+from game.keyboard_game import keyboard_game
 from game.stone_game2 import stone
 from game.word_game import word_game
 from game.古诗填空 import gushiyouxi
@@ -121,6 +122,8 @@ def python():
                     gushiyouxi()
                 elif shuru == '5':
                     word_game()
+                elif shuru == '6':
+                    keyboard_game()
                 else:
                     print('输入有误')
         elif huoqu == 'calc':
