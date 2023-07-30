@@ -7,7 +7,7 @@ from colored import Fore
 
 def tuichu(input_str, tishi='已退出', tuichu_str='q'):
     if input_str == tuichu_str:
-        print(tishi)
+        print_orange(tishi)
         sys.exit()
 
 
@@ -15,8 +15,8 @@ class TimeoutExpired(Exception):
     pass
 
 
-def input_timeout(prompt, timeout=15):
-    print(prompt, end=" ", flush=True)
+def input_timeout(prompt, timeout=9):
+    print(Fore.RGB(225, 255, 0) + prompt, end=" ", flush=True)
     fds = [sys.stdin]
     result = []
     r, _, _ = select.select(fds, [], [], timeout)
