@@ -8,6 +8,7 @@ pygame.font.init()
 screen_width = 1000
 screen_height = 800
 screen = pygame.display.set_mode((screen_width, screen_height))
+buffer = pygame.Surface((screen_width, screen_height))
 screen.fill((126, 248, 85))
 pygame.display.set_caption("Keyboard__Game")
 running = True
@@ -29,10 +30,13 @@ while running:
             # 检查用户是否点击了按钮
             if button_rect.collidepoint(pos):
                 print("Button 1 clicked!")
+                screen.fill((255, 170, 0))
             elif button_rect2.collidepoint(pos):
                 print("Button 2 clicked!")
+                screen.fill((125, 250, 85))
             elif button_rect3.collidepoint(pos):
                 print("Button 3 clicked!")
+                screen.fill((225, 255, 0))
             elif button_rect4.collidepoint(pos):
                 pygame.quit()
 
@@ -43,10 +47,10 @@ while running:
     font4 = pygame.font.SysFont("Arial", 30)
 
     # 在屏幕上渲染文本
-    text = font1.render("lower", True, (255, 255, 255))
-    text2 = font2.render("medium", True, (255, 255, 255))
-    text3 = font3.render("advanced", True, (255, 255, 255))
-    text4 = font4.render("quit", True, (255, 255, 255))
+    text = font1.render("lower", True, (50, 150, 225))
+    text2 = font2.render("medium", True, (50, 150, 225))
+    text3 = font3.render("advanced", True, (50, 150, 225))
+    text4 = font4.render("quit", True, (50, 150, 225))
 
     # 将文本显示在按钮上
     text_rect = text.get_rect(center=button_rect.center)
