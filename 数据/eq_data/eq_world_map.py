@@ -4,8 +4,11 @@ from pathlib import Path
 import pandas as pd
 import plotly.express as px
 
-path = Path('/Users/lele/lele/eq_data_1_day_m1.geojson')
-contents = path.read_text()
+path = Path('/Users/lele/lele/eq_data_30_day_m1.geojson')
+try:
+    contents = path.read_text()
+except:
+    contents = path.read_text(encoding='utf-8')
 all_eq_data = json.loads(contents)
 path = Path('/Users/lele/lele/readable_eq_data.geojson')
 readable_contents = json.dumps(all_eq_data, indent=4)
@@ -36,7 +39,9 @@ fig = px.scatter(
     height=800,
     title='全球地震散点图',
     size='震级',
-    size_max=10
+    size_max=10,
+    color='震级',
+    hover_name='位置'
 )
 fig.write_html('global_earthquakes.html')
 fig.show()
