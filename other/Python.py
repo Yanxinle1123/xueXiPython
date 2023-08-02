@@ -55,6 +55,7 @@ def python():
     print('12. calendar(查询日历)')
     print('13. mult-table(查询九九乘法表)')
     print('14. /(查询指令)')
+    a = 1
     while True:
         huoqu = input_yellow2('>>>')
         if huoqu == '/':
@@ -180,13 +181,15 @@ def python():
                         closest = word
                 return closest
 
-            print('\n\033[1m\033[31m指令', Fore.RGB(225, 255, 0) + huoqu, '\033[31m\033[1m无效\033[0m')
+            print('\n\033[1m\033[31m指令', Fore.RGB(225, 255, 0) + huoqu, '\033[31m\033[1m无效\033[0m',
+                  Fore.RGB(125, 250, 85) + '               {} ↵ '.format(a))
             print('\033[31m\033[1m建议输入 / 查询指令\033[0m')
             words = ["time", "date", "address", "game", "calc", "area", "q", "quit", "exit", "ead", "pi", "volume",
                      "trans", "goodbye", "calendar", 'mult-table']
             closest = find_closest_word(huoqu, words)
             print(Fore.RED + f"\033[1m与", Fore.RGB(225, 255, 0) + huoqu, Fore.RED + '\033[1m最接近的指令是',
                   Fore.RGB(225, 255, 0) + closest)
+            a = a + 1
             print_yellow('')
 
 
