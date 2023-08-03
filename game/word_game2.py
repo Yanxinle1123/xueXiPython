@@ -34,6 +34,9 @@ def word_game2():
         print_green(new_word)
         obtain = input_yellow2('请填写括号里的字母(输入quit退出): ')
         if obtain == 'quit':
+            if error == 0 and correct == 0:
+                print_orange('已退出')
+                break
             print_orange('一共玩了 {} 题'.format(e - 1))
             print_red('一共错了 {} 题'.format(error))
             print_blue('一共对了 {} 题'.format(correct))
