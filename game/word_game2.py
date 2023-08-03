@@ -51,16 +51,16 @@ def word_game2():
                 empty = random.randint(0, length)
                 new_word = old_word[:empty] + '( )' + old_word[empty + 1:]
                 answer = old_word[empty:empty + 1]
-                print_purple('--------------------------第 {} 题--------------------------'.format(e))
+                print_purple("--------------------------第 {} 题--------------------------".format(e))
                 print_green(new_word)
                 obtain = input_yellow2('请填写括号里的字母(输入quit退出): ')
                 if obtain == 'quit':
-                    print_orange('一共玩了 {} 题'.format(e - 1))
-                    print_red('一共错了 {} 题'.format(error))
-                    print_blue('一共对了 {} 题'.format(correct))
+                    print_orange("一共玩了 {} 题".format(e - 1))
+                    print_red("一共错了 {} 题".format(error))
+                    print_blue("一共对了 {} 题".format(correct))
                     break
                 elif obtain == answer:
-                    print_blue('回答正确 !')
+                    print_blue("回答正确 !")
                     correct = correct + 1
                     e = e + 1
                 else:
