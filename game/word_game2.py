@@ -73,11 +73,12 @@ def word_game2():
             correct = 0
             while True:
                 old_word = random.choice(list2)
-                empty = random.randint(0, 3)
-                empty2 = random.randint(0, 2)
+                empty = random.randint(0, 2)
+                empty2 = random.randint(0, 3)
                 if empty == empty2:
                     while True:
-                        empty2 = random.randint(0, 1)
+                        empty2 = random.randint(0, 3)
+                        empty = random.randint(0, 2)
                         if empty < empty2:
                             break
                 new_word = old_word[:empty] + '( )' + old_word[empty + 1:empty2] + '( )' + old_word[empty2 + 1:]
@@ -107,13 +108,13 @@ def word_game2():
             correct = 0
             while True:
                 old_word = random.choice(list2)
-                empty = random.randint(0, 3)
-                empty2 = random.randint(0, 3)
+                empty = random.randint(0, 1)
+                empty2 = random.randint(0, 2)
                 empty3 = random.randint(0, 3)
                 if empty == empty2 or empty2 == empty3 or empty == empty3:
                     while True:
-                        empty = random.randint(0, 3)
-                        empty2 = random.randint(0, 3)
+                        empty = random.randint(0, 1)
+                        empty2 = random.randint(0, 2)
                         empty3 = random.randint(0, 3)
                         if empty < empty2 < empty3 and empty < empty3:
                             break
