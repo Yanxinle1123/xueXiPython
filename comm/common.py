@@ -7,7 +7,7 @@ from colored import Fore
 
 def tuichu(input_str, tishi='已退出', tuichu_str='q'):
     if input_str == tuichu_str:
-        print_orange(tishi)
+        orange_print(tishi)
         sys.exit()
 
 
@@ -59,41 +59,41 @@ def slow_print2(text, delay=0.25):
     print()
 
 
-def print_orange(input_str):
+def orange_print(input_str):
     print(Fore.RGB(255, 170, 0) + input_str)
 
 
-def print_green(input_str):
+def green_print(input_str):
     print(Fore.RGB(125, 250, 85) + input_str)
 
 
-def print_blue(input_str):
+def blue_print(input_str):
     print(Fore.RGB(50, 150, 225) + input_str)
 
 
-def print_red(input_str):
+def red_print(input_str):
     print(Fore.RGB(225, 0, 50) + input_str)
 
 
-def input_green(input_str):
+def green_input(input_str):
     result = input(Fore.RGB(125, 250, 85) + input_str)
     return result
 
 
-def print_yellow(input_str):
+def yellow_print(input_str):
     print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + input_str)
 
 
-def input_yellow(input_str):
+def yellow_input(input_str):
     result = input(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + input_str)
     return result
 
 
-def print_yellow2(input_str):
+def yellow_print2(input_str):
     print(Fore.RGB(225, 255, 0) + input_str)
 
 
-def print_purple(input_str):
+def purple_print(input_str):
     print(Fore.RGB(171, 91, 187) + input_str)
 
 

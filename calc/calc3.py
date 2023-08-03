@@ -1,24 +1,13 @@
 def jisuan():
-    print(" ——————————————————")
-    print("|这是一个高级计算程序 |")
-    print(" ——————————————————")
-    print("   作者：颜心乐")
-    print("用法举例")
-    print("9+7")
-    print("5^8")
-    print("10/2")
-    print("456757-575")
-    print("7*(90+89)+1")
-    print("8**9")
-    print("现在开始了！")
+    print("现在是一个计算器")
     i = 0
     while i < 10:
         print("----", end='')
         i = i + 1
     print()
     while True:
-        huoqu_str = input("请输入一个计算公式(输入q或x退出)：")
-        if huoqu_str == 'q' or huoqu_str == 'x':
+        huoqu_str = input("请输入计算公式,不能带有[]和{}(输入q退出) :")
+        if huoqu_str == 'q':
             print("已退出计算器")
             break
         try:

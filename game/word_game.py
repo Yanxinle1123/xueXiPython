@@ -1,7 +1,7 @@
 import random
 
-from comm.common import print_orange, input_green, input_yellow2, print_purple, print_red, print_yellow, print_green, \
-    print_yellow2
+from comm.common import orange_print, green_input, input_yellow2, purple_print, red_print, yellow_print, green_print, \
+    yellow_print2
 
 word = ['香蕉', '苹果', '西瓜', '橙子', '哈密瓜', '草莓', '冬枣', '葡萄', '柚子', '榴莲', '脐橙', '金桔', '木瓜',
         '雪梨', '水蜜桃', '龙眼', '荔枝', '百香果', '无花果', '牛油果', '西柚', '柠檬', '猕猴桃', '山楂', '芒果',
@@ -48,7 +48,7 @@ answer = {'哈密瓜': 'Hami melon',
 
 
 def word_game():
-    print_orange('这是一个单词游戏')
+    orange_print('这是一个单词游戏')
     r = 1
     n = 1
     defen = 0
@@ -59,24 +59,24 @@ def word_game():
             break
         w = 1
         while w <= 10:
-            print_purple('----------第 {} 题----------'.format(n))
+            purple_print('----------第 {} 题----------'.format(n))
             danci = random.choice(word)
-            print_green(danci)
+            green_print(danci)
             da_an = answer[danci]
-            huoqu = input_green('请输入这个词语的单词(输入q退出): ')
+            huoqu = green_input('请输入这个词语的单词(输入q退出): ')
             if huoqu == da_an:
-                print_orange('回答正确 !')
+                orange_print('回答正确 !')
                 n = n + 1
                 w = w + 1
                 defen = defen + 10
             elif huoqu == 'q':
-                print_yellow2('已退出')
+                yellow_print2('已退出')
                 break
             else:
-                print_red('回答错误,' + danci + '的英文是:' + da_an)
+                red_print('回答错误,' + danci + '的英文是:' + da_an)
                 n = n + 1
                 w = w + 1
-        print_yellow('第 {} 局结束, 你的得分为: {}'.format(r, defen))
+        yellow_print('第 {} 局结束, 你的得分为: {}'.format(r, defen))
         r = r + 1
         defen = 0
         n = 1

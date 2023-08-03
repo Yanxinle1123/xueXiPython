@@ -4,7 +4,7 @@ import numpy as np
 from Levenshtein import distance
 from colored import Fore
 
-from calc.calc import calculator
+from calc.calc3 import jisuan
 from calc.pi的后50位 import pi50wei
 from calc.九九乘法表 import mult_table
 from calc.华氏度转摄氏度 import HuaShiDuZhuanSheShiDuAndSheShiDuZhuanHuaShiDu
@@ -16,11 +16,11 @@ from calc.水仙花数 import QiuShuiXianHuaShu
 from calc.计算体积 import tiJi
 from calc.计算面积 import mianj
 from calc.货币转换 import huo_bi_zhuan_huan
-from comm.common import print_yellow, print_yellow2, input_yellow2, print_red
+from comm.common import yellow_print, yellow_print2, input_yellow2, red_print
 from game.guess_game第2版 import guess_game_ShengJiBan
-from game.keyboard_game import keyboard_game
 from game.stone_game2 import stone
 from game.word_game import word_game
+from game.word_game2 import word_game2
 from game.古诗填空 import gushiyouxi
 from game.成语填空游戏 import cheng_yu_tian_kong
 from other.RainbowHELLO import rainbowHELLO
@@ -40,7 +40,7 @@ from other.翻译 import trans
 def python():
     hello()
     time.sleep(0.5)
-    print_yellow2('\033[1m指令说明:')
+    yellow_print2('\033[1m指令说明:')
     print('1. time, date(显示当前时间)')
     print('2. game(显示游戏)')
     print('3. calc(计算用户输入的公式)')
@@ -75,10 +75,10 @@ def python():
             print('14. /(查询指令)')
         elif huoqu == 'hello':
             rainbowHI()
-            print_yellow('')
+            yellow_print('')
         elif huoqu == 'hi':
             rainbowHELLO()
-            print_yellow('')
+            yellow_print('')
         elif huoqu == 'computer':
             computer()
         elif huoqu == 'calendar':
@@ -87,12 +87,12 @@ def python():
             address()
         elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q':
             while True:
-                shuru = input('你喜欢这个程序吗(y/n) :')
+                shuru = input_yellow2('你喜欢这个程序吗(y/n) :')
                 if shuru == 'y' or shuru == 'n':
                     thankyou()
                     break
                 else:
-                    print('输入有误')
+                    red_print('输入有误')
             print('')
             goodbye()
             break
@@ -109,7 +109,13 @@ def python():
             print('已显示游戏')
             while True:
                 shuru = input_yellow2(
-                    '1. guess_game\n2.stone_game\n3. idioms\n4.ap_game\n5.word_game\n6.keyboard_game\n请选择(输入数字, 输入q退出)>>>')
+                    '1. Guess Game\n'
+                    '2.Stone Game\n'
+                    '3. Idioms game\n'
+                    '4.Ancient Poetry Game\n'
+                    '5.Word Writing Game\n'
+                    '6.Word Filling Game\n'
+                    '请选择(输入数字, 输入q退出)>>>')
                 if shuru == 'q':
                     print('已退出')
                     break
@@ -124,16 +130,23 @@ def python():
                 elif shuru == '5':
                     word_game()
                 elif shuru == '6':
-                    keyboard_game()
+                    word_game2()
                 else:
                     print('输入有误')
         elif huoqu == 'calc':
             while True:
                 print(
-                    '1. 计算器\n2. 日期计算器\n3. 计算水仙花数\n4. 计算是否是闰年\n5. 计算是否构成三角形\n6. 温度转换\n7. 年龄计算器\n8. 货币转换')
+                    '1. 计算器\n'
+                    '2. 日期计算器\n'
+                    '3. 计算水仙花数\n'
+                    '4. 计算是否是闰年\n'
+                    '5. 计算是否构成三角形\n'
+                    '6. 温度转换\n'
+                    '7. 年龄计算器\n'
+                    '8. 货币转换')
                 shuru = input('请选择(输入数字, 输入q退出)>>>')
                 if shuru == '1':
-                    calculator()
+                    jisuan()
                 elif shuru == '2':
                     daycalc()
                 elif shuru == '3':
@@ -167,7 +180,7 @@ def python():
                 elif shuru == 'q':
                     break
                 else:
-                    print_red('选项有误')
+                    red_print('选项有误')
         elif huoqu == 'trans':
             trans()
         else:
@@ -187,10 +200,10 @@ def python():
             words = ["time", "date", "address", "game", "calc", "area", "q", "quit", "exit", "ead", "pi", "volume",
                      "trans", "goodbye", "calendar", 'mult-table']
             closest = find_closest_word(huoqu, words)
-            print(Fore.RED + f"\033[1m与", Fore.RGB(225, 255, 0) + huoqu, Fore.RED + '\033[1m最接近的指令是',
+            print(Fore.RED + "\033[1m与", Fore.RGB(225, 255, 0) + huoqu, Fore.RED + '\033[1m最接近的指令是',
                   Fore.RGB(225, 255, 0) + closest)
             a = a + 1
-            print_yellow('')
+            yellow_print('')
 
 
 if __name__ == '__main__':

@@ -2,7 +2,7 @@ import random
 
 from colored import Fore
 
-from comm.common import print_orange, input_green, print_blue, print_red, print_purple
+from comm.common import orange_print, green_input, print_blue, red_print, purple_print
 
 
 def encrypt(text, chengshu, jiashu):
@@ -24,16 +24,16 @@ def decrypt(text, miyao, miyao2):
 
 
 def ead3():
-    print_orange('这是一个可以加密解密的程序')
+    orange_print('这是一个可以加密解密的程序')
     r = 1
     while True:
         chengshu = random.randint(50, 1000)
         jiashu = random.randint(50, 100)
-        print_purple(
+        purple_print(
             '----------------------------------------第 {} 次----------------------------------------'.format(r))
-        huoqu = input_green('请输入要加密的内容(输入q退出):')
+        huoqu = green_input('请输入要加密的内容(输入q退出):')
         if huoqu == 'q':
-            print_orange("已退出")
+            orange_print("已退出")
             break
         try:
             encrypted_text, length = encrypt(huoqu, chengshu, jiashu)
@@ -43,7 +43,7 @@ def ead3():
             print_blue("密文: " + encrypted_text)
             miwen = input(Fore.RGB(125, 250, 85) + "请输入要解密的内容(输入q退出): ")
             if miwen == 'q':
-                print_orange("已退出")
+                orange_print("已退出")
                 break
             miyao = input('请输入密钥 1: ')
             miyao2 = input('请输入密钥 2: ')
@@ -51,7 +51,7 @@ def ead3():
             print(Fore.RGB(225, 255, 0) + "明文: ", decrypted_text)
             r = r + 1
         except:
-            print_red("输入有误")
+            red_print("输入有误")
 
 
 if __name__ == '__main__':
