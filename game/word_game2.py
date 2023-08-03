@@ -2,7 +2,7 @@ import random
 
 from colored import Fore
 
-from comm.common import orange_print, purple_print, green_print, input_yellow2, red_print, print_blue, green_input
+from comm.common import orange_print, purple_print, green_print, input_yellow2, red_print, blue_print, green_input
 
 list = ['word', 'print', 'snick', 'other', 'game', 'white', 'milk', 'future', 'want', 'pilot', 'orange', 'yellow',
         'usually', 'both', 'become', 'grapefruit', 'teach', 'fruit', 'bike', 'station', 'underground', 'hour',
@@ -57,10 +57,10 @@ def word_game2():
                 if obtain == 'quit':
                     orange_print("一共玩了 {} 题".format(e - 1))
                     red_print("一共错了 {} 题".format(error))
-                    print_blue("一共对了 {} 题".format(correct))
+                    blue_print("一共对了 {} 题".format(correct))
                     break
                 elif obtain == answer:
-                    print_blue("回答正确 !")
+                    blue_print("回答正确 !")
                     correct = correct + 1
                     e = e + 1
                 else:
@@ -74,16 +74,12 @@ def word_game2():
             while True:
                 old_word = random.choice(list2)
                 empty = random.randint(0, 3)
-                empty2 = random.randint(0, 3)
+                empty2 = random.randint(0, 2)
                 if empty == empty2:
                     while True:
-                        empty2 = random.randint(0, 3)
-                        if empty != empty2:
+                        empty2 = random.randint(0, 1)
+                        if empty < empty2:
                             break
-                if empty > empty2:
-                    temp = empty
-                    empty = empty2
-                    empty2 = temp
                 new_word = old_word[:empty] + '( )' + old_word[empty + 1:empty2] + '( )' + old_word[empty2 + 1:]
                 answer1 = old_word[empty]
                 answer2 = old_word[empty2]
@@ -93,11 +89,11 @@ def word_game2():
                 if obtain1 == 'quit':
                     orange_print('一共玩了 {} 题'.format(e - 1))
                     red_print('一共错了 {} 题'.format(error))
-                    print_blue('一共对了 {} 题'.format(correct))
+                    blue_print('一共对了 {} 题'.format(correct))
                     break
                 obtain2 = input('请填写第二个括号里的字母: ')
                 if obtain1 == answer1 and obtain2 == answer2:
-                    print_blue('回答正确 !')
+                    blue_print('回答正确 !')
                     correct = correct + 1
                     e = e + 1
                 else:
@@ -119,7 +115,7 @@ def word_game2():
                         empty = random.randint(0, 3)
                         empty2 = random.randint(0, 3)
                         empty3 = random.randint(0, 3)
-                        if empty != empty2 and empty2 != empty3 and empty != empty3:
+                        if empty < empty2 < empty3 and empty < empty3:
                             break
                 new_word = old_word[:empty] + '( )' + old_word[empty + 1:empty2] + '( )' + old_word[
                                                                                            empty2 + 1:empty3] + '( )' + old_word[
@@ -133,12 +129,12 @@ def word_game2():
                 if obtain1 == 'quit':
                     orange_print('一共玩了 {} 题'.format(e - 1))
                     red_print('一共错了 {} 题'.format(error))
-                    print_blue('一共对了 {} 题'.format(correct))
+                    blue_print('一共对了 {} 题'.format(correct))
                     break
                 obtain2 = input('请填写第二个括号里的字母: ')
                 obtain3 = input('请填写第三个括号里的字母: ')
                 if obtain1 == answer1 and obtain2 == answer2 and obtain3 == answer3:
-                    print_blue('回答正确 !')
+                    blue_print('回答正确 !')
                     correct = correct + 1
                     e = e + 1
                 else:
@@ -146,6 +142,7 @@ def word_game2():
                     red_print('第二个括号里的字母是' + Fore.RGB(238, 187, 144) + answer2)
                     red_print('第三个括号里的字母是' + Fore.RGB(238, 187, 144) + answer3)
                     error = error + 1
+                    e = e + 1
 
 
 if __name__ == '__main__':
