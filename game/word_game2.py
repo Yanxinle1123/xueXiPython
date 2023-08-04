@@ -22,13 +22,13 @@ list2 = ['word', 'print', 'snick', 'other', 'game', 'white', 'milk', 'future', '
          'letter', 'always', 'lake', 'beach', 'enjoy', 'sunshine', 'year', 'know', 'outing', 'hill', 'find', 'diamond',
          'room', 'life', 'their', 'bedroom', 'kitchen', 'think', 'hole', 'funny', 'interesting', 'never', 'favourite',
          'apple', 'pear', 'pack', 'peach', 'strawberry', 'papaya', 'answer', 'robot', 'bilberry', 'berry', 'core',
-         'ginkgo', 'tissue', 'chestnut', 'hickory', 'hello', 'foot', 'tea', 'guess', 'you', 'what', 'name', 'python',
-         'goodbye', 'break', 'rainbow', 'blue', 'green', 'city', 'number', 'list', 'map', 'hot', 'black', 'juice',
-         'under', 'lunch', 'pink', 'anteater', 'chat', 'work', 'yes', 'duck', 'translate', 'turtle', 'maths', 'mineral',
-         'iron', 'stone', 'uranium', 'coal', 'gold', 'hematite', 'calcite', 'amethyst', 'marble', 'alloy', 'magnetite',
-         'pyrite', 'sulfur', 'emotional', 'ammonite', 'crystal', 'fluorite', 'mica', 'saponite', 'polybasic', 'plant',
-         'hydrangea', 'lily', 'bamboo', 'cornflower', 'wintersweet', 'rose', 'pumpkin', 'cactus', 'cherry', 'agave',
-         'reed', 'tomato', 'potato', 'mango', 'program']
+         'ginkgo', 'tissue', 'chestnut', 'hickory', 'hello', 'foot', 'guess', 'what', 'name', 'python', 'goodbye',
+         'break', 'rainbow', 'blue', 'green', 'city', 'number', 'list', 'black', 'juice', 'under', 'lunch', 'pink',
+         'anteater', 'chat', 'work', 'duck', 'translate', 'turtle', 'maths', 'mineral', 'iron', 'stone', 'uranium',
+         'coal', 'gold', 'hematite', 'calcite', 'amethyst', 'marble', 'alloy', 'magnetite', 'pyrite', 'sulfur',
+         'emotional', 'ammonite', 'crystal', 'fluorite', 'mica', 'saponite', 'polybasic', 'plant', 'hydrangea', 'lily',
+         'bamboo', 'cornflower', 'wintersweet', 'rose', 'pumpkin', 'cactus', 'cherry', 'agave', 'reed', 'tomato',
+         'potato', 'mango', 'program']
 
 
 def word_game2():
@@ -92,11 +92,16 @@ def word_game2():
                     red_print('一共错了 {} 题'.format(error))
                     blue_print('一共对了 {} 题'.format(correct))
                     break
-                obtain2 = input('请填写第二个括号里的字母: ')
+                obtain2 = input('请填写第二个括号里的字母(输入quit退出): ')
                 if obtain1 == answer1 and obtain2 == answer2:
                     blue_print('回答正确 !')
                     correct = correct + 1
                     e = e + 1
+                elif obtain1 == 'quit':
+                    orange_print('一共玩了 {} 题'.format(e - 1))
+                    red_print('一共错了 {} 题'.format(error))
+                    blue_print('一共对了 {} 题'.format(correct))
+                    break
                 else:
                     red_print('回答错误, 第一个括号里的字母是' + Fore.RGB(238, 187, 144) + answer1)
                     red_print('第二个括号里的字母是' + Fore.RGB(238, 187, 144) + answer2)
@@ -132,8 +137,18 @@ def word_game2():
                     red_print('一共错了 {} 题'.format(error))
                     blue_print('一共对了 {} 题'.format(correct))
                     break
-                obtain2 = input('请填写第二个括号里的字母: ')
-                obtain3 = input('请填写第三个括号里的字母: ')
+                obtain2 = input('请填写第二个括号里的字母(输入quit退出): ')
+                if obtain2 == 'quit':
+                    orange_print('一共玩了 {} 题'.format(e - 1))
+                    red_print('一共错了 {} 题'.format(error))
+                    blue_print('一共对了 {} 题'.format(correct))
+                    break
+                obtain3 = input('请填写第三个括号里的字母(输入quit退出): ')
+                if obtain3 == 'quit':
+                    orange_print('一共玩了 {} 题'.format(e - 1))
+                    red_print('一共错了 {} 题'.format(error))
+                    blue_print('一共对了 {} 题'.format(correct))
+                    break
                 if obtain1 == answer1 and obtain2 == answer2 and obtain3 == answer3:
                     blue_print('回答正确 !')
                     correct = correct + 1
@@ -144,6 +159,8 @@ def word_game2():
                     red_print('第三个括号里的字母是' + Fore.RGB(238, 187, 144) + answer3)
                     error = error + 1
                     e = e + 1
+        else:
+            red_print('选项有误')
 
 
 if __name__ == '__main__':
