@@ -1,6 +1,6 @@
 import random
 
-from comm.common import orange_print, green_input, input_yellow2, purple_print, red_print, yellow_print, green_print, \
+from comm.common import orange_print, green_input, yellow_input2, purple_print, red_print, yellow_print, green_print, \
     yellow_print2
 
 word = ['香蕉', '苹果', '西瓜', '橙子', '哈密瓜', '草莓', '冬枣', '葡萄', '柚子', '榴莲', '脐橙', '金桔', '木瓜',
@@ -53,7 +53,7 @@ def word_game():
     n = 1
     defen = 0
     while True:
-        shuru = input_yellow2('是否进入第 {} 局(y/n): '.format(r))
+        shuru = yellow_input2('是否进入第 {} 局(y/n): '.format(r))
         if shuru == 'n':
             print('已退出')
             break

@@ -2,7 +2,7 @@ import random
 
 from colored import Fore
 
-from comm.common import orange_print, purple_print, green_print, input_yellow2, red_print, blue_print, green_input
+from comm.common import orange_print, purple_print, green_print, yellow_input2, red_print, blue_print, green_input
 
 list = ['word', 'print', 'snick', 'other', 'game', 'white', 'milk', 'future', 'want', 'pilot', 'orange', 'yellow',
         'usually', 'both', 'become', 'grapefruit', 'teach', 'fruit', 'bike', 'station', 'underground', 'hour',
@@ -53,7 +53,7 @@ def word_game2():
                 answer = old_word[empty:empty + 1]
                 purple_print("--------------------------第 {} 题--------------------------".format(e))
                 green_print(new_word)
-                obtain = input_yellow2('请填写括号里的字母(输入quit退出): ')
+                obtain = yellow_input2('请填写括号里的字母(输入quit退出): ')
                 if obtain == 'quit':
                     orange_print("一共玩了 {} 题".format(e - 1))
                     red_print("一共错了 {} 题".format(error))
@@ -86,7 +86,7 @@ def word_game2():
                 answer2 = old_word[empty2]
                 purple_print('--------------------------第 {} 题--------------------------'.format(e))
                 green_print(new_word)
-                obtain1 = input_yellow2('请填写第一个括号里的字母(输入quit退出): ')
+                obtain1 = yellow_input2('请填写第一个括号里的字母(输入quit退出): ')
                 if obtain1 == 'quit':
                     orange_print('一共玩了 {} 题'.format(e - 1))
                     red_print('一共错了 {} 题'.format(error))
@@ -131,7 +131,7 @@ def word_game2():
                 answer3 = old_word[empty3]
                 purple_print('--------------------------第 {} 题--------------------------'.format(e))
                 green_print(new_word)
-                obtain1 = input_yellow2('请填写第一个括号里的字母(输入quit退出): ')
+                obtain1 = yellow_input2('请填写第一个括号里的字母(输入quit退出): ')
                 if obtain1 == 'quit':
                     orange_print('一共玩了 {} 题'.format(e - 1))
                     red_print('一共错了 {} 题'.format(error))

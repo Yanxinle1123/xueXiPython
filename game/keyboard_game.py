@@ -1,7 +1,7 @@
 import random
 import time
 
-from comm.common import input_timeout, TimeoutExpired, orange_print, green_print, red_print, input_yellow2, \
+from comm.common import input_timeout, TimeoutExpired, orange_print, green_print, red_print, yellow_input2, \
     purple_print
 
 char = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'i', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
@@ -12,7 +12,7 @@ number = []
 def keyboard_game():
     orange_print('这是一个打字游戏')
     while True:
-        shuru = input_yellow2('1.低等\n2.中等\n3.高等\n请选择难度, 输入数字, 输入q退出): ')
+        shuru = yellow_input2('1.低等\n2.中等\n3.高等\n请选择难度, 输入数字, 输入q退出): ')
         if shuru == 'q':
             orange_print('已退出')
             break

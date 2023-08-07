@@ -16,7 +16,7 @@ from calc.水仙花数 import QiuShuiXianHuaShu
 from calc.计算体积 import tiJi
 from calc.计算面积 import mianj
 from calc.货币转换 import huo_bi_zhuan_huan
-from comm.common import yellow_print, yellow_print2, input_yellow2, red_print
+from comm.common import yellow_print, yellow_print2, yellow_input2, red_print
 from game.guess_game第2版 import guess_game_ShengJiBan
 from game.stone_game2 import stone
 from game.word_game import word_game
@@ -57,7 +57,7 @@ def python():
     print('14. /(查询指令)')
     a = 1
     while True:
-        huoqu = input_yellow2('>>>')
+        huoqu = yellow_input2('>>>')
         if huoqu == '/':
             print('1. time, date(显示当前时间)')
             print('2. game(显示游戏)')
@@ -87,7 +87,7 @@ def python():
             address()
         elif huoqu == 'quit' or huoqu == 'exit' or huoqu == 'q':
             while True:
-                shuru = input_yellow2('你喜欢这个程序吗(y/n) :')
+                shuru = yellow_input2('你喜欢这个程序吗(y/n) :')
                 if shuru == 'y' or shuru == 'n':
                     thankyou()
                     break
@@ -108,7 +108,7 @@ def python():
         elif huoqu == 'game':
             print('已显示游戏')
             while True:
-                shuru = input_yellow2(
+                shuru = yellow_input2(
                     '1. Guess Game\n'
                     '2.Stone Game\n'
                     '3. Idioms game\n'
@@ -172,7 +172,7 @@ def python():
             tiJi()
         elif huoqu == 'ead':
             while True:
-                shuru = input_yellow2('你要那种加密方法(1.凯撒密码, 2.UTF-8编码, q.退出):')
+                shuru = yellow_input2('你要那种加密方法(1.凯撒密码, 2.UTF-8编码, q.退出):')
                 if shuru == '1':
                     ead()
                 elif shuru == '2':

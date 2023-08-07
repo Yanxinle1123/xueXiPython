@@ -97,7 +97,7 @@ def purple_print(input_str):
     print(Fore.RGB(171, 91, 187) + input_str)
 
 
-def input_yellow2(input_str):
+def yellow_input2(input_str):
     result = input(Fore.RGB(225, 255, 0) + input_str)
     return result
 

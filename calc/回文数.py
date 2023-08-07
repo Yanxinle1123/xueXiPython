@@ -1,4 +1,4 @@
-from comm.common import red_print, input_yellow2, orange_print
+from comm.common import red_print, yellow_input2, orange_print
 
 list = []
 
@@ -8,7 +8,7 @@ def palindrome():
     while True:
         try:
             list.clear()
-            huoqu = input_yellow2('请输入三个字符(输入q退出):')
+            huoqu = yellow_input2('请输入三个字符(输入q退出):')
             if huoqu == 'q':
                 orange_print('已退出')
                 break
