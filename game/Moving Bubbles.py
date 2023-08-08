@@ -3,6 +3,16 @@ import sys
 
 import pygame
 
+
+def get_non_overlapping_rect(existing_rects, new_rect_width, new_rect_height):
+    while True:
+        new_rect = pygame.Rect(random.randint(0, width - new_rect_width),
+                               random.randint(0, height - new_rect_height),
+                               new_rect_width, new_rect_height)
+        if not any(new_rect.colliderect(rect) for rect in existing_rects):
+            return new_rect
+
+
 pygame.init()
 size = width, height = 800, 600
 screen = pygame.display.set_mode(size, pygame.RESIZABLE)
@@ -10,19 +20,23 @@ title = 'Moving Bubbles'
 hex_color = '#F6F6F6'
 rgb_color = pygame.Color(hex_color)
 screen.fill(rgb_color)
-original_ball1 = pygame.image.load('/Users/lele/lele/141691486798_.pic.jpg')
-ball_width1 = 200
-ball_height1 = 200
-ball = pygame.transform.scale(original_ball1, (ball_width1, ball_height1))
-ballrect = ball.get_rect()
-x = random.randint(10, 25)
-y = random.randint(10, 30)
+
+original_ball = pygame.image.load('/Users/lele/lele/3031903678.png')
+
+# 创建包含5个气泡的列表，每个气泡有一个随机大小和速度
+bubbles = []
+existing_rects = []
+for i in range(5):
+    ball_size = random.randint(50, 200)
+    ball = pygame.transform.scale(original_ball, (ball_size, ball_size))
+    ballrect = get_non_overlapping_rect(existing_rects, ball_size, ball_size)
+    existing_rects.append(ballrect)
+    speed_x = random.randint(10, 25)
+    speed_y = random.randint(10, 30)
+    bubbles[i] = [ball, ballrect, speed_x, speed_y]
+
 clock = pygame.time.Clock()
 pygame.display.set_caption(title)
-
-speed = 60
-is_plus_pressed = False
-is_minus_pressed = False
 
 while True:
     for event in pygame.event.get():
@@ -32,37 +46,28 @@ while True:
         elif event.type == pygame.VIDEORESIZE:
             width, height = event.w, event.h
             screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_q:  # 检查按下的键是否是q
-                pygame.quit()
-                sys.exit()
-            elif event.key == pygame.K_EQUALS:
-                is_plus_pressed = True
-            elif event.key == pygame.K_MINUS:
-                is_minus_pressed = True
-        elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_EQUALS:
-                is_plus_pressed = False
-            elif event.key == pygame.K_MINUS:
-                is_minus_pressed = False
-
-    if is_plus_pressed:
-        speed += 0.5
-    elif is_minus_pressed:
-        speed -= 0.5
-    if speed == 151:
-        speed = 150
-    elif speed == 29:
-        speed = 30
 
     screen.fill(rgb_color)
-    ballrect = ballrect.move(x, y)
 
-    if ballrect.left < 0 or ballrect.right > width:
-        x = -x
-    if ballrect.top < 0 or ballrect.bottom > height:
-        y = -y
+    # 更新每个气泡的位置并绘制到屏幕上
+    for i, (ball, ballrect, speed_x, speed_y) in enumerate(bubbles):
+        ballrect = ballrect.move(speed_x, speed_y)
 
-    screen.blit(ball, ballrect)
+        if ballrect.left < 0 or ballrect.right > width:
+            speed_x = -speed_x
+        if ballrect.top < 0 or ballrect.bottom > height:
+            speed_y = -speed_y
+
+        # 检查气泡是否相交，如果相交，则更改运动方向
+        for j, (_, other_rect, other_speed_x, other_speed_y) in enumerate(bubbles):
+            if i != j and ballrect.colliderect(other_rect):
+                speed_x = -speed_x
+                speed_y = -speed_y
+
+        # 更新气泡速度
+        bubbles[i] = [ball, ballrect, speed_x, speed_y]
+
+        screen.blit(ball, ballrect)
+
     pygame.display.flip()
-    clock.tick(speed)
+    clock.tick(30)
