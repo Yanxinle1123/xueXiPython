@@ -26,18 +26,24 @@ original_ball = pygame.image.load('/Users/lele/lele/3031903678.png')
 # 创建包含1个气泡的列表，每个气泡有一个随机大小和速度
 bubbles = []
 existing_rects = []
-for i in range(1):
-    ball_size = random.randint(200, 200)
-    ball = pygame.transform.scale(original_ball, (ball_size, ball_size))
-    ballrect = get_non_overlapping_rect(existing_rects, ball_size, ball_size)
-    existing_rects.append(ballrect)
-    speed_x = random.randint(1, 1)
-    speed_y = random.randint(1, 1)
-    bubbles.append([ball, ballrect, speed_x, speed_y])
+
+
+def bubble(ball_size):
+    for i in range(1):
+        # ball_size = 200
+        ball = pygame.transform.scale(original_ball, (ball_size, ball_size))
+        ballrect = get_non_overlapping_rect(existing_rects, ball_size, ball_size)
+        existing_rects.append(ballrect)
+        speed_x = random.randint(1, 1)
+        speed_y = random.randint(1, 1)
+        bubbles.append([ball, ballrect, speed_x, speed_y])
+
 
 clock = pygame.time.Clock()
 pygame.display.set_caption(title)
-speed = 1
+speed = 250
+ball_size = 500
+bubble(ball_size)
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -52,8 +58,11 @@ while True:
         speed += 1
     elif keys[pygame.K_MINUS]:
         speed -= 1
-    if speed >= 1101:
-        speed = 1100
+    elif keys[pygame.K_q]:
+        pygame.quit()
+        sys.exit()
+    if speed >= 501:
+        speed = 500
     elif speed <= 9:
         speed = 10
 
