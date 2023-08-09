@@ -34,15 +34,15 @@ def bubble(ball_size):
         ball = pygame.transform.scale(original_ball, (ball_size, ball_size))
         ballrect = get_non_overlapping_rect(existing_rects, ball_size, ball_size)
         existing_rects.append(ballrect)
-        speed_x = random.randint(1, 1)
-        speed_y = random.randint(1, 1)
+        speed_x = random.choice([-1, -1, 1])
+        speed_y = random.choice([-1, -1, 1])
         bubbles.append([ball, ballrect, speed_x, speed_y])
 
 
 clock = pygame.time.Clock()
 pygame.display.set_caption(title)
 speed = 250
-ball_size = 500
+ball_size = 250
 bubble(ball_size)
 while True:
     for event in pygame.event.get():
