@@ -2,6 +2,7 @@ import select
 import sys
 import time
 
+import colored
 from colored import Fore
 
 list = []
@@ -34,14 +35,14 @@ def stop_thread(thread):
     thread.cancel()
 
 
-def slow_print(text, delay=0.1):
+def slow_print(text, delay=0.23):
     for char in text:
         print(char, end='', flush=True)
         time.sleep(delay)
     print()  # 换行
 
 
-def slow_input(text, delay=0.1):
+def slow_input(text, delay=0.23):
     for char in text:
         print(char, end='', flush=True)
         time.sleep(delay)
@@ -149,7 +150,6 @@ def hex_to_rgb(hex_value_print):
     g = int(hex_value[2:4], 16)
     b = int(hex_value[4:6], 16)
     rgb = f"{r}, {g}, {b}"  # 将 r、g、b 组合成一个逗号分隔的字符串
-
     return rgb
 
 
@@ -164,3 +164,35 @@ def rgb_to_hex(rgb_print):
         raise TypeError
     hex_value = '#{:02x}{:02x}{:02x}'.format(r, g, b)
     return hex_value
+
+
+def rainbow_print(text):
+    colors = [colored.Fore.RGB(225, 0, 50), Fore.RGB(255, 170, 0), colored.Fore.RGB(225, 255, 0),
+              colored.Fore.RGB(125, 250, 85), colored.Fore.CYAN, colored.Fore.RGB(50, 150, 225)]
+    for i, char in enumerate(text):
+        color = colors[i % len(colors)]
+        print(color + char, end='')
+
+
+def rainbow_slow_print(text, delay=0.23):
+    colors = [colored.Fore.RGB(225, 0, 50), Fore.RGB(255, 170, 0), colored.Fore.RGB(225, 255, 0),
+              colored.Fore.RGB(125, 250, 85), colored.Fore.CYAN, colored.Fore.RGB(50, 150, 225)]
+    for i, char in enumerate(text):
+        color = colors[i % len(colors)]
+        print(color + char, end='')
+        time.sleep(delay)
+
+
+def rainbow_input(input_str):
+    rainbow_print(input_str)
+    return input()
+
+
+def rainbow_slow_input(input_str, delay=0.23):
+    colors = [colored.Fore.RGB(225, 0, 50), Fore.RGB(255, 170, 0), colored.Fore.RGB(225, 255, 0),
+              colored.Fore.RGB(125, 250, 85), colored.Fore.CYAN, colored.Fore.RGB(50, 150, 225)]
+    for i, char in enumerate(input_str):
+        color = colors[i % len(colors)]
+        print(color + char, end='')
+        time.sleep(delay)
+    return input()
