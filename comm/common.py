@@ -184,7 +184,11 @@ def rainbow_slow_print(text, delay=0.23):
 
 
 def rainbow_input(input_str):
-    rainbow_print(input_str)
+    colors = [colored.Fore.RGB(225, 0, 50), Fore.RGB(255, 170, 0), colored.Fore.RGB(225, 255, 0),
+              colored.Fore.RGB(125, 250, 85), colored.Fore.CYAN, colored.Fore.RGB(50, 150, 225)]
+    for i, char in enumerate(input_str):
+        color = colors[i % len(colors)]
+        print(color + char, end='')
     return input()
 
 
@@ -196,3 +200,21 @@ def rainbow_slow_input(input_str, delay=0.23):
         print(color + char, end='')
         time.sleep(delay)
     return input()
+
+
+def ord2(text):
+    encrypted_text = ""
+    for char in text:
+        code = ord(char)
+        encrypted_code = str(code)
+        encrypted_text += encrypted_code + " "
+    return encrypted_text[:-1]
+
+
+def chr2(text):
+    encrypted_codes = text.split(' ')
+    decrypted_text = ''
+    for encrypted_code in encrypted_codes:
+        code = (int(encrypted_code))
+        decrypted_text += chr(code)
+    return decrypted_text
