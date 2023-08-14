@@ -67,7 +67,7 @@ class Button:
 button_x, button_y = 10, 60
 button_width, button_height = 200, 40
 button_color = (0, 255, 0)
-button_text = 'Toggle Auto/Manual'
+button_text = 'Toggle pyautogui/Manual'
 button_text_color = BLACK
 button = Button(button_x, button_y, button_width, button_height, button_color, button_text, button_text_color)
 
@@ -173,10 +173,10 @@ while True:
             auto_mode = not auto_mode
             if auto_mode:
                 button.color = (0, 255, 0)
-                button.text = 'Toggle Auto/Manual'
+                button.text = 'Toggle pyautogui/Manual'
             else:
                 button.color = (255, 0, 0)
-                button.text = 'Toggle Auto/Manual'
+                button.text = 'Toggle pyautogui/Manual'
 
     # Move snake
     move_snake()
