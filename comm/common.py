@@ -218,3 +218,11 @@ def chr2(text):
         code = (int(encrypted_code))
         decrypted_text += chr(code)
     return decrypted_text
+
+
+def list_start(list, symbol):
+    for item in list:
+        if isinstance(item, str) and item.startswith(symbol):
+            return item
+        else:
+            raise ValueError
