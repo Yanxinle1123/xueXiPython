@@ -3,6 +3,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 
 
+# 显示相应的图片
 def show(event):
     ID = event.widget['text']
     if ID == record[0]:
@@ -16,6 +17,7 @@ def show(event):
     center_widgets()
 
 
+# 使窗口中的所有组件居中
 def center_widgets(event=None):
     window_width = root.winfo_width()
     window_height = root.winfo_height()
@@ -60,6 +62,6 @@ for i in range(4):
     list[i].pack(side=tk.LEFT, anchor=tk.NW)
     list[i].bind('<ButtonRelease-1>', show)
 
-root.bind("<Configure>", center_widgets)
+root.bind("<Configure>", center_widgets)  # 在窗口大小更改时调用 center_widgets 函数
 
 root.mainloop()
