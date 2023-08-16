@@ -2,7 +2,7 @@ import random
 
 from colored import Fore
 
-from comm.common import orange_print, green_input, print_blue, red_print, purple_print
+from comm.common import orange_print, green_input, blue_print, red_print, purple_print
 
 
 def encrypt(text, chengshu, jiashu):
@@ -40,7 +40,7 @@ def ead3():
             print(Fore.RGB(225, 255, 0) + "密文长度: ", length)
             print(Fore.RGB(255, 170, 0) + '密钥 1: ', chengshu)
             print('密钥 2: ', jiashu)
-            print_blue("密文: " + encrypted_text)
+            blue_print("密文: " + encrypted_text)
             miwen = input(Fore.RGB(125, 250, 85) + "请输入要解密的内容(输入q退出): ")
             if miwen == 'q':
                 orange_print("已退出")
