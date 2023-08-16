@@ -21,7 +21,7 @@ from calc.水仙花数 import QiuShuiXianHuaShu
 from calc.计算体积 import tiJi
 from calc.计算面积 import mianj
 from calc.货币转换 import huo_bi_zhuan_huan
-from comm.common import yellow_print, yellow_print2, yellow_input2, red_print
+from comm.common import yellow_print, yellow_print2, yellow_input2, red_print, weather
 from game.guess_game第2版 import guess_game_ShengJiBan
 from game.stone_game2 import stone
 from game.word_game import word_game
@@ -54,11 +54,12 @@ def python():
     print('11. address(获取当前经纬度)')
     print('12. calendar(查询日历)')
     print('13. mult-table(查询九九乘法表)')
-    print('14. /(查询指令)')
+    print('14. weather(查询 7 天的天气)')
+    print('15. help(查询指令)')
     a = 1
     while True:
         huoqu = yellow_input2('>>>')
-        if huoqu == '/':
+        if huoqu == 'help':
             print('1. time, date(显示当前时间)')
             print('2. game(显示游戏)')
             print('3. calc(计算用户输入的公式)')
@@ -72,7 +73,10 @@ def python():
             print('11. address(获取当前经纬度)')
             print('12. calendar(查询日历)')
             print('13. mult-table(查询九九乘法表)')
-            print('14. /(查询指令)')
+            print('14. weather(查询 7 天的天气)')
+            print('15. help(查询指令)')
+        elif huoqu == 'weather':
+            weather()
         elif huoqu == 'hello':
             rainbowHI()
             yellow_print('')
@@ -198,7 +202,7 @@ def python():
                   Fore.RGB(125, 250, 85) + '               {} ↵ '.format(a))
             print('\033[31m\033[1m建议输入 / 查询指令\033[0m')
             words = ["time", "date", "address", "game", "calc", "area", "q", "quit", "exit", "ead", "pi", "volume",
-                     "trans", "goodbye", "calendar", 'mult-table']
+                     "trans", "goodbye", "calendar", 'mult-table', 'weather']
             closest = find_closest_word(huoqu, words)
             print(Fore.RED + "\033[1m与", Fore.RGB(225, 255, 0) + huoqu, Fore.RED + '\033[1m最接近的指令是',
                   Fore.RGB(225, 255, 0) + closest)
