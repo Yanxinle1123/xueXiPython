@@ -10,21 +10,22 @@ def tianqi():
                           "(KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.78"}
         response = requests.get(url, headers=headers)  # 发起请求
         data = response.content.decode("utf-8")  # 获得响应体并解码
-        soup = BeautifulSoup(data, "lxml")
-        lis = soup.select("ul[class='t clearfix'] li")
+        soup = BeautifulSoup(data, "html.parser")
+        lis = soup.find('ul', class_='t clearfix').find_all('li')
         x = 0
         for li in lis:
             try:
-                date = li.select('h1')[0].text
-                weather = li.select('p[class="wea"]')[0].text
+                date = li.find('h1').text
+                weather = li.find('p', class_='wea').text
                 if x == 0:  # 为今天只有一个温度做判断 <i>14℃</i>
                     x += 1
-                    temp = li.select('p[class="tem"] i')[0].text
+                    temp = li.find('p', class_='tem').find('i').text
                 else:
-                    temp = li.select('p[class="tem"] span')[0].text + " ~ " + li.select('p[class="tem"] i')[0].text
+                    temp = li.find('p', class_='tem').find('span').text + " ~ " + li.find('p', class_='tem').find(
+                        'i').text
 
-                wind = "风力" + li.select('p[class="win"] i')[0].text
-                print(date, weather, temp, wind, sep="\t")
+                wind = f"风力{li.find('p', class_='win').find('i').text}"
+                print(date, weather, temp, wind)
             except Exception as err:
                 print(err)
     except Exception as err:
