@@ -46,6 +46,7 @@ def calculate_result():
             entry.config(state="disabled")
     except Exception:
         tk.messagebox.showerror('错误', '算式有误')
+        entry.config(state="disabled")
 
 
 def clear_text():
