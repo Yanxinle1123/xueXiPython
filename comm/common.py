@@ -255,3 +255,28 @@ def weather():
                 print(err)
     except Exception as err:
         print(err)
+
+
+def lat_and_lon():
+    # 使用ipinfo.io的API获取当前IP地址的地理位置信息
+    url = 'https://ipinfo.io/json'
+    response = requests.get(url)
+    data = response.json()
+
+    # 从返回的JSON数据中提取经纬度信息
+    coordinates = data['loc'].split(',')
+    latitude = coordinates[0]
+    longitude = coordinates[1]
+
+    # 返回经纬度
+    return latitude, longitude
+
+
+def trans(fanyi):
+    url = f'https://cn.linguee.com/%E4%B8%AD%E6%96%87-%E8%8B%B1%E8%AF%AD/search?source=auto&query=/{fanyi}'
+    response = requests.get(url)
+    html_content = response.content
+    soup = BeautifulSoup(html_content, 'html.parser')
+    fruit_list = soup.find_all('a', class_='dictLink featured')
+    for _ in fruit_list:
+        return fruit_list
