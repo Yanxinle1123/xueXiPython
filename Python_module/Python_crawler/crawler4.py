@@ -22,7 +22,9 @@ def tianqi():
                     temp = li.select('p[class="tem"] i')[0].text
                 else:
                     temp = li.select('p[class="tem"] span')[0].text + " ~ " + li.select('p[class="tem"] i')[0].text
-                print(date, weather, temp)
+
+                wind = "风力" + li.select('p[class="win"] i')[0].text
+                print(date, weather, temp, wind, sep="\t")
             except Exception as err:
                 print(err)
     except Exception as err:
