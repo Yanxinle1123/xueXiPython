@@ -31,5 +31,5 @@ text = ['Do You Not See the Yellow River\'s Waters Rise Up to the Skies,',
 
 # 循环输出每一行文本
 for line in text:
-        pyautogui.typewrite(line)
-        pyautogui.press('enter')
+    pyautogui.typewrite(line)
+    pyautogui.press('enter')
