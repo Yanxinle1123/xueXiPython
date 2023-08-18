@@ -1,3 +1,4 @@
+import re
 import select
 import sys
 import time
@@ -280,3 +281,44 @@ def trans(fanyi):
     fruit_list = soup.find_all('a', class_='dictLink featured')
     for _ in fruit_list:
         return fruit_list
+
+
+def value1(value):
+    if isinstance(value, str):
+        num = 'str'
+    elif isinstance(value, int):
+        num = 'int'
+    elif isinstance(value, float):
+        num = 'float'
+    else:
+        raise ValueError
+    return num
+
+
+def value2(value):
+    if value.isdigit():
+        num = int(value)
+    elif re.match(r'^[-+]?(\d+(\.\d*)?|\.\d+)$', value):
+        num = float(value)
+    else:
+        num = str(value)
+    return num
+
+
+def value3(value):
+    if value.isdigit():
+        num = 'int'
+    elif re.match(r'^[-+]?(\d+(\.\d*)?|\.\d+)$', value):
+        num = 'float'
+    else:
+        num = 'str'
+    return num
+
+
+def value4(value):
+    global number
+    if value.isdigit():
+        number = int(value)
+    elif re.match(r'^[-+]?(\d+(\.\d*)?|\.\d+)$', value):
+        number = float(value)
+    return number
