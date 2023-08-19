@@ -41,7 +41,7 @@ def ping_fang():
         entry.insert(0, jieguo)
         entry.config(state="disabled")
     except Exception:
-        tk.messagebox.showerror('错误', '算式有误')
+        tk.messagebox.showwarning('错误', '算式有误')
         entry.config(state="disabled")
 
 
@@ -54,7 +54,7 @@ def li_fang():
         entry.insert(0, jieguo)
         entry.config(state="disabled")
     except Exception:
-        tk.messagebox.showerror('错误', '算式有误')
+        tk.messagebox.showwarning('错误', '算式有误')
         entry.config(state="disabled")
 
 
@@ -67,7 +67,7 @@ def ping_fang_gen():
         entry.insert(0, jieguo)
         entry.config(state="disabled")
     except Exception:
-        tk.messagebox.showerror('错误', '算式有误')
+        tk.messagebox.showwarning('错误', '算式有误')
         entry.config(state="disabled")
 
 
@@ -80,7 +80,7 @@ def li_fang_gen():
         entry.insert(0, jieguo)
         entry.config(state="disabled")
     except Exception:
-        tk.messagebox.showerror('错误', '算式有误')
+        tk.messagebox.showwarning('错误', '算式有误')
         entry.config(state="disabled")
 
 
@@ -94,22 +94,22 @@ def tan():
         entry.insert(0, jieguo)
         entry.config(state="disabled")
     except Exception:
-        tk.messagebox.showerror('错误', '算式有误')
+        tk.messagebox.showwarning('错误', '算式有误')
         entry.config(state="disabled")
 
 
 def calculate_result():
     try:
         expression = str(entry.get())
-        if '%' in expression and '/' in expression:
+        if '%' in expression and '//' in expression:
             entry.config(state="normal")
             entry.delete(0, tk.END)
             huoqu = expression.split('%//')
             zuo = float(huoqu[0])
             you = float(huoqu[1])
-            zheng_chu = str(zuo // you)
-            other_yu_shu = str(zuo % you)
-            jieguo = zheng_chu + '......' + other_yu_shu
+            zheng_chu = zuo // you
+            other_yu_shu = zuo % you
+            jieguo = str(value4(str(zheng_chu))) + '......' + str(value4(str(other_yu_shu)))
             if jieguo != '':
                 entry.insert(0, jieguo)
                 entry.config(state="disabled")
@@ -117,22 +117,19 @@ def calculate_result():
                 entry.insert(0, '无结果')
                 entry.config(state="disabled")
         else:
-            huoqu = has_two_or_more_dots(expression)
             huoqu2 = is_all_digits(expression)
             huoqu3 = contains_operator(expression)
             if huoqu2 and not huoqu3:
-                tk.messagebox.showerror('错误', '没有运算字符')
-            elif huoqu:
-                tk.messagebox.showerror('错误', '小数点重复出现')
-            elif not huoqu2 and not huoqu:
+                tk.messagebox.showwarning('错误', '没有运算字符')
+            elif not huoqu2:
                 entry.config(state="normal")
                 entry.delete(0, tk.END)
-                result = eval(expression)
+                result = str(value4(str(eval(expression))))
                 sample_text = result
                 entry.insert(0, sample_text)
                 entry.config(state="disabled")
     except Exception:
-        tk.messagebox.showerror('错误', '算式有误')
+        tk.messagebox.showwarning('错误', '算式有误')
         entry.config(state="disabled")
 
 
@@ -145,7 +142,7 @@ def radical():
         entry.insert(0, result)
         entry.config(state="disabled")
     except Exception:
-        tk.messagebox.showerror('错误', '算式有误')
+        tk.messagebox.showwarning('错误', '算式有误')
         entry.config(state="disabled")
 
 

@@ -8,8 +8,6 @@ import requests
 from bs4 import BeautifulSoup
 from colored import Fore
 
-list = []
-
 
 def tuichu(input_str, tishi='已退出', tuichu_str='q'):
     if input_str == tuichu_str:
@@ -160,6 +158,7 @@ def rgb_to_hex(rgb_print):
     rgb = rgb_print.upper()
     if isinstance(rgb, str):
         rgb = tuple(map(int, rgb.split(',')))  # 如果输入是字符串，则将其分割为整数值的元组
+
     r, g, b = rgb
     if r > 255 or g > 255 or b > 255:
         raise ValueError
@@ -296,12 +295,11 @@ def value1(value):
 
 
 def value2(value):
+    global num
     if value.isdigit():
         num = int(value)
     elif re.match(r'^[-+]?(\d+(\.\d*)?|\.\d+)$', value):
         num = float(value)
-    else:
-        num = str(value)
     return num
 
 
@@ -316,9 +314,91 @@ def value3(value):
 
 
 def value4(value):
-    global number
-    if value.isdigit():
-        number = int(value)
-    elif re.match(r'^[-+]?(\d+(\.\d*)?|\.\d+)$', value):
-        number = float(value)
-    return number
+    ret = value
+    if '.' in ret and ret.count('.') == 1:
+        temp_array = ret.split('.')
+        one = temp_array[0]
+        two = temp_array[1]
+        if one.isdigit() and two.isdigit():
+            xiao_shu = int(two)
+            if xiao_shu == 0:
+                ret = int(one)
+            else:
+                ret = float(value)
+    return ret
+
+
+def other(value, zifu):
+    pattern = rf'[^0-9{zifu}]'  # 匹配非数字和非小数点的字符
+    result = re.findall(pattern, value)
+    return ''.join(result)
+
+
+def other2(value, zifu):
+    value = str(value)
+    zifu = str(zifu)
+    pattern = rf'[^{zifu}]'  # 匹配非数字和非小数点的字符
+    result = re.findall(pattern, value)
+    return ''.join(result)
+
+
+def check_same_characters(string):
+    unique_chars = set(string)  # 将字符串转换为集合，去除重复字符
+    return len(unique_chars) == 1  # 如果集合中只有一个独特的字符，则返回 True，否则返回 False
+
+
+def check_same_elements(lst):
+    return len(set(lst)) == 1 and len(lst) == len(set(map(str, lst)))
+
+
+def last(value):
+    value = str(value)
+    last = value[-1]
+    last = value4(last)
+    return last
+
+
+#  1. 如果结果的小数部分是一个循环的话，就在第一次循环的最后一个数字后打6个 '.' ，
+#     比如小数部分是 '123123123' ，那就简化成 '123......'
+#  2. 如果不是的话，就直接用eval()来算
+def calculate(value):
+    value = str(value)
+    table0 = []
+    table1 = []
+    table2 = []
+    table3 = []
+    table0.clear()
+    table1.clear()
+    table2.clear()
+    table3.clear()
+    table0.append(value)
+    if '/' not in value:
+        outcome = eval(value)
+        return outcome
+    elif '/' in value and '+' not in value and '-' not in value:
+        zifu = other(value, '.')
+        if last(zifu) == '/':
+            old_outcome = str(eval(value))
+            if '.' not in old_outcome:
+                return old_outcome
+            else:
+                old_outcome = old_outcome[:-2]
+                character = '.'
+                index = old_outcome.index(character)  # 获取字符在字符串中的索引位置
+                decimal_part = old_outcome[index + 1:]  # 使用切片操作符获取右边部分
+                integer_part = old_outcome[:index]
+                zheng_chu = str()
+                zifu = '......'
+                if check_same_characters(decimal_part):
+                    outcome = str(decimal_part[0] + zifu)
+                    return outcome
+                else:
+                    for i in range(0, len(decimal_part), 2):
+                        table1.append(decimal_part[i:i + 2])
+                        if check_same_elements(table1):
+                            outcome = str(decimal_part[0:2])
+                            return outcome
+
+
+a = calculate('100/3')
+print(a)
