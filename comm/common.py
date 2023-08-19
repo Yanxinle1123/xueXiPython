@@ -325,6 +325,8 @@ def value4(value):
                 ret = int(one)
             else:
                 ret = float(value)
+    elif ret.isdigit():
+        ret = int(ret)
     return ret
 
 
@@ -398,7 +400,3 @@ def calculate(value):
                         if check_same_elements(table1):
                             outcome = str(decimal_part[0:2])
                             return outcome
-
-
-a = calculate('100/3')
-print(a)

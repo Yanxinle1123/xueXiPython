@@ -8,9 +8,9 @@ class Test(TestCase):
     def test_value4(self):
         self.assertEqual(value4("4"), 4)
         self.assertEqual(value4("4.0"), 4)
+        self.assertEqual(value4("4.12"), 4.12)
 
     def test_value4_str(self):
-        print(value4("one"))
         self.assertEqual(value4("one"), "one")
 
 
