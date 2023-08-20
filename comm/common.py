@@ -314,7 +314,7 @@ def value3(value):
 
 
 def value4(value):
-    ret = value
+    ret = str(value)
     if '.' in ret and ret.count('.') == 1:
         temp_array = ret.split('.')
         one = temp_array[0]
@@ -345,7 +345,7 @@ def other2(value, zifu):
     return ''.join(result)
 
 
-def check_same_characters(string):
+def is_same_characters(string):
     unique_chars = set(string)  # 将字符串转换为集合，去除重复字符
     return len(unique_chars) == 1  # 如果集合中只有一个独特的字符，则返回 True，否则返回 False
 
@@ -357,7 +357,6 @@ def check_same_elements(lst):
 def last(value):
     value = str(value)
     last = value[-1]
-    last = value4(last)
     return last
 
 
@@ -366,42 +365,29 @@ def last(value):
 #  2. 如果不是的话，就直接用eval()来算
 def calculate(value):
     value = str(value)
-    table0 = []
     table1 = []
-    table2 = []
-    table3 = []
-    table0.clear()
     table1.clear()
-    table2.clear()
-    table3.clear()
-    table0.append(value)
     if '/' not in value:
-        outcome = eval(value)
+        outcome = str(value4(eval(value)))
         return outcome
-    elif '/' in value and '+' not in value and '-' not in value:
+    elif '/' in value:
         zifu = other(value, '.')
         if last(zifu) == '/':
-            old_outcome = str(eval(value))
+            old_outcome = str(value4(eval(value)))
+            print(f'old_outcome = {old_outcome}|v = {eval(value)}')
             if '.' not in old_outcome:
                 return old_outcome
             else:
-                old_outcome = old_outcome[:-2]
+                if len(old_outcome) <= 4:
+                    return old_outcome
+                old_outcome2 = old_outcome[:-2]
                 character = '.'
-                index = old_outcome.index(character)  # 获取字符在字符串中的索引位置
-                decimal_part = old_outcome[index + 1:]  # 使用切片操作符获取右边部分
-                integer_part = old_outcome[:index]
-                zheng_chu = str()
-                zifu = '......'
-                if check_same_characters(decimal_part):
-                    outcome = str(decimal_part[0] + zifu)
+                index = old_outcome2.index(character)  # 获取字符在字符串中的索引位置
+                decimal_part = old_outcome2[index + 1:]  # 使用切片操作符获取右边部分
+                integer_part = old_outcome2[:index]
+                zifu = '...'
+                if is_same_characters(decimal_part):
+                    outcome = str(integer_part + '.' + decimal_part[0] + zifu)
                     return outcome
                 else:
-                    for i in range(0, len(decimal_part), 2):
-                        table1.append(decimal_part[i:i + 2])
-                        if check_same_elements(table1):
-                            outcome = str(decimal_part[0:2])
-                            return outcome
-
-
-a = calculate('100/3')
-print(a)
+                    return old_outcome

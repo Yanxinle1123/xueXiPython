@@ -2,7 +2,7 @@ import math
 import tkinter as tk
 import tkinter.messagebox
 
-from comm.common import value4
+from comm.common import value4, calculate
 
 pi = 3.141592653589793
 
@@ -109,7 +109,7 @@ def calculate_result():
             you = float(huoqu[1])
             zheng_chu = zuo // you
             other_yu_shu = zuo % you
-            jieguo = str(value4(str(zheng_chu))) + '......' + str(value4(str(other_yu_shu)))
+            jieguo = str(value4(zheng_chu)) + '......' + str(value4(other_yu_shu))
             if jieguo != '':
                 entry.insert(0, jieguo)
                 entry.config(state="disabled")
@@ -124,7 +124,42 @@ def calculate_result():
             elif not huoqu2:
                 entry.config(state="normal")
                 entry.delete(0, tk.END)
-                result = str(value4(str(eval(expression))))
+                result = str(value4(str(calculate(expression))))
+                sample_text = result
+                entry.insert(0, sample_text)
+                entry.config(state="disabled")
+    except Exception:
+        tk.messagebox.showwarning('错误', '算式有误')
+        entry.config(state="disabled")
+
+
+def calc(expression):
+    try:
+
+        if '%' in expression and '//' in expression:
+            entry.config(state="normal")
+            entry.delete(0, tk.END)
+            huoqu = expression.split('%//')
+            zuo = float(huoqu[0])
+            you = float(huoqu[1])
+            zheng_chu = zuo // you
+            other_yu_shu = zuo % you
+            jieguo = str(value4(zheng_chu)) + '......' + str(value4(other_yu_shu))
+            if jieguo != '':
+                entry.insert(0, jieguo)
+                entry.config(state="disabled")
+            else:
+                entry.insert(0, '无结果')
+                entry.config(state="disabled")
+        else:
+            huoqu2 = is_all_digits(expression)
+            huoqu3 = contains_operator(expression)
+            if huoqu2 and not huoqu3:
+                tk.messagebox.showwarning('错误', '没有运算字符')
+            elif not huoqu2:
+                entry.config(state="normal")
+                entry.delete(0, tk.END)
+                result = str(value4(str(calculate(expression))))
                 sample_text = result
                 entry.insert(0, sample_text)
                 entry.config(state="disabled")
