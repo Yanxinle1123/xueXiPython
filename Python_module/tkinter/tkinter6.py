@@ -135,10 +135,9 @@ def calculate_result():
 
 def calc(expression):
     try:
-
         if '%' in expression and '//' in expression:
-            entry.config(state="normal")
-            entry.delete(0, tk.END)
+            # entry.config(state="normal")
+            # entry.delete(0, tk.END)
             huoqu = expression.split('%//')
             zuo = float(huoqu[0])
             you = float(huoqu[1])
@@ -146,26 +145,31 @@ def calc(expression):
             other_yu_shu = zuo % you
             jieguo = str(value4(zheng_chu)) + '......' + str(value4(other_yu_shu))
             if jieguo != '':
-                entry.insert(0, jieguo)
-                entry.config(state="disabled")
+                # entry.insert(0, jieguo)
+                # entry.config(state="disabled")
+                return jieguo
             else:
-                entry.insert(0, '无结果')
-                entry.config(state="disabled")
+                # entry.insert(0, '无结果')
+                # entry.config(state="disabled")
+                return '无结果'
         else:
             huoqu2 = is_all_digits(expression)
             huoqu3 = contains_operator(expression)
             if huoqu2 and not huoqu3:
-                tk.messagebox.showwarning('错误', '没有运算字符')
+                # tk.messagebox.showwarning('错误', '没有运算字符')
+                return '没有运算字符'
             elif not huoqu2:
-                entry.config(state="normal")
-                entry.delete(0, tk.END)
+                # entry.config(state="normal")
+                # entry.delete(0, tk.END)
                 result = str(value4(str(calculate(expression))))
-                sample_text = result
-                entry.insert(0, sample_text)
-                entry.config(state="disabled")
+                # sample_text = result
+                # entry.insert(0, sample_text)
+                # entry.config(state="disabled")
+                return result
     except Exception:
-        tk.messagebox.showwarning('错误', '算式有误')
-        entry.config(state="disabled")
+        # tk.messagebox.showwarning('错误', '算式有误')
+        # entry.config(state="disabled")
+        raise '算式有误'
 
 
 def radical():
