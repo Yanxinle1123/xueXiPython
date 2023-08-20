@@ -314,7 +314,7 @@ def value3(value):
 
 
 def value4(value):
-    ret = value
+    ret = str(value)
     if '.' in ret and ret.count('.') == 1:
         temp_array = ret.split('.')
         one = temp_array[0]
@@ -325,6 +325,9 @@ def value4(value):
                 ret = int(one)
             else:
                 ret = float(value)
+    elif ret.isdigit():
+        ret = int(ret)
+
     return ret
 
 
