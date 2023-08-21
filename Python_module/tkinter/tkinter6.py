@@ -2,7 +2,7 @@ import math
 import tkinter as tk
 import tkinter.messagebox
 
-from comm.common import value4, calculate
+from comm.common import value4, calculate, delete
 
 pi = 3.141592653589793
 
@@ -18,14 +18,6 @@ def is_all_digits(s):
 
 def has_two_or_more_dots(s):
     return s.count('.') >= 2
-
-
-def clear_text2():
-    entry.config(state="normal")  # 将Entry部件设为可编辑状态
-    cursor_position = entry.index(tk.INSERT)  # 获取光标位置
-    if cursor_position > 0:
-        entry.delete(cursor_position - 1)  # 删除光标前的一个字符
-    entry.config(state="disabled")  # 将Entry部件设回只读状态
 
 
 def button_click():
@@ -98,9 +90,17 @@ def tan():
         entry.config(state="disabled")
 
 
+def ensure_default_char(event):
+    entry.config(state="normal")
+    if not entry.get():
+        entry.delete(0, tk.END)
+        entry.insert(0, "|")
+
+
 def calculate_result():
     try:
         expression = str(entry.get())
+        expression = delete(expression, '|')
         if '%' in expression and '//' in expression:
             entry.config(state="normal")
             entry.delete(0, tk.END)
@@ -169,7 +169,7 @@ def calc(expression):
     except Exception:
         # tk.messagebox.showwarning('错误', '算式有误')
         # entry.config(state="disabled")
-        raise '算式有误'
+        return '算式有误'
 
 
 def radical():
@@ -185,20 +185,77 @@ def radical():
         entry.config(state="disabled")
 
 
+def on_button_click(text):
+    # 获取文本框中的内容
+    content = entry.get()
+
+    # 查找 '|' 字符的位置
+    cursor_pos = content.find('|')
+
+    # 如果找到了 '|' 字符
+    if cursor_pos != -1:
+        # 临时将Entry部件设为可编辑状态
+        entry.config(state="normal")
+
+        # 在 '|' 字符位置之前插入字符
+        entry.insert(cursor_pos, text)
+
+    # 将Entry部件设回只读状态
+    entry.config(state="disabled")
+
+
 def clear_text():
     entry.config(state="normal")  # 将Entry部件设为可编辑状态
     entry.delete(0, tk.END)
+    entry.insert(0, "|")
     entry.config(state="disabled")  # 将Entry部件设回只读状态
 
 
-def on_button_click(text):
-    # 临时将Entry部件设为可编辑状态
+def clear_text2():
     entry.config(state="normal")
+    # 获取文本框中的内容
+    content = entry.get()
+    expression = str(entry.get())
+    value_len = len(expression)
+    # 查找指定字符的位置
+    character_pos = content.find('|')
 
-    # 插入字符
-    entry.insert(tk.END, text)
+    # 如果找到了指定字符
+    if character_pos != -1:
+        # 删除指定字符后面的字符
+        entry.delete(character_pos - 1, tk.END)
+        entry.insert(value_len, "|")
+    entry.config(state="disabled")
 
-    # 将Entry部件设回只读状态
+
+def move_text_left():
+    entry.config(state="normal")
+    # 获取文本框中的内容
+    content = entry.get()
+    # 查找指定字符的位置
+    character_pos = content.find('|')
+    # 如果找到了指定字符
+    if character_pos != -1:
+        character_pos2 = character_pos + 1
+        zifu1 = content[character_pos2]
+        entry.delete(character_pos2, character_pos2 + 1)
+        entry.insert(zifu1, str(character_pos))
+    entry.config(state="disabled")
+
+
+def move_text_right():
+    entry.config(state="normal")
+    # 获取文本框中的内容
+    content = entry.get()
+    # 查找指定字符的位置
+    character_pos = content.find('|')
+    # 如果找到了指定字符
+    if character_pos != -1:
+        character_pos2 = character_pos - 1
+        character = content[character_pos2]
+        # 删除指定字符
+        entry.delete(character_pos2, character_pos2 + 1)
+        entry.insert(character_pos + 1, character)
     entry.config(state="disabled")
 
 
@@ -214,17 +271,24 @@ entry_width = 200
 
 # 创建Entry部件，设置字体大小为20
 entry = tk.Entry(window, font=("Arial", 100), width=entry_width, state="disabled", readonlybackground="white",
-                 disabledforeground="black")
+                 disabledforeground="black", insertofftime=1)
 entry.pack(padx=10, pady=10)
 
 # 设置validatecommand
 vcmd = window.register(validate_input)
 entry.config(validate="key", validatecommand=(vcmd, "%P"))
 
+# 插入默认字符
+entry.config(state="normal")
+entry.insert(0, "|")
+entry.config(state="disabled")
+
+# 绑定键盘事件
+entry.bind("<KeyRelease>", ensure_default_char)
 # 设置窗口
 window.resizable(False, False)
 window.geometry('1600x900')
-window.title('simple calculator')
+window.title('计算器')
 
 # 创建计算器的按钮
 button_plus = tk.Button(window, text='+', font=('华文楷体', 100), height=0, width=1,
@@ -301,6 +365,14 @@ button_equal.place(x=785, y=150)
 
 button_clear = tk.Button(window, text='C', font=('华文楷体', 100), height=0, width=1, fg='red', command=clear_text)
 button_clear.place(x=885, y=150)
+
+button_zuo = tk.Button(window, text='←', font=('华文楷体', 100), height=2, width=3, fg='#3B3AB7',
+                       command=move_text_right)
+button_zuo.place(x=785, y=600)
+
+button_you = tk.Button(window, text='→', font=('华文楷体', 100), height=2, width=3, fg='#3B3AB7',
+                       command=move_text_left)
+button_you.place(x=1080, y=600)
 
 button_1 = tk.Button(window, text='1', font=('华文楷体', 200), command=lambda: on_button_click('1'), fg='#ef742d')
 button_1.place(x=15, y=150)

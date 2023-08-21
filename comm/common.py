@@ -391,3 +391,11 @@ def calculate(value):
                     return outcome
                 else:
                     return old_outcome
+
+
+def delete(value, delete):
+    value = str(value)
+    wei_zhi1 = value.find(delete)
+    wei_zhi2 = wei_zhi1 + 1
+    jieguo = value[:wei_zhi1] + value[wei_zhi2:]
+    return jieguo
