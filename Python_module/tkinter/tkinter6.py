@@ -170,8 +170,8 @@ def li_fang_gen():
 
 def tan():
     try:
-        expression = value4(entry.get())
-        expression = remove_character(expression, '|')
+        expression = entry.get()
+        expression = value4(remove_character(expression, '|'))
         entry.config(state="normal")
         entry.delete(0, tk.END)
         expression = expression * pi / 180
