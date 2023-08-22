@@ -447,3 +447,8 @@ def erase(string, char):
     # 删除第二个参数左边的一个字符
     erased_string = string[:index - 1] + string[index:]
     return erased_string
+
+
+def remove_character(string, char):
+    """从字符串中删除指定的字符"""
+    return string.replace(char, "")

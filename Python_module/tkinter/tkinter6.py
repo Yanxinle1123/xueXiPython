@@ -107,66 +107,81 @@ def button_click():
 def ping_fang():
     try:
         expression = str(entry.get())
+        expression = remove_character(expression, '|')
         entry.config(state="normal")
         entry.delete(0, tk.END)
         jieguo = eval(expression + '**2')
         entry.insert(0, jieguo)
+        entry.insert(0, '|')
         entry.config(state="disabled")
     except Exception:
         tk.messagebox.showwarning('错误', '算式有误')
+        entry.insert(0, '|')
         entry.config(state="disabled")
 
 
 def li_fang():
     try:
         expression = str(entry.get())
+        expression = remove_character(expression, '|')
         entry.config(state="normal")
         entry.delete(0, tk.END)
         jieguo = eval(expression + '**3')
         entry.insert(0, jieguo)
+        entry.insert(0, '|')
         entry.config(state="disabled")
     except Exception:
         tk.messagebox.showwarning('错误', '算式有误')
+        entry.insert(0, '|')
         entry.config(state="disabled")
 
 
 def ping_fang_gen():
     try:
         expression = value4(entry.get())
+        expression = value4(remove_character(expression, '|'))
         entry.config(state="normal")
         entry.delete(0, tk.END)
         jieguo = str(math.sqrt(expression))
         entry.insert(0, jieguo)
+        entry.insert(0, '|')
         entry.config(state="disabled")
     except Exception:
         tk.messagebox.showwarning('错误', '算式有误')
+        entry.insert(0, '|')
         entry.config(state="disabled")
 
 
 def li_fang_gen():
     try:
         expression = str(entry.get())
+        expression = remove_character(expression, '|')
         entry.config(state="normal")
         entry.delete(0, tk.END)
         jieguo = eval(expression + '**(1/3)')
+        entry.insert(0, '|')
         entry.insert(0, jieguo)
         entry.config(state="disabled")
     except Exception:
         tk.messagebox.showwarning('错误', '算式有误')
+        entry.insert(0, '|')
         entry.config(state="disabled")
 
 
 def tan():
     try:
         expression = value4(entry.get())
+        expression = remove_character(expression, '|')
         entry.config(state="normal")
         entry.delete(0, tk.END)
         expression = expression * pi / 180
         jieguo = str(math.tan(expression))
         entry.insert(0, jieguo)
+        entry.insert(0, '|')
         entry.config(state="disabled")
     except Exception:
         tk.messagebox.showwarning('错误', '算式有误')
+        entry.insert(0, '|')
         entry.config(state="disabled")
 
 
@@ -191,11 +206,18 @@ def calculate_result():
             other_yu_shu = zuo % you
             jieguo = str(value4(zheng_chu)) + '......' + str(value4(other_yu_shu))
             if jieguo != '':
-                entry.insert(0, jieguo)
-                entry.config(state="disabled")
+                if len(jieguo) > 24:
+                    tk.messagebox.showwarning('错误', '结果太长')
+                    entry.insert(0, '|')
+                    entry.config(state="disabled")
+                else:
+                    entry.insert(0, '|')
+                    entry.insert(0, jieguo)
+                    entry.config(state="disabled")
             else:
                 if jieguo == 'None':
                     entry.insert(0, '无结果')
+                    entry.insert(0, '|')
                     entry.config(state="disabled")
         else:
             huoqu2 = is_all_digits(expression)
@@ -211,10 +233,17 @@ def calculate_result():
                     entry.insert(0, '无结果')
                     entry.config(state="disabled")
                 else:
-                    entry.insert(0, sample_text)
-                    entry.config(state="disabled")
+                    if len(sample_text) > 24:
+                        tk.messagebox.showwarning('错误', '结果太长')
+                        entry.insert(0, '|')
+                        entry.config(state="disabled")
+                    else:
+                        entry.insert(0, '|')
+                        entry.insert(0, sample_text)
+                        entry.config(state="disabled")
     except Exception:
         tk.messagebox.showwarning('错误', '算式有误')
+        entry.insert(0, '|')
         entry.config(state="disabled")
 
 
@@ -261,12 +290,15 @@ def radical():
     try:
         entry.config(state="normal")
         expression = entry.get()  # 获取entry部件中的文本
+        expression = remove_character(expression, '|')
         entry.delete(0, tk.END)
         result = eval(expression + '**0.5')
         entry.insert(0, result)
+        entry.insert(0, '|')
         entry.config(state="disabled")
     except Exception:
         tk.messagebox.showwarning('错误', '算式有误')
+        entry.insert(0, '|')
         entry.config(state="disabled")
 
 
