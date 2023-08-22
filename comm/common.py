@@ -393,9 +393,57 @@ def calculate(value):
                     return old_outcome
 
 
-def delete(value, delete):
+def delete_str(value, delete):
     value = str(value)
     wei_zhi1 = value.find(delete)
-    wei_zhi2 = wei_zhi1 + 1
+    wei_zhi2 = wei_zhi1 + len(delete)
     jieguo = value[:wei_zhi1] + value[wei_zhi2:]
     return jieguo
+
+
+def MoveRight(string, char):
+    string = str(string)
+    char = str(char)
+
+    # 找到字符在字符串中的位置
+    index = string.find(char)
+
+    # 如果字符不存在或在字符串末尾，则无需移动
+    if index == -1 or index == len(string) - 1:
+        return string
+
+    # 将字符向右移动一个位置
+    moved_string = string[:index] + string[index + 1] + string[index] + string[index + 2:]
+    return moved_string
+
+
+def MoveLeft(string, char):
+    string = str(string)
+    char = str(char)
+
+    # 找到字符在字符串中的位置
+    index = string.find(char)
+
+    # 如果字符不存在或在字符串开头，则无需移动
+    if index == -1 or index == 0:
+        return string
+
+    # 将字符向左移动一个位置
+    moved_string = string[:index - 1] + string[index] + string[index - 1] + string[index + 1:]
+    return moved_string
+
+
+def erase(string, char):
+    string = str(string)
+    char = str(char)
+
+    # 找到字符在字符串中的位置
+    index = string.find(char)
+
+    # 如果字符不存在或在字符串开头，则无需删除
+    if index == -1 or index == 0:
+        return string
+
+    # 删除第二个参数左边的一个字符
+    erased_string = string[:index - 1] + string[index:]
+    return erased_string
