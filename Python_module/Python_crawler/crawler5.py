@@ -17,11 +17,11 @@ def translated():
         html_content = response.content
         soup = BeautifulSoup(html_content, 'html.parser')
         fruit_list = soup.find_all('a', class_='dictLink featured')
-        print(url)
         for fruit in fruit_list:
             purple_print(f'翻译结果{a}:')
             print(f'{fruit.text}')
             a += 1
+        a = 1
         c += 1
 
 

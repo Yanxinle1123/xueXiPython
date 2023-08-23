@@ -272,14 +272,18 @@ def lat_and_lon():
     return latitude, longitude
 
 
-def trans(fanyi):
+def trans(value):
+    jieguo = None
+    huoqu = value
+    fanyi = huoqu
     url = f'https://cn.linguee.com/%E4%B8%AD%E6%96%87-%E8%8B%B1%E8%AF%AD/search?source=auto&query=/{fanyi}'
     response = requests.get(url)
     html_content = response.content
     soup = BeautifulSoup(html_content, 'html.parser')
     fruit_list = soup.find_all('a', class_='dictLink featured')
-    for _ in fruit_list:
-        return fruit_list
+    for fruit in fruit_list:
+        jieguo = fruit.text
+    return jieguo
 
 
 def value1(value):
