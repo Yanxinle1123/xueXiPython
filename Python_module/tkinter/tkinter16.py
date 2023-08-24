@@ -23,12 +23,12 @@ def generate_and_move():
     random_x = randint(10, 990)
     text = canvas.create_text(random_x, 20, text=value, font=("Arial", 24), fill='black')
     move_down(text)
-    window.after(500, generate_and_move)  # 随机时间后生成下一个字母
+    window.after(400, generate_and_move)  # 随机时间后生成下一个字母
 
 
 def move_down(text):
-    sleep = 9
-    canvas.move(text, 0, 1.5)  # 向下移动1个像素
+    sleep = 12
+    canvas.move(text, 0, 1)  # 向下移动1个像素
     if canvas.coords(text)[1] < 635:  # 判断字母是否超出红线范围
         window.after(sleep, move_down, text)  # 每10毫秒调用一次move_down函数，实现连续移动
     else:
