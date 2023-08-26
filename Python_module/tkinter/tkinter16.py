@@ -153,8 +153,8 @@ def on_close():
 generate_and_move()
 window.bind('<Key>', key_pressed)
 
-win = Tk()
 music_file = "./Joachim Neuville - Arena [mqms].ogg"
+win = Tk()
 play_music_with_window2(win, music_file, 290000,
                         True, True)
 
