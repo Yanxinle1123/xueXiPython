@@ -14,21 +14,23 @@ def play_music(music_file, is_need_init=False):
 
 def stop_music():
     pygame.mixer.music.stop()
+    pygame.mixer.quit()
 
 
-def play_music_with_window(music_file, cycle_time_ms=28000, is_hide_window=True):
+def play_music_with_window(music_file, cycle_time_ms=28000, is_need_init=False, is_hide_window=True):
     win = Tk()
-    play_music(music_file, True)
-    if is_hide_window:
+    play_music(music_file, is_need_init)
+    if is_hide_window and is_need_init:
         win.withdraw()
     win.after(cycle_time_ms, play_music_with_window, music_file)
+    return win
 
 
-def play_music_with_window2(win, music_file, cycle_time_ms=28000, is_hide_window=True):
-    play_music(music_file, True)
-    if is_hide_window:
+def play_music_with_window2(win, music_file, cycle_time_ms=290000, is_need_init=False, is_hide_window=True):
+    play_music(music_file, is_need_init)
+    if is_hide_window and is_need_init:
         win.withdraw()
-    win.after(cycle_time_ms, play_music, music_file)
+    win.after(cycle_time_ms, play_music_with_window2, win, music_file, cycle_time_ms)
     return win
 
 # window = Tk()

@@ -1,5 +1,5 @@
 from random import randint, choice
-from tkinter import *
+from tkinter import Tk, Canvas, Label
 
 from comm.comm_music import stop_music, play_music_with_window2
 
@@ -42,18 +42,23 @@ game_over = False
 quantity = 0
 
 
-def move_down(text, is_del=False):
+def move_down(text):
     global score, score2
     sleep = grade_map["sleep"]
     canvas.move(text, 0, 1)
-    print(f"is_del={is_del}|text={text}|canvas.coords(text)={canvas.coords(text)}")
-    if not is_del and not canvas.coords(text) and canvas.coords(text)[1] < 635:
-        window.after(sleep, move_down, text)
+    coords_list = canvas.coords(text)
+    # print(f"text={text}|coords_list={coords_list}")
+    if coords_list:
+        if canvas.coords(text)[1] < 635:
+            window.after(sleep, move_down, text)
+        else:
+            score2 += 1
+            if score2 % 5 == 0:
+                end_game()
+            canvas.delete(text)
+            canvas.update()
     else:
-        score2 += 1
-        if score2 % 5 == 0:
-            end_game()
-        canvas.delete(text)
+        # canvas.delete(text)
         canvas.update()
 
 
@@ -73,7 +78,6 @@ def key_pressed(event):
                 quantity = 0
             score_label.config(text="得分: " + str(score))
             canvas.delete(item)
-            move_down(item)
             canvas.update()
             break
 
@@ -99,7 +103,7 @@ def end_game():
     global game_over, game_over_label, grade, grade_map
     game_over = True
     canvas.delete("all")
-    game_over_label = Label(window, text=f"你输了,grade={grade + 1}|grade_map={grade_map}",
+    game_over_label = Label(window, text="你输了",
                             font=("Arial", 60), fg='red')
     game_over_label.pack()
 
@@ -135,21 +139,24 @@ def restart_game():
     canvas.delete("all")
     if game_over_label is not None:
         game_over_label.pack_forget()
+
     red_line = canvas.create_line(0, 660, 1000, 660, fill='red', width=20)
-    canvas.delete(red_line)
-    canvas.create_line(0, 660, 1000, 660, fill='red', width=20)
     generate_and_move()
 
 
 def on_close():
     stop_music()
+    win.destroy()
     window.destroy()
 
 
 generate_and_move()
 window.bind('<Key>', key_pressed)
 
+win = Tk()
 music_file = "./Joachim Neuville - Arena [mqms].ogg"
-play_music_with_window2(window, music_file, 10000, False)
+play_music_with_window2(win, music_file, 290000,
+                        True, True)
 
+window.protocol("WM_DELETE_WINDOW", on_close)
 window.mainloop()
