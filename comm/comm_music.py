@@ -22,7 +22,7 @@ def play_music_with_window(music_file, cycle_time_ms=28000, is_need_init=False, 
     play_music(music_file, is_need_init)
     if is_hide_window and is_need_init:
         win.withdraw()
-    win.after(cycle_time_ms, play_music_with_window, music_file)
+    win.after(cycle_time_ms, play_music_with_window, music_file, cycle_time_ms, False, is_hide_window)
     return win
 
 
@@ -30,7 +30,7 @@ def play_music_with_window2(win, music_file, cycle_time_ms=290000, is_need_init=
     play_music(music_file, is_need_init)
     if is_hide_window and is_need_init:
         win.withdraw()
-    win.after(cycle_time_ms, play_music_with_window2, win, music_file, cycle_time_ms)
+    win.after(cycle_time_ms, play_music_with_window2, win, music_file, cycle_time_ms, False, is_hide_window)
     return win
 
 # window = Tk()
