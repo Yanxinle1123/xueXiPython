@@ -38,7 +38,7 @@ grade_label.pack()
 
 score2 = 0
 game_over_label = None
-game_over = False
+is_game_over = False
 quantity = 0
 
 
@@ -83,7 +83,7 @@ def key_pressed(event):
 
 
 def generate_and_move():
-    if not game_over:
+    if not is_game_over:
         value = choice(letters)
         random_x = randint(20, 980)
         text = canvas.create_text(random_x, 20, text=value, font=("Arial", 24), fill='black')
@@ -100,7 +100,7 @@ def generate_extra_letters():
 
 
 def end_game():
-    global game_over, game_over_label, grade, grade_map
+    global is_game_over, game_over_label, grade, grade_map
     game_over = True
     canvas.delete("all")
     game_over_label = Label(window, text="你输了",
@@ -115,7 +115,7 @@ def end_game():
 
 
 def winning_the_game():
-    global game_over, grade, grade_map
+    global is_game_over, grade, grade_map
     game_over = True
     canvas.delete("all")
     # 增加关卡
@@ -129,7 +129,7 @@ def winning_the_game():
 
 
 def restart_game():
-    global score, score2, game_over, game_over_label, red_line, grade_map
+    global score, score2, is_game_over, game_over_label, red_line, grade_map
     score = 0
     score2 = 0
     game_over = False
@@ -154,7 +154,7 @@ generate_and_move()
 window.bind('<Key>', key_pressed)
 
 win = Tk()
-music_file = "./Joachim Neuville - Arena [mqms].ogg"
+music_file = "./game_music_start.ogg"
 play_music_with_window2(win, music_file, 290000,
                         True, True)
 
