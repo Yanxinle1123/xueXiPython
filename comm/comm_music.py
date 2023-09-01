@@ -26,6 +26,7 @@ def play_music_with_window(music_file, cycle_time_ms=28000, is_need_init=False, 
     play_music(music_file, is_need_init)
     if is_hide_window and is_need_init:
         win.withdraw()
+    win.withdraw()
     win.after(cycle_time_ms, play_music_with_window, music_file, cycle_time_ms, False, is_hide_window)
     return win
 
@@ -50,6 +51,19 @@ def change_music(win, music_file, cycle_time_ms=290000,
     return ret_id
 
 # window = Tk()
-# music_file = "/Users/lele/Music/Joachim Neuville - Arena [mqms].ogg"
-# play_music_with_window(music_file, 10000, False)
+# music_file = "/Users/lele/lele/Python_module/tkinter/game_music_start.ogg"
+# play_music_with_window(music_file, 290000, True, True)
+# window.withdraw()
+# window.mainloop()
+#
+# window = Tk()
+# music_file = "/Users/lele/lele/Python_module/tkinter/game_music_mid_forever.mp3"
+# play_music_with_window(music_file, 62000, True, True)
+# window.withdraw()
+# window.mainloop()
+#
+# window = Tk()
+# music_file = "/Users/lele/lele/Python_module/tkinter/game_music_last.mp3"
+# play_music_with_window(music_file, 79000, True, True)
+# window.withdraw()
 # window.mainloop()

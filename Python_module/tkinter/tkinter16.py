@@ -20,21 +20,50 @@ grade_list = [
 grade = 0
 grade_map = grade_list[grade]
 
+# 创建窗口
 window = Tk()
-window.title("字母消除游戏")
+window.title("打字游戏")
 window.resizable(False, False)
 
-canvas = Canvas(window, width=995, height=800)
+# 获取屏幕的宽度和高度
+screen_width = window.winfo_screenwidth()
+screen_height = window.winfo_screenheight()
+
+# 计算窗口的坐标位置
+window_width = 995  # 窗口的宽度
+window_height = 800  # 窗口的高度
+x = (screen_width - window_width) // 2
+y = (screen_height - window_height) // 2 - 10  # 窗口的x坐标
+
+# 设置窗口的位置和大小
+window.geometry(f"{window_width}x{window_height}+{x}+{y}")
+
+canvas = Canvas(window, width=window_width, height=window_height)
 canvas.config(bg='white')
 canvas.pack()
 
-red_line = canvas.create_line(0, 660, 1000, 660, fill='red', width=20)
-score = 0
-score_label = Label(window, text="得分: 0", font=("Arial", 30))
-score_label.pack()
+red_line_width = 20
+red_line_x0 = 0
+red_line_y0 = window_height - 50
+red_line_x1 = window_width
+red_line_y1 = red_line_y0
+red_line = canvas.create_line(red_line_x0, red_line_y0, red_line_x1, red_line_y1,
+                              fill='red', width=red_line_width)
 
-grade_label = Label(window, text="第{}关".format(grade + 1), font=("Arial", 20))
-grade_label.pack()
+grade_label = Label(window, text="第 {} 关".format(grade + 1), font=("Arial", 30), bg='white')
+score_label = Label(window, text="得分: 0", font=("Arial", 30), bg='white')
+grade_label_width = grade_label.winfo_reqwidth()
+grade_label_height = grade_label.winfo_reqheight()
+
+score_label_width = score_label.winfo_reqwidth()
+# print(f"grade_label_width={grade_label_width}|score_label_width={score_label_width}")
+gap_width = 20
+grade_label_x = window_width // 2 - grade_label_width // 2 - score_label_width // 2 - gap_width // 2
+grade_label.place(x=grade_label_x, y=10)
+
+score = 0
+score_label_x = grade_label_x + grade_label_width + gap_width
+score_label.place(x=score_label_x, y=10)
 
 score2 = 0
 game_over_label = None
@@ -54,7 +83,7 @@ def move_down(text):
     coords_list = canvas.coords(text)
     # print(f"text={text}|coords_list={coords_list}")
     if coords_list:
-        if canvas.coords(text)[1] < 635:
+        if canvas.coords(text)[1] < 730:
             window.after(sleep, move_down, text)
         else:
             score2 += 1
@@ -78,7 +107,7 @@ def key_pressed(event):
             if quantity >= 4:
                 generate_extra_letters()
                 quantity = 0
-            if score >= (grade + 1) * 10:
+            if score >= (grade + 1) * 5:
                 winning_the_game()
                 quantity = 0
             score_label.config(text=f"得分: {score}")
@@ -87,20 +116,24 @@ def key_pressed(event):
             break
 
 
+task_id_generate_and_move = ""
+
+
 def generate_and_move():
+    global task_id_generate_and_move
     if not is_game_over:
         value = choice(letters)
-        random_x = randint(20, 980)
-        text = canvas.create_text(random_x, 20, text=value, font=("Arial", 24), fill='black')
+        random_x = randint(20, window_width - 20)
+        text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24), fill='black')
         move_down(text)
-        window.after(grade_map["down_speed"], generate_and_move)
+        task_id_generate_and_move = window.after(grade_map["down_speed"], generate_and_move)
 
 
 def generate_extra_letters():
     for _ in range(grade_map["other_char"]):
         value = choice(letters)
-        random_x = randint(20, 980)
-        text = canvas.create_text(random_x, 20, text=value, font=("Arial", 24), fill='black')
+        random_x = randint(20, window_width - 20)
+        text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24), fill='black')
         move_down(text)
 
 
@@ -108,21 +141,16 @@ def lost_game():
     global is_game_over, game_over_label, grade, grade_map, score, score2, red_line, music_ret_id_first, quantity
     is_game_over = True
     canvas.delete("all")
-    red_line = canvas.create_line(0, 660, 1000, 660, fill='red', width=20)
-    game_over_label = Label(window, text="你输了",
-                            font=("Arial", 60), fg='red')
-    game_over_label.pack()
-
+    make_red_line()
+    grade_label.config(text='你输了', font=('Arial', 100), fg='red', bg='white')
     if grade > 4:
         # music_ret_id = None
         if grade < 8:
             music_ret_id = music_ret_id_mid
         else:
             music_ret_id = music_ret_id_last
-
         music_ret_id_first = change_music(win, music_file_start, 290000,
                                           True, True, music_ret_id)
-
     grade = 0
     grade_map = grade_list[grade]
 
@@ -133,10 +161,16 @@ def lost_game():
     canvas.update()
 
 
+def make_red_line():
+    global red_line
+    red_line = canvas.create_line(red_line_x0, red_line_y0, red_line_x1, red_line_y1,
+                                  fill='red', width=red_line_width)
+
+
 def winning_the_game():
     global is_game_over, grade, grade_map, music_ret_id_first, music_ret_id_mid, music_ret_id_last, quantity, score
     is_game_over = False
-    canvas.delete("all")
+    # canvas.delete("all")
     # 增加关卡
     grade = grade + 1
     if grade == 10:
@@ -147,10 +181,10 @@ def winning_the_game():
         music_ret_id_first = change_music(win, music_file_start, 290000,
                                           True, True, music_ret_id_last)
     elif grade == 5:
-        music_ret_id_mid = change_music(win, music_file_mid, 290000,
+        music_ret_id_mid = change_music(win, music_file_mid, 620000,
                                         True, True, music_ret_id_first)
     elif grade == 8:
-        music_ret_id_last = change_music(win, music_file_last, 290000,
+        music_ret_id_last = change_music(win, music_file_last, 79000,
                                          True, True, music_ret_id_mid)
     grade_map = grade_list[grade]
 
@@ -161,19 +195,19 @@ def winning_the_game():
 def restart_game():
     global score, score2, is_game_over, game_over_label, red_line, grade_map, quantity
     # score = 0
+    is_game_over = False
     score2 = 0
-    quantity = 0
     score_label.config(text=f"得分: {score} ")
-    # info = f"第 {grade + 1} 关"
-    info = f"第 {grade + 1} 关 ->参数:{grade_map}"
-    grade_label.config(text=info)
-
+    info = f"第 {grade + 1} 关"
+    # info = f"第 {grade + 1} 关 ->参数:{grade_map}, quantity: {quantity}"
+    grade_label.config(text=info, font=("Arial", 30), bg='white', fg='black')
+    window.after_cancel(task_id_generate_and_move)
     canvas.delete("all")
-    if game_over_label is not None:
-        game_over_label.pack_forget()
-    red_line = canvas.create_line(0, 660, 1000, 660, fill='red', width=20)
+    canvas.update()
+    make_red_line()
     quantity = 0
-    # generate_and_move()
+    generate_and_move()
+    # print(f"restart_game_quantity={quantity}")
 
 
 def on_close():
