@@ -52,18 +52,28 @@ red_line = canvas.create_line(red_line_x0, red_line_y0, red_line_x1, red_line_y1
 
 grade_label = Label(window, text="第 {} 关".format(grade + 1), font=("Arial", 30), bg='white')
 score_label = Label(window, text="得分: 0", font=("Arial", 30), bg='white')
+result_label = Label(window, text="你输了", font=("Arial", 100), bg='white', fg='red')
+
 grade_label_width = grade_label.winfo_reqwidth()
 grade_label_height = grade_label.winfo_reqheight()
 
 score_label_width = score_label.winfo_reqwidth()
-# print(f"grade_label_width={grade_label_width}|score_label_width={score_label_width}")
+
+result_label_width = result_label.winfo_reqwidth()
+result_label_height = result_label.winfo_reqheight()
+# print(f"result_label_width={result_label_width}|result_label_height={result_label_height}")
 gap_width = 20
-grade_label_x = window_width // 2 - grade_label_width // 2 - score_label_width // 2 - gap_width // 2
+grade_label_x = (window_width - grade_label_width - score_label_width - gap_width) // 2
 grade_label.place(x=grade_label_x, y=10)
 
 score = 0
 score_label_x = grade_label_x + grade_label_width + gap_width
 score_label.place(x=score_label_x, y=10)
+
+result_label_x = (window_width - result_label_width) // 2
+result_label_y = (window_height - result_label_height) // 2
+result_label.place(x=result_label_x, y=result_label_y)
+result_label.place_forget()
 
 score2 = 0
 game_over_label = None
@@ -142,7 +152,7 @@ def lost_game():
     is_game_over = True
     canvas.delete("all")
     make_red_line()
-    grade_label.config(text='你输了', font=('Arial', 100), fg='red', bg='white')
+    result_label.place(x=result_label_x, y=result_label_y)
     if grade > 4:
         # music_ret_id = None
         if grade < 8:
@@ -202,8 +212,11 @@ def restart_game():
     # info = f"第 {grade + 1} 关 ->参数:{grade_map}, quantity: {quantity}"
     grade_label.config(text=info, font=("Arial", 30), bg='white', fg='black')
     window.after_cancel(task_id_generate_and_move)
+    result_label.place_forget()
+
     canvas.delete("all")
     canvas.update()
+
     make_red_line()
     quantity = 0
     generate_and_move()
