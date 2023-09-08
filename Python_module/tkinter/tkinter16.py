@@ -76,13 +76,30 @@ result_label.place(x=result_label_x, y=result_label_y)
 result_label.place_forget()
 
 score2 = 0
-game_over_label = None
 is_game_over = False
 quantity = 0
 
 # music_ret_id_first = None
 music_ret_id_mid = None
 music_ret_id_last = None
+
+
+def generate_and_move():
+    global task_id_generate_and_move
+    if not is_game_over:
+        value = choice(letters)
+        random_x = randint(20, window_width - 20)
+        text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24), fill='black')
+        move_down(text)
+        task_id_generate_and_move = window.after(grade_map["down_speed"], generate_and_move)
+
+
+def generate_extra_letters():
+    for _ in range(grade_map["other_char"]):
+        value = choice(letters)
+        random_x = randint(20, window_width - 20)
+        text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24), fill='black')
+        move_down(text)
 
 
 def move_down(text):
@@ -117,7 +134,7 @@ def key_pressed(event):
             if quantity >= 4:
                 generate_extra_letters()
                 quantity = 0
-            if score >= (grade + 1) * 5:
+            if score >= (grade + 1) * 100:
                 winning_the_game()
                 quantity = 0
             score_label.config(text=f"得分: {score}")
@@ -129,26 +146,8 @@ def key_pressed(event):
 task_id_generate_and_move = ""
 
 
-def generate_and_move():
-    global task_id_generate_and_move
-    if not is_game_over:
-        value = choice(letters)
-        random_x = randint(20, window_width - 20)
-        text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24), fill='black')
-        move_down(text)
-        task_id_generate_and_move = window.after(grade_map["down_speed"], generate_and_move)
-
-
-def generate_extra_letters():
-    for _ in range(grade_map["other_char"]):
-        value = choice(letters)
-        random_x = randint(20, window_width - 20)
-        text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24), fill='black')
-        move_down(text)
-
-
 def lost_game():
-    global is_game_over, game_over_label, grade, grade_map, score, score2, red_line, music_ret_id_first, quantity
+    global is_game_over, grade, grade_map, score, score2, red_line, music_ret_id_first, quantity
     is_game_over = True
     canvas.delete("all")
     make_red_line()
@@ -203,7 +202,7 @@ def winning_the_game():
 
 
 def restart_game():
-    global score, score2, is_game_over, game_over_label, red_line, grade_map, quantity
+    global score, score2, is_game_over, red_line, grade_map, quantity
     # score = 0
     is_game_over = False
     score2 = 0

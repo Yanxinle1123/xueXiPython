@@ -156,7 +156,7 @@ def hex_to_rgb(hex_value_print):
 
 
 def rgb_to_hex(rgb_print):
-    rgb = rgb_print.upper()
+    rgb = rgb_print
     if isinstance(rgb, str):
         rgb = tuple(map(int, rgb.split(',')))  # 如果输入是字符串，则将其分割为整数值的元组
 
@@ -166,6 +166,7 @@ def rgb_to_hex(rgb_print):
     elif r < 0 or g < 0 or b < 0:
         raise TypeError
     hex_value = '#{:02x}{:02x}{:02x}'.format(r, g, b)
+    hex_value = hex_value.upper()
     return hex_value
 
 
