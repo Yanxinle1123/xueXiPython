@@ -3,8 +3,8 @@ import tkinter as tk
 from comm.common import rgb_to_hex
 
 
-def ball_to(target_x, target_y, width=1000, height=800, ball_color='#75147b', pixel=5, purple_x1=485, purple_y1=700,
-            purple_x2=515, purple_y2=730, sleep_ms=1):
+def ball_to(target_x, target_y, width=1000, height=800, ball_color='#75147b', pixel=0.1, ball_x1=485, ball_y1=700,
+            ball_x2=515, ball_y2=730, sleep_ms=1):
     def contains_digit(s):
         return any(char.isdigit() for char in s)
 
@@ -23,14 +23,14 @@ def ball_to(target_x, target_y, width=1000, height=800, ball_color='#75147b', pi
         hex2 = hex1
 
     # 画第一个圆形
-    canvas.create_oval(purple_x1, purple_y1, purple_x2, purple_y2, fill=hex2)
+    canvas.create_oval(ball_x1, ball_y1, ball_x2, ball_y2, fill=hex2)
 
     # 画第一个圆形
-    purple_ball2 = canvas.create_oval(purple_x1, purple_y1, purple_x2, purple_y2, fill=hex2)
+    purple_ball2 = canvas.create_oval(ball_x1, ball_y1, ball_x2, ball_y2, fill=hex2)
 
     # 计算紫球的中心坐标
     global purple_center_x, purple_center_y
-    purple_center_x, purple_center_y = (purple_x1 + purple_x2) / 2, (purple_y1 + purple_y2) / 2
+    purple_center_x, purple_center_y = (ball_x1 + ball_x2) / 2, (ball_y1 + ball_y2) / 2
 
     # 定义移动紫球的函数
     def move_purple_ball():
@@ -66,4 +66,4 @@ def ball_to(target_x, target_y, width=1000, height=800, ball_color='#75147b', pi
 
 
 if __name__ == '__main__':
-    ball_to(900, 100, pixel=1, sleep_ms=10)
+    ball_to(900, 50, pixel=0.2, sleep_ms=10)
