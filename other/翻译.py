@@ -1,6 +1,8 @@
 from colored import Fore
 from googletrans import Translator
 
+from comm.common import anim_print
+
 
 def trans():
     print(Fore.YELLOW + '')
@@ -24,25 +26,26 @@ def trans():
         try:
             # 输入要翻译的文本
             print('------------------------------第 {} 次------------------------------'.format(n))
-            text = input('请输入要翻译的文本（输入 q 退出）：')
+            text = input('请输入要翻译的文本(输入 q 退出): ')
             if text == 'q':
                 print('已退出')
                 break
             # 获取目标语言
-            print('支持的语言代码：')
+            print('支持的语言代码: ')
             for code, lang in LANGUAGES.items():
                 print(code, '-', lang)
-            dest_lang = input('请输入目标语言代码：')
+            dest_lang = input('请输入目标语言代码: ')
             # 翻译文本
             result = translate(text, dest_lang)
             # 输出翻译结果
-            print('翻译结果：', result)
+            anim_print(('翻译结果: ...|', '翻译结果: .../', '翻译结果: ...-', '翻译结果: ...\\'),
+                       final=f'翻译结果: {result}', loop=2)
             n = n + 1
         except ValueError as e:
-            print('错误：' + str(e))
+            print('错误: ' + str(e))
             n = n + 1
         except Exception as e:
-            print('错误：' + str(e))
+            print('错误: ' + str(e))
             n = n + 1
 
 

@@ -1,3 +1,4 @@
+import random
 import re
 import select
 import sys
@@ -454,5 +455,67 @@ def erase(string, char):
 
 
 def remove_character(string, char):
-    """从字符串中删除指定的字符"""
+    # 从字符串中删除指定的字符
     return string.replace(char, "")
+
+
+def anim_print(value, delay=0.25, loop=1, final=' '):
+    value_list = [x for x in value]  # 将输入的文本转换为字符列表
+    i = 1
+    loop = value4(loop)
+    while i <= loop:  # 循环指定的次数
+        for char in value_list:
+            print(f"\r{char}", end='', flush=True)  # 使用ANSI转义序列覆盖输出当前字符
+            time.sleep(delay)  # 延时一段时间
+        i += 1
+    if final == ' ':
+        print(f"\r{final}\b", end='', flush=True)  # 输出最终字符并退格
+    else:
+        print(f"\r{final}\n", end='', flush=True)  # 输出最终字符并换行
+
+
+def rainbow_anim_print(value, delay=0.25, loop=1, final=' ', color='#BBBBBB'):
+    value_list = [x for x in value]
+    i = 1
+    loop = value4(loop)
+
+    # 创建颜色名称到colored.Fore属性的映射
+    color_map = {
+        "RED": colored.Fore.RED,
+        "ORANGE": colored.Fore.RGB(255, 170, 0),
+        "YELLOW": colored.Fore.RGB(255, 225, 0),
+        "GREEN": colored.Fore.RGB(0, 170, 0),
+        "BLUE": colored.Fore.BLUE,
+        "CYAN": colored.Fore.CYAN,
+        "PURPLE": colored.Fore.RGB(171, 91, 187)
+    }
+
+    while i <= loop:
+        color = color.upper()
+        if color == 'RAINBOW':
+            color_list = [colored.Fore.RGB(225, 0, 50), colored.Fore.RGB(255, 170, 0), colored.Fore.RGB(225, 255, 0),
+                          colored.Fore.RGB(125, 250, 85), colored.Fore.CYAN, colored.Fore.RGB(50, 150, 225)]
+            for char in value_list:
+                random_color = random.choice(color_list)
+                print(random_color + f"\r{char}", end='', flush=True)
+                time.sleep(delay)
+            i += 1
+        else:
+            if color.startswith("#"):  # 十六进制码
+                hex_code = color.lstrip("#")
+                rgb = tuple(int(hex_code[i:i + 2], 16) for i in (0, 2, 4))
+                selected_color = colored.Fore.RGB(*rgb)
+            elif color.startswith("RGB(") and color.endswith(")"):  # RGB值
+                rgb_str = color[4:-1]
+                rgb = tuple(map(int, rgb_str.split(',')))
+                selected_color = colored.Fore.RGB(*rgb)
+            else:  # 颜色名称
+                selected_color = color_map.get(color, colored.Fore.RGB(187, 187, 187))  # 获取指定颜色，如果未找到，则使用红色作为默认值
+            for char in value_list:
+                print(selected_color + f"\r{char}", end='', flush=True)
+                time.sleep(delay)
+            i += 1
+    if final == ' ':
+        print(colored.Fore.RGB(187, 187, 187) + f"\r{final}\b", end='', flush=True)
+    else:
+        print(colored.Fore.RGB(187, 187, 187) + f"\r{final}\n", end='', flush=True)

@@ -1,5 +1,5 @@
-from random import *
-from turtle import *
+from random import choice
+from turtle import pensize, speed, color, circle, left, ht
 
 pensize(10)
 speed(10000)
