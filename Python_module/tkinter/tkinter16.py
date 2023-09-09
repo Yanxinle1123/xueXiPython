@@ -171,7 +171,8 @@ def key_pressed(event):
                 score_label.config(text=f"得分: {score}")
 
                 matched_letters_set.add(item)
-                del letters_tags[item]
+                if item in letters_tags:
+                    del letters_tags[item]
                 found_unmatched_letter = True
                 canvas.update()
                 # canvas.delete(item)
