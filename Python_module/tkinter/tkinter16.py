@@ -2,7 +2,7 @@ import uuid
 from random import randint, choice
 from tkinter import Tk, Canvas, Label
 
-from comm.comm_draw import ball_to, get_text_center_coords
+from comm.comm_draw import ball_to, get_text_center_coords, ball_first
 from comm.comm_music import play_music_with_window2, quit_music, change_music
 
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
@@ -52,11 +52,8 @@ red_line_x1 = window_width
 red_line_y1 = red_line_y0
 red_line = canvas.create_line(red_line_x0, red_line_y0, red_line_x1, red_line_y1,
                               fill='red', width=red_line_width)
-ball_x1 = 485
-ball_y1 = 700
-ball_x2 = 515
-ball_y2 = 730
-canvas.create_oval(ball_x1, ball_y1, ball_x2, ball_y2, fill="#75147b")
+
+ball_first(canvas)
 
 grade_label = Label(window, text="第 {} 关".format(grade + 1), font=("Arial", 30), bg='white')
 score_label = Label(window, text="得分: 0", font=("Arial", 30), bg='white')
@@ -147,7 +144,7 @@ def move_down(text):
             score2 += 1
             if score2 % 5 == 0:
                 lost_game()
-                canvas.create_oval(ball_x1, ball_y1, ball_x2, ball_y2, fill="#75147b")
+                ball_first(canvas)
             canvas.delete(text)
             canvas.update()
     else:
@@ -180,7 +177,7 @@ def key_pressed(event):
                     quantity = 0
                 if score >= (grade + 1) * 100:
                     winning_the_game()
-                    canvas.create_oval(ball_x1, ball_y1, ball_x2, ball_y2, fill="#75147b")
+                    ball_first(canvas)
                     quantity = 0
                 score_label.config(text=f"得分: {score}")
                 hit_text(item)
