@@ -87,7 +87,7 @@ music_ret_id_last = None
 
 # 创建一个字典来存储字母及其对应的标签
 letters_tags = {}
-matched_letters = set()
+matched_letters_set = set()
 
 
 def generate_and_move():
@@ -95,14 +95,14 @@ def generate_and_move():
     if not is_game_over:
         value = choice(letters)
         random_x = randint(20, window_width - 20)
+        text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24), fill='black')
+
         # 为每个字母分配一个唯一的标签
         unique_tag = str(uuid.uuid4())
-        text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24), fill='black')
         canvas.itemconfig(text, tags=(unique_tag,))
-
         # 将字母及其标签添加到字典中
         letters_tags[text] = unique_tag
-        # text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24), fill='black')
+
         move_down(text)
         task_id_generate_and_move = window.after(grade_map["down_speed"], generate_and_move)
 
@@ -112,15 +112,22 @@ def generate_extra_letters():
         value = choice(letters)
         random_x = randint(20, window_width - 20)
         text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24), fill='black')
+
+        # 为每个字母分配一个唯一的标签
+        unique_tag = str(uuid.uuid4())
+        canvas.itemconfig(text, tags=(unique_tag,))
+        # 将字母及其标签添加到字典中
+        letters_tags[text] = unique_tag
+
         move_down(text)
 
 
 def move_down(text):
-    global score, score2, matched_letters
+    global score, score2, matched_letters_set
     sleep = grade_map["sleep"]
 
     # 如果字母具有匹配的标签，则停止移动
-    if text not in matched_letters:
+    if text not in matched_letters_set:
         canvas.move(text, 0, 1)
 
     # y_speed = 1 + (600 - grade_map["down_speed"])
@@ -142,7 +149,7 @@ def move_down(text):
 
 
 def key_pressed(event):
-    global score, quantity, matched_letters
+    global score, quantity, matched_letters_set
     key = event.char.upper()
     items = canvas.find_all()
 
@@ -152,7 +159,7 @@ def key_pressed(event):
     for item in items:
         if canvas.type(item) == 'text' and canvas.itemcget(item, 'text') == key:
             # 检查字母是否已经匹配
-            if item not in matched_letters:
+            if item not in matched_letters_set:
                 score += 1
                 quantity += 1
                 if quantity >= 4:
@@ -163,7 +170,7 @@ def key_pressed(event):
                     quantity = 0
                 score_label.config(text=f"得分: {score}")
 
-                matched_letters.add(item)
+                matched_letters_set.add(item)
                 del letters_tags[item]
                 found_unmatched_letter = True
                 canvas.update()
@@ -176,9 +183,9 @@ def key_pressed(event):
 
     # 如果未找到未匹配的字母，尝试从已匹配的字母集合中移除一个
     if not found_unmatched_letter:
-        for letter in matched_letters.copy():
+        for letter in matched_letters_set.copy():
             if canvas.itemcget(letter, 'text') == key:
-                matched_letters.remove(letter)
+                matched_letters_set.remove(letter)
                 break
 
 
