@@ -24,8 +24,7 @@ def get_text_center_coords2(canvas, text_item):
 
 
 def ball_to(canvas, target_x, target_y, ball_color='#75147b', pixel=0.1, ball_x1=485,
-            ball_y1=700,
-            ball_x2=515, ball_y2=730, sleep_ms=1):
+            ball_y1=700, ball_x2=515, ball_y2=730, sleep_ms=1):
     def contains_digit(s):
         return any(char.isdigit() for char in s)
 
@@ -36,11 +35,9 @@ def ball_to(canvas, target_x, target_y, ball_color='#75147b', pixel=0.1, ball_x1
         hex2 = rgb_to_hex(hex1)
     else:
         hex2 = hex1
-
-    # 画第一个圆形
     canvas.create_oval(ball_x1, ball_y1, ball_x2, ball_y2, fill=hex2)
 
-    # 画第一个圆形
+    # 画个圆形
     purple_ball2 = canvas.create_oval(ball_x1, ball_y1, ball_x2, ball_y2, fill=hex2)
 
     # 计算紫球的中心坐标
