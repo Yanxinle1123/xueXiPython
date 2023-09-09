@@ -55,6 +55,7 @@ def ball_to(canvas, target_x, target_y, ball_color='#75147b', pixel=0.1,
     purple_ball2 = canvas.create_oval(ball_x1, ball_y1, ball_x2, ball_y2, fill=hex2)
 
     # 计算紫球的中心坐标
+    global purple_center_x, purple_center_y
     purple_center_x, purple_center_y = (ball_x1 + ball_x2) / 2, (ball_y1 + ball_y2) / 2
 
     # 定义移动紫球的函数
