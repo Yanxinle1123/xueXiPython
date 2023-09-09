@@ -36,7 +36,7 @@ window_height = 800  # 窗口的高度
 x = (screen_width - window_width) // 2
 y = (screen_height - window_height) // 2 - 10  # 窗口的x坐标
 
-# 设置窗口的位置和大df小
+# 设置窗口的位置和大小
 window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
 canvas = Canvas(window, width=window_width, height=window_height)
