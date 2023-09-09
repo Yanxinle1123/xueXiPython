@@ -1,6 +1,9 @@
 import tkinter as tk
 
 
+# from Python_module.tkinter.tkinter20 import ball_to
+
+
 def move_rectangle(event):
     key = event.keysym
     window_width = canvas.winfo_width() - 10
@@ -23,10 +26,11 @@ def resize_canvas(event):
 # 创建主窗口
 window = tk.Tk()
 window.title('移动矩形')
-window.geometry('800x600')
-window.resizable(True, True)
+window.geometry('1000x800')
+window.resizable(False, False)
+
 # 创建Canvas小部件
-canvas = tk.Canvas(window, width=400, height=400)
+canvas = tk.Canvas(window, width=1000, height=800)
 canvas.pack()
 
 # 创建矩形
@@ -40,5 +44,5 @@ window.bind('<Configure>', resize_canvas)
 
 # 设置焦点在Canvas上，以便捕获键盘事件
 canvas.focus_set()
-
+# ball_to(canvas, 900, 50, pixel=5, sleep_ms=1)
 window.mainloop()

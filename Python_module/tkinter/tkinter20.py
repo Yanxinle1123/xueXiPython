@@ -1,18 +1,18 @@
-import tkinter as tk
-
 from comm.common import rgb_to_hex
 
 
-def ball_to(target_x, target_y, width=1000, height=800, ball_color='#75147b', pixel=0.1, ball_x1=485, ball_y1=700,
+# window = tk.Tk()
+# window.resizable(False, False)
+
+
+def ball_to(canvas, target_x, target_y, ball_color='#75147b', pixel=0.1, ball_x1=485,
+            ball_y1=700,
             ball_x2=515, ball_y2=730, sleep_ms=1):
     def contains_digit(s):
         return any(char.isdigit() for char in s)
 
-    window = tk.Tk()
-    window.resizable(False, False)
-
-    canvas = tk.Canvas(window, width=width, height=height)
-    canvas.pack()
+    # canvas = tk.Canvas(win, width=width, height=height)
+    # canvas.pack()
 
     hex1 = ball_color
     num = contains_digit(hex1)
@@ -62,8 +62,7 @@ def ball_to(target_x, target_y, width=1000, height=800, ball_color='#75147b', pi
     # 调用move_purple_ball()函数，开始移动紫球
     move_purple_ball()
 
-    window.mainloop()
+    # win.mainloop()
 
-
-if __name__ == '__main__':
-    ball_to(900, 50, pixel=0.2, sleep_ms=10)
+# if __name__ == '__main__':
+#     ball_to(window, 900, 50, pixel=5, sleep_ms=1)
