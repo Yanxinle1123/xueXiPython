@@ -1,10 +1,21 @@
-import tkinter as tk
+# import tkinter as tk
 
 from comm.common import rgb_to_hex
 
 
 def get_text_center_coords(canvas, text_item):
+    bbox = canvas.bbox(text_item)
+    print(f'coords = {bbox}\nitem = {text_item}\n')
+    x_center = (bbox[0] + bbox[2]) / 2
+    y_center = (bbox[1] + bbox[3]) / 2
+    print(f'x_center = {x_center}\n'
+          f'y_center = {y_center}')
+    return x_center, y_center
+
+
+def get_text_center_coords2(canvas, text_item):
     coords = canvas.coords(text_item)
+    print(f'coords = {coords}\nitem = {text_item}\n')
     x_center = (coords[0] + coords[2]) / 2
     y_center = (coords[1] + coords[3]) / 2
     print(f'x_center = {x_center}\n'
@@ -57,6 +68,8 @@ def ball_to(canvas, target_x, target_y, ball_color='#75147b', pixel=0.1, ball_x1
 
         # 判断是否到达目标位置
         if lerp_factor == 1:
+            canvas.delete(purple_ball2)
+
             # 停止移动
             return
 
@@ -65,14 +78,14 @@ def ball_to(canvas, target_x, target_y, ball_color='#75147b', pixel=0.1, ball_x1
 
     # 调用move_purple_ball()函数，开始移动紫球
     move_purple_ball()
+    return purple_ball2
 
-
-window = tk.Tk()
-width = 950
-height = 800
-window.geometry(f'{width}x{height}')
-window.resizable(False, False)
-canvas = tk.Canvas(window, width=width, height=height)
-canvas.pack()
-ball_to(canvas, 100, 100, sleep_ms=1, pixel=5, ball_x1=500, ball_y1=715, ball_x2=515, ball_y2=730)
-window.mainloop()
+# window = tk.Tk()
+# width = 950
+# height = 800
+# window.geometry(f'{width}x{height}')
+# window.resizable(False, False)
+# canvas = tk.Canvas(window, width=width, height=height)
+# canvas.pack()
+# ball_to(canvas, 100, 100, sleep_ms=1, pixel=5, ball_x1=500, ball_y1=715, ball_x2=515, ball_y2=730)
+# window.mainloop()

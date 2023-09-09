@@ -2,6 +2,7 @@ import uuid
 from random import randint, choice
 from tkinter import Tk, Canvas, Label
 
+from comm.comm_draw import ball_to, get_text_center_coords
 from comm.comm_music import play_music_with_window2, quit_music, change_music
 
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
@@ -148,6 +149,12 @@ def move_down(text):
         canvas.update()
 
 
+def hit_text(text):
+    target_x, target_y = get_text_center_coords(canvas, text)
+    ball_to(canvas, target_x, target_y, pixel=10, sleep_ms=1)
+    canvas.delete(text)
+
+
 def key_pressed(event):
     global score, quantity, matched_letters_set
     key = event.char.upper()
@@ -169,7 +176,7 @@ def key_pressed(event):
                     winning_the_game()
                     quantity = 0
                 score_label.config(text=f"得分: {score}")
-
+                hit_text(item)
                 matched_letters_set.add(item)
                 if item in letters_tags:
                     del letters_tags[item]
