@@ -5,19 +5,23 @@ from comm.common import rgb_to_hex
 
 def get_text_center_coords(canvas, text_item):
     bbox = canvas.bbox(text_item)
-    x_center = (bbox[0] + bbox[2]) / 2
-    y_center = (bbox[1] + bbox[3]) / 2
-    return x_center, y_center
+    if bbox:
+        x_center = (bbox[0] + bbox[2]) / 2
+        y_center = (bbox[1] + bbox[3]) / 2
+        return x_center, y_center
+    else:
+        return -1, -1
 
 
 def get_text_center_coords2(canvas, text_item):
     coords = canvas.coords(text_item)
-    # print(f'coords = {coords}\nitem = {text_item}\n')
-    x_center = (coords[0] + coords[2]) / 2
-    y_center = (coords[1] + coords[3]) / 2
-    # print(f'x_center = {x_center}\n'
-    #       f'y_center = {y_center}')
-    return x_center, y_center
+    if not coords or coords == '':
+        # print(f'coords = {coords}\nitem = {text_item}\n')
+        x_center = (coords[0] + coords[2]) / 2
+        y_center = (coords[1] + coords[3]) / 2
+        # print(f'x_center = {x_center}\n'
+        #       f'y_center = {y_center}')
+        return x_center, y_center
 
 
 def contains_digit(s):
