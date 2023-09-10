@@ -198,7 +198,7 @@ def key_pressed(event):
                 if quantity >= 4:
                     generate_extra_letters()
                     quantity = 0
-                if score >= (grade + 1) * 10:
+                if score >= (grade + 1) * 100:
                     winning_the_game()
                     ball = ball_first(canvas, ball_color=grade_map["ball_color"])
                     quantity = 0
