@@ -15,11 +15,11 @@ def get_text_center_coords(canvas, text_item):
 
 def get_text_center_coords2(canvas, text_item):
     coords = canvas.coords(text_item)
-    print(f'coords = {coords}\nitem = {text_item}\n')
+    # print(f'coords = {coords}\nitem = {text_item}\n')
     x_center = (coords[0] + coords[2]) / 2
     y_center = (coords[1] + coords[3]) / 2
-    print(f'x_center = {x_center}\n'
-          f'y_center = {y_center}')
+    # print(f'x_center = {x_center}\n'
+    #       f'y_center = {y_center}')
     return x_center, y_center
 
 
@@ -55,12 +55,10 @@ def ball_to(canvas, target_x, target_y, ball_color='#75147b', pixel=0.1,
     purple_ball2 = canvas.create_oval(ball_x1, ball_y1, ball_x2, ball_y2, fill=hex2)
 
     # 计算紫球的中心坐标
-    global purple_center_x, purple_center_y
     purple_center_x, purple_center_y = (ball_x1 + ball_x2) / 2, (ball_y1 + ball_y2) / 2
 
     # 定义移动紫球的函数
-    def move_purple_ball():
-        global purple_center_x, purple_center_y
+    def move_purple_ball(purple_center_x, purple_center_y):
         # 计算与目标位置的剩余距离
         remaining_distance_x, remaining_distance_y = target_x - purple_center_x, target_y - purple_center_y
 
@@ -83,10 +81,10 @@ def ball_to(canvas, target_x, target_y, ball_color='#75147b', pixel=0.1,
             return
 
         # 延迟一段时间后再次调用move_purple_ball()函数
-        canvas.after(sleep_ms, move_purple_ball)
+        canvas.after(sleep_ms, move_purple_ball, purple_center_x, purple_center_y)
 
     # 调用move_purple_ball()函数，开始移动紫球
-    move_purple_ball()
+    move_purple_ball(purple_center_x, purple_center_y)
 
 # window = tk.Tk()
 # width = 950
