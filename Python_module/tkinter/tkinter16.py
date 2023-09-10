@@ -1,7 +1,7 @@
 import random
 import uuid
 from random import randint, choice
-from tkinter import Tk, Canvas, Label
+from tkinter import Tk, Canvas, Label, Button
 
 from comm.comm_draw import ball_to, get_text_center_coords, ball_first, change_ball_color
 from comm.comm_music import play_music_with_window2, quit_music, change_music
@@ -343,6 +343,10 @@ def on_close():
     window.destroy()
 
 
+def close_game():
+    on_close()
+
+
 generate_and_move()
 window.bind('<Key>', key_pressed)
 
@@ -354,8 +358,8 @@ win = Tk()
 music_ret_id_first = play_music_with_window2(win, music_file_start, 290000,
                                              True, True)
 
-# play_music_with_window2(win, music_file_mid, 290000,
-#                         True, True)
+close_button = Button(canvas, text='退出', font=("Arial", 50), command=close_game)
+close_button.place(x=)
 
 window.protocol("WM_DELETE_WINDOW", on_close)
 window.mainloop()
