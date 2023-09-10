@@ -100,7 +100,7 @@ quantity = 0
 music_ret_id_mid = None
 music_ret_id_last = None
 
-# 创建一个字典来存储字母及其对应的标签
+# 创建一部字典来存储字母及其对应的标签
 letters_tags = {}
 matched_letters_set = set()
 
@@ -284,7 +284,8 @@ def make_red_line():
 
 
 def winning_the_game():
-    global is_game_over, grade, grade_map, music_ret_id_first, music_ret_id_mid, music_ret_id_last, quantity, score, ball
+    global is_game_over, grade, grade_map, music_ret_id_first, music_ret_id_mid, music_ret_id_last, \
+        quantity, score, ball
     is_game_over = False
     # canvas.delete("all")
     # 增加关卡
