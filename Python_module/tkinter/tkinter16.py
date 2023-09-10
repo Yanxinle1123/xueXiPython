@@ -4,7 +4,7 @@ from random import randint, choice
 from tkinter import Tk, Canvas, Label, Button
 
 from comm.comm_draw import ball_to, get_text_center_coords, ball_first, change_ball_color
-from comm.comm_music import play_music_with_window2, quit_music, change_music
+from comm.comm_music import play_music_by_window, quit_music, change_music
 
 yellow = '#E8BA36'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
@@ -356,8 +356,8 @@ music_file_start = "./game_music_start.ogg"
 music_file_mid = "./game_music_mid_forever.mp3"
 music_file_last = "./game_music_last.mp3"
 
-music_ret_id_first = play_music_with_window2(win, music_file_start, 290000,
-                                             True, True)
+music_ret_id_first = play_music_by_window(win, music_file_start, 290000,
+                                          True, True)
 
 start_button = Button(canvas, text='开始', font=("Arial", 30), command=start_game)
 start_width = start_button.winfo_reqwidth()

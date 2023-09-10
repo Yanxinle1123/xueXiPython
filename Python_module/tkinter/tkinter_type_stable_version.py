@@ -1,7 +1,7 @@
 from random import randint, choice
 from tkinter import Tk, Canvas, Label
 
-from comm.comm_music import stop_music, play_music_with_window2
+from comm.comm_music import stop_music, play_music_by_window
 
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
            'W', 'X', 'Y', 'Z']
@@ -155,8 +155,8 @@ window.bind('<Key>', key_pressed)
 
 win = Tk()
 music_file = "./game_music_start.ogg"
-play_music_with_window2(win, music_file, 290000,
-                        True, True)
+play_music_by_window(win, music_file, 290000,
+                     True, True)
 
 window.protocol("WM_DELETE_WINDOW", on_close)
 window.mainloop()
