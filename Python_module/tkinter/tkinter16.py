@@ -7,24 +7,32 @@ from comm.comm_draw import ball_to, get_text_center_coords, ball_first, change_b
 from comm.comm_music import play_music_with_window2, quit_music, change_music
 
 yellow = '#E8BA36'
-letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
-           'W', 'X', 'Y', 'Z']
+letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+           'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
 rainbow = f'red,blue,{yellow}'
 two_color = "red,blue"
 grade_list = [
-    {"sleep": 20, "other_char": 0, "down_speed": 600, "ball_color": "red", "char_color": "red"},  # 第 1 关
-    {"sleep": 15, "other_char": 0, "down_speed": 600, "ball_color": "red", "char_color": "red"},  # 第 2 关
-    {"sleep": 10, "other_char": 0, "down_speed": 600, "ball_color": "blue", "char_color": "blue"},  # 第 3 关
-    {"sleep": 20, "other_char": 1, "down_speed": 500, "ball_color": "blue", "char_color": two_color},  # 第 4 关
-    {"sleep": 20, "other_char": 2, "down_speed": 500, "ball_color": "red", "char_color": two_color},
-    # 第 5 关
-    {"sleep": 20, "other_char": 3, "down_speed": 500, "ball_color": "red", "char_color": two_color},
-    # 第 6 关
-    {"sleep": 15, "other_char": 2, "down_speed": 400, "ball_color": yellow, "char_color": f"{yellow},red"},
-    # 第 7 关
-    {"sleep": 15, "other_char": 3, "down_speed": 400, "ball_color": "blue", "char_color": rainbow},  # 第 8 关
-    {"sleep": 10, "other_char": 5, "down_speed": 300, "ball_color": yellow, "char_color": rainbow},  # 第 9 关
-    {"sleep": 10, "other_char": 8, "down_speed": 250, "ball_color": "red", "char_color": rainbow},  # 第 10 关
+    {"move_char_time_ms": 20, "other_char": 0, "gen_char_time_ms": 600,
+     "ball_color": "red", "char_color": "red"},  # 第 1 关
+    {"move_char_time_ms": 15, "other_char": 0, "gen_char_time_ms": 600,
+     "ball_color": "red", "char_color": "red"},  # 第 2 关
+    {"move_char_time_ms": 10, "other_char": 0, "gen_char_time_ms": 600,
+     "ball_color": "blue", "char_color": "blue"},  # 第 3 关
+    {"move_char_time_ms": 20, "other_char": 1, "gen_char_time_ms": 500,
+     "ball_color": "blue", "char_color": two_color},  # 第 4 关
+    {"move_char_time_ms": 20, "other_char": 2, "gen_char_time_ms": 500,
+     "ball_color": "red", "char_color": two_color},  # 第 5 关
+    {"move_char_time_ms": 20, "other_char": 3, "gen_char_time_ms": 500,
+     "ball_color": "red", "char_color": two_color},  # 第 6 关
+    {"move_char_time_ms": 15, "other_char": 2, "gen_char_time_ms": 400,
+     "ball_color": yellow, "char_color": f"{yellow},red"},  # 第 7 关
+    {"move_char_time_ms": 15, "other_char": 3, "gen_char_time_ms": 400,
+     "ball_color": "blue", "char_color": rainbow},  # 第 8 关
+    {"move_char_time_ms": 10, "other_char": 5, "gen_char_time_ms": 300,
+     "ball_color": yellow, "char_color": rainbow},  # 第 9 关
+    {"move_char_time_ms": 10, "other_char": 8, "gen_char_time_ms": 250,
+     "ball_color": "red", "char_color": rainbow},  # 第 10 关
 ]
 color_change = {
     '1': 'red',
@@ -140,7 +148,7 @@ def generate_and_move():
         letters_tags[text] = unique_tag
 
         move_down(text)
-        task_id_generate_and_move = window.after(grade_map["down_speed"], generate_and_move)
+        task_id_generate_and_move = window.after(grade_map["gen_char_time_ms"], generate_and_move)
 
 
 def generate_extra_letters():
@@ -161,19 +169,16 @@ def generate_extra_letters():
 
 def move_down(text):
     global score, score2, matched_letters_set, ball
-    sleep = grade_map["sleep"]
 
     # 如果字母具有匹配的标签，则停止移动
     if text not in matched_letters_set:
         canvas.move(text, 0, 1)
 
-    # y_speed = 1 + (600 - grade_map["down_speed"])
-    # canvas.move(text, 0, 1)
     coords_list = canvas.coords(text)
     # print(f"text={text}|coords_list={coords_list}")
     if coords_list:
         if canvas.coords(text)[1] < 660:
-            window.after(sleep, move_down, text)
+            window.after(grade_map["move_char_time_ms"], move_down, text)
         else:
             score2 += 1
             if score2 % 5 == 0:
