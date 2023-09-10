@@ -5,11 +5,8 @@ from comm.common import rgb_to_hex
 
 def get_text_center_coords(canvas, text_item):
     bbox = canvas.bbox(text_item)
-    print(f'coords = {bbox}\nitem = {text_item}\n')
     x_center = (bbox[0] + bbox[2]) / 2
     y_center = (bbox[1] + bbox[3]) / 2
-    print(f'x_center = {x_center}\n'
-          f'y_center = {y_center}')
     return x_center, y_center
 
 
@@ -27,7 +24,7 @@ def contains_digit(s):
     return any(char.isdigit() for char in s)
 
 
-def ball_first(canvas, ball_color='#75147b', ball_x1=485, ball_y1=700,
+def ball_first(canvas, ball_color='green', ball_x1=485, ball_y1=700,
                ball_x2=515, ball_y2=730):
     hex1 = ball_color
     num = contains_digit(hex1)
@@ -38,10 +35,15 @@ def ball_first(canvas, ball_color='#75147b', ball_x1=485, ball_y1=700,
         hex2 = hex1
 
     # 画第一个圆形
-    canvas.create_oval(ball_x1, ball_y1, ball_x2, ball_y2, fill=hex2)
+    return canvas.create_oval(ball_x1, ball_y1, ball_x2, ball_y2, fill=hex2)
 
 
-def ball_to(canvas, target_x, target_y, ball_color='#75147b', pixel=0.1,
+def change_ball_color(canvas, ball, color):
+    canvas.itemconfig(ball, fill=color)
+    canvas.update()
+
+
+def ball_to(canvas, target_x, target_y, ball_color='green', pixel=0.1,
             ball_x1=485, ball_y1=700, ball_x2=515, ball_y2=730, sleep_ms=1):
     hex1 = ball_color
     num = contains_digit(hex1)

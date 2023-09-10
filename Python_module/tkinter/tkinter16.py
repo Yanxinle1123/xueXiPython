@@ -2,23 +2,31 @@ import uuid
 from random import randint, choice
 from tkinter import Tk, Canvas, Label
 
-from comm.comm_draw import ball_to, get_text_center_coords, ball_first
+from comm.comm_draw import ball_to, get_text_center_coords, ball_first, change_ball_color
 from comm.comm_music import play_music_with_window2, quit_music, change_music
 
+yellow = '#EFBD6C'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
            'W', 'X', 'Y', 'Z']
 grade_list = [
-    {"sleep": 20, "other_char": 0, "down_speed": 600},  # 第 1 关
-    {"sleep": 15, "other_char": 0, "down_speed": 600},  # 第 2 关
-    {"sleep": 10, "other_char": 0, "down_speed": 600},  # 第 3 关
-    {"sleep": 20, "other_char": 1, "down_speed": 500},  # 第 4 关
-    {"sleep": 20, "other_char": 2, "down_speed": 500},  # 第 5 关
-    {"sleep": 20, "other_char": 3, "down_speed": 500},  # 第 6 关
-    {"sleep": 15, "other_char": 2, "down_speed": 400},  # 第 7 关
-    {"sleep": 15, "other_char": 3, "down_speed": 400},  # 第 8 关
-    {"sleep": 10, "other_char": 5, "down_speed": 300},  # 第 9 关
-    {"sleep": 10, "other_char": 8, "down_speed": 250},  # 第 10 关
+    {"sleep": 20, "other_char": 0, "down_speed": 600, "ball_color": "red", "char_color": "red"},  # 第 1 关
+    {"sleep": 15, "other_char": 0, "down_speed": 600, "ball_color": "red", "char_color": "red"},  # 第 2 关
+    {"sleep": 10, "other_char": 0, "down_speed": 600, "ball_color": "blue", "char_color": "blue"},  # 第 3 关
+    {"sleep": 20, "other_char": 1, "down_speed": 500, "ball_color": "blue", "char_color": "red,blue"},  # 第 4 关
+    {"sleep": 20, "other_char": 2, "down_speed": 500, "ball_color": "yellow", "char_color": "yellow,red,blue"},  # 第 5 关
+    {"sleep": 20, "other_char": 3, "down_speed": 500, "ball_color": "purple", "char_color": "yellow,red,blue"},  # 第 6 关
+    {"sleep": 15, "other_char": 2, "down_speed": 400, "ball_color": "purple", "char_color": "yellow,purple,red"},
+    # 第 7 关
+    {"sleep": 15, "other_char": 3, "down_speed": 400, "ball_color": "blue", "char_color": "rainbow"},  # 第 8 关
+    {"sleep": 10, "other_char": 5, "down_speed": 300, "ball_color": "yellow", "char_color": "red,purple"},  # 第 9 关
+    {"sleep": 10, "other_char": 8, "down_speed": 250, "ball_color": "purple", "char_color": "rainbow"},  # 第 10 关
 ]
+color_change = {
+    '1': 'red',
+    '2': 'blue',
+    '3': 'yellow',
+    '4': 'purple',
+}
 grade = 0
 grade_map = grade_list[grade]
 
@@ -47,13 +55,13 @@ canvas.pack()
 # ball_to(canvas, 900, 50, pixel=5, sleep_ms=1)
 red_line_width = 20
 red_line_x0 = 0
-red_line_y0 = window_height - 50
+red_line_y0 = window_height - 120
 red_line_x1 = window_width
 red_line_y1 = red_line_y0
 red_line = canvas.create_line(red_line_x0, red_line_y0, red_line_x1, red_line_y1,
                               fill='red', width=red_line_width)
 
-ball_first(canvas)
+ball = ball_first(canvas, ball_color=grade_map["ball_color"])
 
 grade_label = Label(window, text="第 {} 关".format(grade + 1), font=("Arial", 30), bg='white')
 score_label = Label(window, text="得分: 0", font=("Arial", 30), bg='white')
@@ -126,7 +134,7 @@ def generate_extra_letters():
 
 
 def move_down(text):
-    global score, score2, matched_letters_set
+    global score, score2, matched_letters_set, ball
     sleep = grade_map["sleep"]
 
     # 如果字母具有匹配的标签，则停止移动
@@ -138,13 +146,13 @@ def move_down(text):
     coords_list = canvas.coords(text)
     # print(f"text={text}|coords_list={coords_list}")
     if coords_list:
-        if canvas.coords(text)[1] < 730:
+        if canvas.coords(text)[1] < 660:
             window.after(sleep, move_down, text)
         else:
             score2 += 1
             if score2 % 5 == 0:
                 lost_game()
-                ball_first(canvas)
+                ball = ball_first(canvas)
             canvas.delete(text)
             canvas.update()
     else:
@@ -154,12 +162,22 @@ def move_down(text):
 
 def hit_text(text):
     target_x, target_y = get_text_center_coords(canvas, text)
-    ball_to(canvas, target_x, target_y, pixel=10, sleep_ms=1)
+    ball_to(canvas, target_x, target_y, pixel=10, sleep_ms=1, ball_color=grade_map["ball_color"])
     canvas.delete(text)
 
 
+def is_color_change_key(key):
+    return key in color_change
+
+
+def do_color_change(key):
+    color = color_change[key]
+    grade_map["ball_color"] = color
+    change_ball_color(canvas, ball, color)
+
+
 def key_pressed(event):
-    global score, quantity, matched_letters_set
+    global score, quantity, matched_letters_set, ball
     key = event.char.upper()
     items = canvas.find_all()
 
@@ -167,6 +185,8 @@ def key_pressed(event):
     found_unmatched_letter = False
 
     for item in items:
+        if is_color_change_key(key):
+            do_color_change(key)
         if canvas.type(item) == 'text' and canvas.itemcget(item, 'text') == key:
             # 检查字母是否已经匹配
             if item not in matched_letters_set:
@@ -175,9 +195,9 @@ def key_pressed(event):
                 if quantity >= 4:
                     generate_extra_letters()
                     quantity = 0
-                if score >= (grade + 1) * 100:
+                if score >= (grade + 1) * 10:
                     winning_the_game()
-                    ball_first(canvas)
+                    ball = ball_first(canvas, ball_color=grade_map["ball_color"])
                     quantity = 0
                 score_label.config(text=f"得分: {score}")
                 hit_text(item)
@@ -235,7 +255,7 @@ def make_red_line():
 
 
 def winning_the_game():
-    global is_game_over, grade, grade_map, music_ret_id_first, music_ret_id_mid, music_ret_id_last, quantity, score
+    global is_game_over, grade, grade_map, music_ret_id_first, music_ret_id_mid, music_ret_id_last, quantity, score, ball
     is_game_over = False
     # canvas.delete("all")
     # 增加关卡
@@ -255,12 +275,13 @@ def winning_the_game():
                                          True, True, music_ret_id_mid)
     grade_map = grade_list[grade]
 
+    ball = ball_first(canvas, ball_color=grade_map["ball_color"])
     window.after(60, restart_game)
     canvas.update()
 
 
 def restart_game():
-    global score, score2, is_game_over, red_line, grade_map, quantity
+    global score, score2, is_game_over, red_line, grade_map, quantity, ball
     # score = 0
     is_game_over = False
     score2 = 0
@@ -275,6 +296,7 @@ def restart_game():
     canvas.update()
 
     make_red_line()
+    ball = ball_first(canvas, ball_color=grade_map["ball_color"])
     quantity = 0
     generate_and_move()
     # print(f"restart_game_quantity={quantity}")
