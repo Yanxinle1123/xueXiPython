@@ -9,27 +9,27 @@ from comm.comm_music import play_music_with_window2, quit_music, change_music
 yellow = '#E8BA36'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
            'W', 'X', 'Y', 'Z']
-rainbow = f'red,blue,{yellow},purple'
+rainbow = f'red,blue,{yellow}'
+two_color = "red,blue"
 grade_list = [
     {"sleep": 20, "other_char": 0, "down_speed": 600, "ball_color": "red", "char_color": "red"},  # 第 1 关
     {"sleep": 15, "other_char": 0, "down_speed": 600, "ball_color": "red", "char_color": "red"},  # 第 2 关
     {"sleep": 10, "other_char": 0, "down_speed": 600, "ball_color": "blue", "char_color": "blue"},  # 第 3 关
-    {"sleep": 20, "other_char": 1, "down_speed": 500, "ball_color": "blue", "char_color": "red,blue"},  # 第 4 关
-    {"sleep": 20, "other_char": 2, "down_speed": 500, "ball_color": "yellow", "char_color": f"{yellow},red,blue"},
+    {"sleep": 20, "other_char": 1, "down_speed": 500, "ball_color": "blue", "char_color": two_color},  # 第 4 关
+    {"sleep": 20, "other_char": 2, "down_speed": 500, "ball_color": "red", "char_color": two_color},
     # 第 5 关
-    {"sleep": 20, "other_char": 3, "down_speed": 500, "ball_color": "purple", "char_color": f"{yellow},red,blue"},
+    {"sleep": 20, "other_char": 3, "down_speed": 500, "ball_color": "red", "char_color": two_color},
     # 第 6 关
-    {"sleep": 15, "other_char": 2, "down_speed": 400, "ball_color": "purple", "char_color": f"{yellow},purple,red"},
+    {"sleep": 15, "other_char": 2, "down_speed": 400, "ball_color": yellow, "char_color": f"{yellow},red"},
     # 第 7 关
     {"sleep": 15, "other_char": 3, "down_speed": 400, "ball_color": "blue", "char_color": rainbow},  # 第 8 关
-    {"sleep": 10, "other_char": 5, "down_speed": 300, "ball_color": "yellow", "char_color": rainbow},  # 第 9 关
-    {"sleep": 10, "other_char": 8, "down_speed": 250, "ball_color": "purple", "char_color": rainbow},  # 第 10 关
+    {"sleep": 10, "other_char": 5, "down_speed": 300, "ball_color": yellow, "char_color": rainbow},  # 第 9 关
+    {"sleep": 10, "other_char": 8, "down_speed": 250, "ball_color": "red", "char_color": rainbow},  # 第 10 关
 ]
 color_change = {
     '1': 'red',
     '2': 'blue',
-    '3': 'yellow',
-    '4': 'purple',
+    '3': yellow,
 }
 grade = 0
 grade_map = grade_list[grade]
@@ -103,6 +103,19 @@ music_ret_id_last = None
 # 创建一个字典来存储字母及其对应的标签
 letters_tags = {}
 matched_letters_set = set()
+
+
+def is_match_color(item):
+    char_color = canvas.itemcget(item, 'fill')
+    ball_color = canvas.itemcget(ball, 'fill')
+    # print(f'is_match_color|char_color = {char_color}\n'
+    #       f'is_match_color|ball_color = {ball_color}\n')
+    if char_color == ball_color:
+        # print('yes')
+        return True
+    else:
+        # print('no')
+        return False
 
 
 def get_text_color():
@@ -203,7 +216,7 @@ def key_pressed(event):
     for item in items:
         if is_color_change_key(key):
             do_color_change(key)
-        if canvas.type(item) == 'text' and canvas.itemcget(item, 'text') == key:
+        if canvas.type(item) == 'text' and canvas.itemcget(item, 'text') == key and is_match_color(item):
             # 检查字母是否已经匹配
             if item not in matched_letters_set:
                 score += 1
