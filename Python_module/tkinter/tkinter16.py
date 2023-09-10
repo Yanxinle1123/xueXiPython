@@ -67,7 +67,7 @@ canvas.pack()
 # ball_to(canvas, 900, 50, pixel=5, sleep_ms=1)
 red_line_width = 20
 red_line_x0 = 0
-red_line_y0 = window_height - 120
+red_line_y0 = window_height - 80
 red_line_x1 = window_width
 red_line_y1 = red_line_y0
 red_line = canvas.create_line(red_line_x0, red_line_y0, red_line_x1, red_line_y1,
@@ -347,19 +347,37 @@ def close_game():
     on_close()
 
 
-generate_and_move()
-window.bind('<Key>', key_pressed)
+def start_game():
+    generate_and_move()
 
+
+win = Tk()
 music_file_start = "./game_music_start.ogg"
 music_file_mid = "./game_music_mid_forever.mp3"
 music_file_last = "./game_music_last.mp3"
-win = Tk()
 
 music_ret_id_first = play_music_with_window2(win, music_file_start, 290000,
                                              True, True)
 
-close_button = Button(canvas, text='退出', font=("Arial", 50), command=close_game)
-close_button.place(x=)
+start_button = Button(canvas, text='开始', font=("Arial", 30), command=start_game)
+start_width = start_button.winfo_reqwidth()
+start_height = start_button.winfo_reqheight()
 
+close_button = Button(canvas, text='退出', font=("Arial", 30), command=close_game)
+close_width = close_button.winfo_reqwidth()
+close_height = close_button.winfo_reqheight()
+
+button_width_gap = 40
+button_height_gap = 22
+start_x = (window_width - start_width - close_width - button_width_gap) // 2
+start_y = red_line_y0 + button_height_gap
+
+close_x = start_x + start_width + button_width_gap
+close_y = start_y
+
+start_button.place(x=start_x, y=start_y)
+close_button.place(x=close_x, y=close_y)
+
+window.bind('<Key>', key_pressed)
 window.protocol("WM_DELETE_WINDOW", on_close)
 window.mainloop()

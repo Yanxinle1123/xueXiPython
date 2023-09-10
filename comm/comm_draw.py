@@ -28,8 +28,8 @@ def contains_digit(s):
     return any(char.isdigit() for char in s)
 
 
-def ball_first(canvas, ball_color='green', ball_x1=485, ball_y1=700,
-               ball_x2=515, ball_y2=730):
+def ball_first(canvas, ball_color='green', ball_x1=485, ball_y1=675,
+               ball_x2=515, ball_y2=705):
     hex1 = ball_color
     num = contains_digit(hex1)
     if hex1[0] != '#' and num:
