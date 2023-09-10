@@ -1,3 +1,4 @@
+import random
 import uuid
 from random import randint, choice
 from tkinter import Tk, Canvas, Label
@@ -5,21 +6,24 @@ from tkinter import Tk, Canvas, Label
 from comm.comm_draw import ball_to, get_text_center_coords, ball_first, change_ball_color
 from comm.comm_music import play_music_with_window2, quit_music, change_music
 
-yellow = '#EFBD6C'
+yellow = '#E8BA36'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
            'W', 'X', 'Y', 'Z']
+rainbow = f'red,blue,{yellow},purple'
 grade_list = [
     {"sleep": 20, "other_char": 0, "down_speed": 600, "ball_color": "red", "char_color": "red"},  # 第 1 关
     {"sleep": 15, "other_char": 0, "down_speed": 600, "ball_color": "red", "char_color": "red"},  # 第 2 关
     {"sleep": 10, "other_char": 0, "down_speed": 600, "ball_color": "blue", "char_color": "blue"},  # 第 3 关
     {"sleep": 20, "other_char": 1, "down_speed": 500, "ball_color": "blue", "char_color": "red,blue"},  # 第 4 关
-    {"sleep": 20, "other_char": 2, "down_speed": 500, "ball_color": "yellow", "char_color": "yellow,red,blue"},  # 第 5 关
-    {"sleep": 20, "other_char": 3, "down_speed": 500, "ball_color": "purple", "char_color": "yellow,red,blue"},  # 第 6 关
-    {"sleep": 15, "other_char": 2, "down_speed": 400, "ball_color": "purple", "char_color": "yellow,purple,red"},
+    {"sleep": 20, "other_char": 2, "down_speed": 500, "ball_color": "yellow", "char_color": f"{yellow},red,blue"},
+    # 第 5 关
+    {"sleep": 20, "other_char": 3, "down_speed": 500, "ball_color": "purple", "char_color": f"{yellow},red,blue"},
+    # 第 6 关
+    {"sleep": 15, "other_char": 2, "down_speed": 400, "ball_color": "purple", "char_color": f"{yellow},purple,red"},
     # 第 7 关
-    {"sleep": 15, "other_char": 3, "down_speed": 400, "ball_color": "blue", "char_color": "rainbow"},  # 第 8 关
-    {"sleep": 10, "other_char": 5, "down_speed": 300, "ball_color": "yellow", "char_color": "red,purple"},  # 第 9 关
-    {"sleep": 10, "other_char": 8, "down_speed": 250, "ball_color": "purple", "char_color": "rainbow"},  # 第 10 关
+    {"sleep": 15, "other_char": 3, "down_speed": 400, "ball_color": "blue", "char_color": rainbow},  # 第 8 关
+    {"sleep": 10, "other_char": 5, "down_speed": 300, "ball_color": "yellow", "char_color": rainbow},  # 第 9 关
+    {"sleep": 10, "other_char": 8, "down_speed": 250, "ball_color": "purple", "char_color": rainbow},  # 第 10 关
 ]
 color_change = {
     '1': 'red',
@@ -101,12 +105,20 @@ letters_tags = {}
 matched_letters_set = set()
 
 
+def get_text_color():
+    char_color_str = grade_map['char_color']
+    char_color_list = char_color_str.split(',')
+    char_color = random.choice(char_color_list)
+    return char_color
+
+
 def generate_and_move():
     global task_id_generate_and_move
     if not is_game_over:
         value = choice(letters)
         random_x = randint(20, window_width - 20)
-        text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24), fill='black')
+        text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24),
+                                  fill=get_text_color())
 
         # 为每个字母分配一个唯一的标签
         unique_tag = str(uuid.uuid4())
@@ -122,7 +134,8 @@ def generate_extra_letters():
     for _ in range(grade_map["other_char"]):
         value = choice(letters)
         random_x = randint(20, window_width - 20)
-        text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24), fill='black')
+        text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24),
+                                  fill=get_text_color())
 
         # 为每个字母分配一个唯一的标签
         unique_tag = str(uuid.uuid4())
