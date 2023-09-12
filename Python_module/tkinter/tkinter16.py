@@ -42,6 +42,9 @@ color_change = {
 grade = 0
 grade_map = grade_list[grade]
 
+pause_button_text_color = 'gray'
+continue_button_text_color = 'gray'
+
 # 创建窗口
 window = Tk()
 window.title("打字游戏")
@@ -347,6 +350,24 @@ def close_game():
     on_close()
 
 
+def start_game():
+    return
+
+
+def pause_game():
+    if pause_button.cget('fg') != 'gray':
+        print('yes')
+    else:
+        return
+
+
+def continue_game():
+    if continue_button.cget('fg') != 'gray':
+        print('yes')
+    else:
+        return
+
+
 generate_and_move()
 window.bind('<Key>', key_pressed)
 
@@ -359,7 +380,16 @@ music_ret_id_first = play_music_with_window2(win, music_file_start, 290000,
                                              True, True)
 
 close_button = Button(canvas, text='退出', font=("Arial", 50), command=close_game)
-close_button.place(x=)
+close_button.place(x=10, y=700)
+
+start_button = Button(canvas, text='开始', font=("Arial", 50), command=start_game)
+start_button.place(x=250, y=700)
+
+pause_button = Button(canvas, text='暂停', font=("Arial", 50), fg=pause_button_text_color, command=pause_game)
+pause_button.place(x=610, y=700)
+
+continue_button = Button(canvas, text='继续', font=("Arial", 50), fg=continue_button_text_color, command=continue_game)
+continue_button.place(x=850, y=700)
 
 window.protocol("WM_DELETE_WINDOW", on_close)
 window.mainloop()
