@@ -3,7 +3,7 @@ from random import randint, choice
 from tkinter import Tk, Canvas, Label
 
 from comm.comm_draw import ball_to, get_text_center_coords, ball_first, change_ball_color
-from comm.comm_music import play_music_with_window2, quit_music, change_music
+from comm.comm_music import play_music_by_window, quit_music, change_music
 
 yellow = '#EFBD6C'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
@@ -319,8 +319,8 @@ music_file_mid = "./game_music_mid_forever.mp3"
 music_file_last = "./game_music_last.mp3"
 win = Tk()
 
-music_ret_id_first = play_music_with_window2(win, music_file_start, 290000,
-                                             True, True)
+music_ret_id_first = play_music_by_window(win, music_file_start, 290000,
+                                          True, True)
 
 # play_music_with_window2(win, music_file_mid, 290000,
 #                         True, True)
