@@ -4,7 +4,7 @@ from random import randint, choice
 from tkinter import Tk, Canvas, Label, Button
 
 from comm.comm_draw import ball_to, get_text_center_coords, ball_first, change_ball_color
-from comm.comm_music import play_music_with_window2, quit_music, change_music
+from comm.comm_music import play_music_by_window, quit_music, change_music
 
 yellow = '#E8BA36'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
@@ -70,7 +70,7 @@ canvas.pack()
 # ball_to(canvas, 900, 50, pixel=5, sleep_ms=1)
 red_line_width = 20
 red_line_x0 = 0
-red_line_y0 = window_height - 120
+red_line_y0 = window_height - 80
 red_line_x1 = window_width
 red_line_y1 = red_line_y0
 red_line = canvas.create_line(red_line_x0, red_line_y0, red_line_x1, red_line_y1,
@@ -351,7 +351,7 @@ def close_game():
 
 
 def start_game():
-    return
+    generate_and_move()
 
 
 def pause_game():
@@ -368,28 +368,51 @@ def continue_game():
         return
 
 
-generate_and_move()
-window.bind('<Key>', key_pressed)
-
+win = Tk()
 music_file_start = "./game_music_start.ogg"
 music_file_mid = "./game_music_mid_forever.mp3"
 music_file_last = "./game_music_last.mp3"
-win = Tk()
 
-music_ret_id_first = play_music_with_window2(win, music_file_start, 290000,
-                                             True, True)
+music_ret_id_first = play_music_by_window(win, music_file_start, 290000,
+                                          True, True)
 
-close_button = Button(canvas, text='退出', font=("Arial", 50), command=close_game)
-close_button.place(x=10, y=700)
+start_button = Button(canvas, text='开始', font=("Arial", 30), command=start_game)
+start_width = start_button.winfo_reqwidth()
+start_height = start_button.winfo_reqheight()
 
-start_button = Button(canvas, text='开始', font=("Arial", 50), command=start_game)
-start_button.place(x=250, y=700)
+close_button = Button(canvas, text='退出', font=("Arial", 30), command=close_game)
+close_width = close_button.winfo_reqwidth()
+close_height = close_button.winfo_reqheight()
 
-pause_button = Button(canvas, text='暂停', font=("Arial", 50), fg=pause_button_text_color, command=pause_game)
-pause_button.place(x=610, y=700)
+pause_button = Button(canvas, text='暂停', font=("Arial", 30), fg=pause_button_text_color, command=pause_game)
+pause_width = pause_button.winfo_reqwidth()
+pause_height = pause_button.winfo_reqheight()
 
-continue_button = Button(canvas, text='继续', font=("Arial", 50), fg=continue_button_text_color, command=continue_game)
-continue_button.place(x=850, y=700)
+continue_button = Button(canvas, text='继续', font=("Arial", 30), fg=continue_button_text_color, command=continue_game)
+continue_width = continue_button.winfo_reqwidth()
+continue_height = continue_button.winfo_reqheight()
 
+button_width_gap = 40
+button_height_gap = 22
+start_x = (window_width - start_width - button_width_gap - close_width - button_width_gap
+           - pause_width - button_width_gap - continue_width) // 2
+start_y = red_line_y0 + button_height_gap
+
+close_x = start_x + start_width + button_width_gap
+close_y = start_y
+
+pause_x = close_x + close_width + button_width_gap
+pause_y = start_y
+
+continue_x = pause_x + pause_width + button_width_gap
+continue_y = start_y
+
+start_button.place(x=start_x, y=start_y)
+close_button.place(x=close_x, y=close_y)
+
+pause_button.place(x=pause_x, y=pause_y)
+continue_button.place(x=continue_x, y=continue_y)
+
+window.bind('<Key>', key_pressed)
 window.protocol("WM_DELETE_WINDOW", on_close)
 window.mainloop()
