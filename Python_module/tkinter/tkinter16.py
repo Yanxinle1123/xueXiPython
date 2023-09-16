@@ -74,7 +74,6 @@ canvas.config(bg='white')
 canvas.pack()
 
 is_continue = True
-# ball_to(canvas, 900, 50, pixel=5, sleep_ms=1)
 red_line_width = 20
 red_line_x0 = 0
 red_line_y0 = window_height - 80
@@ -97,7 +96,6 @@ grade_label_height = grade_label.winfo_reqheight()
 score_label_width = score_label.winfo_reqwidth()
 result_label_width = result_label.winfo_reqwidth()
 result_label_height = result_label.winfo_reqheight()
-# print(f"result_label_width={result_label_width}|result_label_height={result_label_height}")
 gap_width = 20
 grade_label_x = (window_width - grade_label_width - score_label_width - gap_width) // 2
 
@@ -128,13 +126,9 @@ matched_letters_set = set()
 def is_match_color(item):
     char_color = canvas.itemcget(item, 'fill')
     ball_color = canvas.itemcget(ball, 'fill')
-    # print(f'is_match_color|char_color = {char_color}\n'
-    #       f'is_match_color|ball_color = {ball_color}\n')
     if char_color == ball_color:
-        # print('yes')
         return True
     else:
-        # print('no')
         return False
 
 
@@ -152,13 +146,11 @@ def generate_and_move():
         random_x = randint(20, window_width - 20)
         text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24),
                                   fill=get_text_color())
-
         # 为每个字母分配一个唯一的标签
         unique_tag = str(uuid.uuid4())
         canvas.itemconfig(text, tags=(unique_tag,))
         # 将字母及其标签添加到字典中
         letters_tags[text] = unique_tag
-
         move_down(text)
         task_id_generate_and_move = window.after(grade_map["gen_char_time_ms"], generate_and_move)
 
@@ -171,13 +163,11 @@ def generate_extra_letters():
             random_x = randint(20, window_width - 20)
             text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24),
                                       fill=get_text_color())
-
             # 为每个字母分配一个唯一的标签
             unique_tag = str(uuid.uuid4())
             canvas.itemconfig(text, tags=(unique_tag,))
             # 将字母及其标签添加到字典中
             letters_tags[text] = unique_tag
-
             move_down(text)
 
 
@@ -206,7 +196,6 @@ def move_down(text):
 
 def hit_text(text):
     target_x, target_y = get_text_center_coords(canvas, text)
-    # print(f'hit_text|target_x = {target_x} target_y = {target_y}')
     if target_x == -1 and target_y == -1:
         return
     ball_to(canvas, target_x, target_y, pixel=10, sleep_ms=1, ball_color=grade_map["ball_color"])
@@ -228,10 +217,8 @@ def key_pressed(event):
     if is_continue:
         key = event.char.upper()
         items = canvas.find_all()
-
         # 新增一个变量来记录是否找到未匹配的字母
         found_unmatched_letter = False
-
         for item in items:
             if is_color_change_key(key):
                 do_color_change(key)
@@ -243,7 +230,7 @@ def key_pressed(event):
                     if quantity >= 4:
                         generate_extra_letters()
                         quantity = 0
-                    if score >= (grade + 1) * 10:
+                    if score >= (grade + 1) * 100:
                         winning_the_game()
                         ball = ball_first(canvas, ball_color=grade_map["ball_color"])
                         quantity = 0
@@ -254,11 +241,6 @@ def key_pressed(event):
                         del letters_tags[item]
                     found_unmatched_letter = True
                     canvas.update()
-                    # canvas.delete(item)
-
-                    # 为匹配的字母添加"matched"标签
-                    # canvas.itemconfig(item, tags=("matched",))
-                    # items.remove(item)
                     break
 
         # 如果未找到未匹配的字母，尝试从已匹配的字母集合中移除一个
@@ -279,7 +261,6 @@ def lost_game():
     make_red_line()
     result_label.place(x=result_label_x, y=result_label_y)
     if grade > 4:
-        # music_ret_id = None
         if grade < 8:
             music_ret_id = music_ret_id_mid
         else:
@@ -306,7 +287,6 @@ def winning_the_game():
     global is_game_over, grade, grade_map, music_ret_id_first, music_ret_id_mid, music_ret_id_last, \
         quantity, score, ball
     is_game_over = False
-    # canvas.delete("all")
     # 增加关卡
     grade = grade + 1
     if grade == 10:
@@ -331,24 +311,19 @@ def winning_the_game():
 
 def restart_game():
     global score, score2, is_game_over, red_line, grade_map, quantity, ball
-    # score = 0
     is_game_over = False
     score2 = 0
     score_label.config(text=f"得分: {score} ")
     info = f"第 {grade + 1} 关"
-    # info = f"第 {grade + 1} 关 ->参数:{grade_map}, quantity: {quantity}"
     grade_label.config(text=info, font=("Arial", 30), bg='white', fg='black')
     window.after_cancel(task_id_generate_and_move)
     result_label.place_forget()
-
     canvas.delete("all")
     canvas.update()
-
     make_red_line()
     ball = ball_first(canvas, ball_color=grade_map["ball_color"])
     quantity = 0
     generate_and_move()
-    # print(f"restart_game_quantity={quantity}")
 
 
 def on_close():
