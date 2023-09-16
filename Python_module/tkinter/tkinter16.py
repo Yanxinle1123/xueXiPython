@@ -73,7 +73,7 @@ canvas.config(bg='white')
 
 canvas.pack()
 
-confirm = True
+is_continue = True
 # ball_to(canvas, 900, 50, pixel=5, sleep_ms=1)
 red_line_width = 20
 red_line_x0 = 0
@@ -146,8 +146,8 @@ def get_text_color():
 
 
 def generate_and_move():
-    global task_id_generate_and_move, confirm
-    if not is_game_over and confirm:
+    global task_id_generate_and_move, is_continue
+    if not is_game_over and is_continue:
         value = choice(letters)
         random_x = randint(20, window_width - 20)
         text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24),
@@ -164,8 +164,8 @@ def generate_and_move():
 
 
 def generate_extra_letters():
-    global confirm
-    if confirm:
+    global is_continue
+    if is_continue:
         for _ in range(grade_map["other_char"]):
             value = choice(letters)
             random_x = randint(20, window_width - 20)
@@ -183,25 +183,25 @@ def generate_extra_letters():
 
 def move_down(text):
     global score, score2, matched_letters_set, ball
-    while not confirm:
-        canvas.update()
-    if confirm:
-        if text not in matched_letters_set:
-            canvas.move(text, 0, 1)
-        coords_list = canvas.coords(text)
-        if coords_list:
-            if canvas.coords(text)[1] < red_line_y0 - red_line_width:
-                window.after(grade_map["move_char_time_ms"], move_down, text)
-            else:
-                score2 += 1
-                if score2 % 5 == 0:
-                    lost_game()
-                    ball = ball_first(canvas)
-                canvas.delete(text)
-                canvas.update()
+    move_distance = 1
+    if not is_continue:
+        move_distance = 0
+    if text not in matched_letters_set:
+        canvas.move(text, 0, move_distance)
+    coords_list = canvas.coords(text)
+    if coords_list:
+        if canvas.coords(text)[1] < red_line_y0 - red_line_width:
+            window.after(grade_map["move_char_time_ms"], move_down, text)
         else:
+            score2 += 1
+            if score2 % 5 == 0:
+                lost_game()
+                ball = ball_first(canvas)
             canvas.delete(text)
             canvas.update()
+    else:
+        canvas.delete(text)
+        canvas.update()
 
 
 def hit_text(text):
@@ -225,7 +225,7 @@ def do_color_change(key):
 
 def key_pressed(event):
     global score, quantity, matched_letters_set, ball
-    if confirm:
+    if is_continue:
         key = event.char.upper()
         items = canvas.find_all()
 
@@ -369,10 +369,10 @@ def start_game():
 
 
 def continue_game():
-    global number, confirm
+    global number, is_continue
     if continue_button.cget('fg') != 'gray':
         if number % 2 != 0:
-            confirm = True
+            is_continue = True
             generate_and_move()
             pause_button.config(fg='black')
             continue_button.config(fg='gray')
@@ -385,10 +385,10 @@ def continue_game():
 
 
 def pause_game():
-    global number, confirm
+    global number, is_continue
     if pause_button.cget('fg') != 'gray':
         if number % 2 == 0:
-            confirm = False
+            is_continue = False
             pygame.mixer.music.pause()
             pause_button.config(fg='gray')
             continue_button.config(fg='black')
