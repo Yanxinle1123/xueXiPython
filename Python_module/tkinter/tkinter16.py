@@ -3,9 +3,14 @@ import uuid
 from random import randint, choice
 from tkinter import Tk, Canvas, Label, Button
 
+import pygame
+
 from comm.comm_draw import ball_to, get_text_center_coords, ball_first, change_ball_color
 from comm.comm_music import play_music_by_window, quit_music, change_music
 
+window_height = 800
+
+number = 0
 yellow = '#E8BA36'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
            'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -56,23 +61,26 @@ screen_height = window.winfo_screenheight()
 
 # 计算窗口的坐标位置
 window_width = 995  # 窗口的宽度
-window_height = 800  # 窗口的高度
+# 窗口的高度
 x = (screen_width - window_width) // 2
+
 y = (screen_height - window_height) // 2 - 10  # 窗口的x坐标
-
 # 设置窗口的位置和大小
-window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
+window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 canvas = Canvas(window, width=window_width, height=window_height)
 canvas.config(bg='white')
+
 canvas.pack()
 
+confirm = True
 # ball_to(canvas, 900, 50, pixel=5, sleep_ms=1)
 red_line_width = 20
 red_line_x0 = 0
 red_line_y0 = window_height - 80
 red_line_x1 = window_width
 red_line_y1 = red_line_y0
+
 red_line = canvas.create_line(red_line_x0, red_line_y0, red_line_x1, red_line_y1,
                               fill='red', width=red_line_width)
 
@@ -80,39 +88,40 @@ ball = ball_first(canvas, ball_color=grade_map["ball_color"])
 
 grade_label = Label(window, text="第 {} 关".format(grade + 1), font=("Arial", 30), bg='white')
 score_label = Label(window, text="得分: 0", font=("Arial", 30), bg='white')
-result_label = Label(window, text="你输了", font=("Arial", 100), bg='white', fg='red')
 
+result_label = Label(window, text="你输了", font=("Arial", 100), bg='white', fg='red')
 grade_label_width = grade_label.winfo_reqwidth()
+
 grade_label_height = grade_label.winfo_reqheight()
 
 score_label_width = score_label.winfo_reqwidth()
-
 result_label_width = result_label.winfo_reqwidth()
 result_label_height = result_label.winfo_reqheight()
 # print(f"result_label_width={result_label_width}|result_label_height={result_label_height}")
 gap_width = 20
 grade_label_x = (window_width - grade_label_width - score_label_width - gap_width) // 2
-grade_label.place(x=grade_label_x, y=10)
 
+grade_label.place(x=grade_label_x, y=10)
 score = 0
 score_label_x = grade_label_x + grade_label_width + gap_width
-score_label.place(x=score_label_x, y=10)
 
+score_label.place(x=score_label_x, y=10)
 result_label_x = (window_width - result_label_width) // 2
 result_label_y = (window_height - result_label_height) // 2
 result_label.place(x=result_label_x, y=result_label_y)
-result_label.place_forget()
 
+result_label.place_forget()
 score2 = 0
 is_game_over = False
-quantity = 0
 
+quantity = 0
 # music_ret_id_first = None
 music_ret_id_mid = None
-music_ret_id_last = None
 
+music_ret_id_last = None
 # 创建一部字典来存储字母及其对应的标签
 letters_tags = {}
+
 matched_letters_set = set()
 
 
@@ -137,8 +146,8 @@ def get_text_color():
 
 
 def generate_and_move():
-    global task_id_generate_and_move
-    if not is_game_over:
+    global task_id_generate_and_move, confirm
+    if not is_game_over and confirm:
         value = choice(letters)
         random_x = randint(20, window_width - 20)
         text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24),
@@ -155,43 +164,44 @@ def generate_and_move():
 
 
 def generate_extra_letters():
-    for _ in range(grade_map["other_char"]):
-        value = choice(letters)
-        random_x = randint(20, window_width - 20)
-        text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24),
-                                  fill=get_text_color())
+    global confirm
+    if confirm:
+        for _ in range(grade_map["other_char"]):
+            value = choice(letters)
+            random_x = randint(20, window_width - 20)
+            text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24),
+                                      fill=get_text_color())
 
-        # 为每个字母分配一个唯一的标签
-        unique_tag = str(uuid.uuid4())
-        canvas.itemconfig(text, tags=(unique_tag,))
-        # 将字母及其标签添加到字典中
-        letters_tags[text] = unique_tag
+            # 为每个字母分配一个唯一的标签
+            unique_tag = str(uuid.uuid4())
+            canvas.itemconfig(text, tags=(unique_tag,))
+            # 将字母及其标签添加到字典中
+            letters_tags[text] = unique_tag
 
-        move_down(text)
+            move_down(text)
 
 
 def move_down(text):
     global score, score2, matched_letters_set, ball
-
-    # 如果字母具有匹配的标签，则停止移动
-    if text not in matched_letters_set:
-        canvas.move(text, 0, 1)
-
-    coords_list = canvas.coords(text)
-    # print(f"text={text}|coords_list={coords_list}")
-    if coords_list:
-        if canvas.coords(text)[1] < 660:
-            window.after(grade_map["move_char_time_ms"], move_down, text)
+    while not confirm:
+        canvas.update()
+    if confirm:
+        if text not in matched_letters_set:
+            canvas.move(text, 0, 1)
+        coords_list = canvas.coords(text)
+        if coords_list:
+            if canvas.coords(text)[1] < red_line_y0 - red_line_width:
+                window.after(grade_map["move_char_time_ms"], move_down, text)
+            else:
+                score2 += 1
+                if score2 % 5 == 0:
+                    lost_game()
+                    ball = ball_first(canvas)
+                canvas.delete(text)
+                canvas.update()
         else:
-            score2 += 1
-            if score2 % 5 == 0:
-                lost_game()
-                ball = ball_first(canvas)
             canvas.delete(text)
             canvas.update()
-    else:
-        canvas.delete(text)
-        canvas.update()
 
 
 def hit_text(text):
@@ -215,47 +225,48 @@ def do_color_change(key):
 
 def key_pressed(event):
     global score, quantity, matched_letters_set, ball
-    key = event.char.upper()
-    items = canvas.find_all()
+    if confirm:
+        key = event.char.upper()
+        items = canvas.find_all()
 
-    # 新增一个变量来记录是否找到未匹配的字母
-    found_unmatched_letter = False
+        # 新增一个变量来记录是否找到未匹配的字母
+        found_unmatched_letter = False
 
-    for item in items:
-        if is_color_change_key(key):
-            do_color_change(key)
-        if canvas.type(item) == 'text' and canvas.itemcget(item, 'text') == key and is_match_color(item):
-            # 检查字母是否已经匹配
-            if item not in matched_letters_set:
-                score += 1
-                quantity += 1
-                if quantity >= 4:
-                    generate_extra_letters()
-                    quantity = 0
-                if score >= (grade + 1) * 10:
-                    winning_the_game()
-                    ball = ball_first(canvas, ball_color=grade_map["ball_color"])
-                    quantity = 0
-                score_label.config(text=f"得分: {score}")
-                hit_text(item)
-                matched_letters_set.add(item)
-                if item in letters_tags:
-                    del letters_tags[item]
-                found_unmatched_letter = True
-                canvas.update()
-                # canvas.delete(item)
+        for item in items:
+            if is_color_change_key(key):
+                do_color_change(key)
+            if canvas.type(item) == 'text' and canvas.itemcget(item, 'text') == key and is_match_color(item):
+                # 检查字母是否已经匹配
+                if item not in matched_letters_set:
+                    score += 1
+                    quantity += 1
+                    if quantity >= 4:
+                        generate_extra_letters()
+                        quantity = 0
+                    if score >= (grade + 1) * 10:
+                        winning_the_game()
+                        ball = ball_first(canvas, ball_color=grade_map["ball_color"])
+                        quantity = 0
+                    score_label.config(text=f"得分: {score}")
+                    hit_text(item)
+                    matched_letters_set.add(item)
+                    if item in letters_tags:
+                        del letters_tags[item]
+                    found_unmatched_letter = True
+                    canvas.update()
+                    # canvas.delete(item)
 
-                # 为匹配的字母添加"matched"标签
-                # canvas.itemconfig(item, tags=("matched",))
-                # items.remove(item)
-                break
+                    # 为匹配的字母添加"matched"标签
+                    # canvas.itemconfig(item, tags=("matched",))
+                    # items.remove(item)
+                    break
 
-    # 如果未找到未匹配的字母，尝试从已匹配的字母集合中移除一个
-    if not found_unmatched_letter:
-        for letter in matched_letters_set.copy():
-            if canvas.itemcget(letter, 'text') == key:
-                matched_letters_set.remove(letter)
-                break
+        # 如果未找到未匹配的字母，尝试从已匹配的字母集合中移除一个
+        if not found_unmatched_letter:
+            for letter in matched_letters_set.copy():
+                if canvas.itemcget(letter, 'text') == key:
+                    matched_letters_set.remove(letter)
+                    break
 
 
 task_id_generate_and_move = ""
@@ -351,19 +362,39 @@ def close_game():
 
 
 def start_game():
-    generate_and_move()
+    if start_button.cget('fg') != 'gray':
+        generate_and_move()
+        pause_button.config(fg='black')
+        start_button.config(fg='gray')
 
 
-def pause_game():
-    if pause_button.cget('fg') != 'gray':
-        print('yes')
+def continue_game():
+    global number, confirm
+    if continue_button.cget('fg') != 'gray':
+        if number % 2 != 0:
+            confirm = True
+            generate_and_move()
+            pause_button.config(fg='black')
+            continue_button.config(fg='gray')
+            pygame.mixer.music.unpause()
+            number += 1
+        else:
+            return
     else:
         return
 
 
-def continue_game():
-    if continue_button.cget('fg') != 'gray':
-        print('yes')
+def pause_game():
+    global number, confirm
+    if pause_button.cget('fg') != 'gray':
+        if number % 2 == 0:
+            confirm = False
+            pygame.mixer.music.pause()
+            pause_button.config(fg='gray')
+            continue_button.config(fg='black')
+            number += 1
+        else:
+            return
     else:
         return
 
@@ -376,7 +407,7 @@ music_file_last = "./game_music_last.mp3"
 music_ret_id_first = play_music_by_window(win, music_file_start, 290000,
                                           True, True)
 
-start_button = Button(canvas, text='开始', font=("Arial", 30), command=start_game)
+start_button = Button(canvas, text='开始', font=("Arial", 30), fg='black', command=start_game)
 start_width = start_button.winfo_reqwidth()
 start_height = start_button.winfo_reqheight()
 
@@ -409,7 +440,6 @@ continue_y = start_y
 
 start_button.place(x=start_x, y=start_y)
 close_button.place(x=close_x, y=close_y)
-
 pause_button.place(x=pause_x, y=pause_y)
 continue_button.place(x=continue_x, y=continue_y)
 
