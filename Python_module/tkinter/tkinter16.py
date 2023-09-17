@@ -1,4 +1,6 @@
+import os
 import random
+import sys
 import uuid
 from random import randint, choice
 from tkinter import Tk, Canvas, Label, Button
@@ -374,10 +376,16 @@ def pause_game():
         return
 
 
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath('.'), relative_path)
+
+
 win = Tk()
-music_file_start = "./game_music_start.ogg"
-music_file_mid = "./game_music_mid_forever.mp3"
-music_file_last = "./game_music_last.mp3"
+music_file_start = resource_path("game_music_start.ogg")
+music_file_mid = resource_path("game_music_mid_forever.mp3")
+music_file_last = resource_path("game_music_last.mp3")
 
 music_ret_id_first = play_music_by_window(win, music_file_start, 290000,
                                           True, True)
