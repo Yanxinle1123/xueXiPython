@@ -3,9 +3,8 @@
 
 block_cipher = None
 
-
 a = Analysis(
-    ['play_char_game.py'],
+    ['pc_game.py'],
     pathex=[],
     binaries=[],
     datas=[('game_music_start.ogg', '.'), ('game_music_mid_forever.mp3', '.'), ('game_music_last.mp3', '.')],
@@ -26,7 +25,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='play_char_game',
+    name='pc_game',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -46,5 +45,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='play_char_game',
+    name='pc_game',
 )
