@@ -10,8 +10,6 @@ import pygame
 from comm.comm_draw import ball_to, get_text_center_coords, ball_first, change_ball_color
 from comm.comm_music import play_music_by_window, quit_music, change_music
 
-window_height = 800
-
 number = 0
 yellow = '#E8BA36'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
@@ -62,13 +60,14 @@ screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
 
 # 计算窗口的坐标位置
-window_width = 995  # 窗口的宽度
+window_width = screen_width * 7 // 10  # 窗口的宽度
+window_height = int(screen_height * 8.4) // 10
+
 # 窗口的高度
 x = (screen_width - window_width) // 2
+y = (screen_height - window_height) // 5  # 窗口的x坐标
 
-y = (screen_height - window_height) // 2 - 10  # 窗口的x坐标
 # 设置窗口的位置和大小
-
 window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 canvas = Canvas(window, width=window_width, height=window_height)
 canvas.config(bg='white')
@@ -76,16 +75,19 @@ canvas.config(bg='white')
 canvas.pack()
 
 is_continue = True
-red_line_width = 20
+red_line_height = 20
 red_line_x0 = 0
 red_line_y0 = window_height - 80
 red_line_x1 = window_width
 red_line_y1 = red_line_y0
 
 red_line = canvas.create_line(red_line_x0, red_line_y0, red_line_x1, red_line_y1,
-                              fill='red', width=red_line_width)
+                              fill='red', width=red_line_height)
 
-ball = ball_first(canvas, ball_color=grade_map["ball_color"])
+ball_x1 = red_line_x1 // 2
+ball_y1 = red_line_y1 - 30 - 15
+print(f"ball_x1={ball_x1}|ball_y1={ball_y1}")
+ball = ball_first(canvas, grade_map["ball_color"], ball_x1, ball_y1)
 
 grade_label = Label(window, text="第 {} 关".format(grade + 1), font=("Arial", 30), bg='white')
 score_label = Label(window, text="得分: 0", font=("Arial", 30), bg='white')
@@ -182,13 +184,13 @@ def move_down(text):
         canvas.move(text, 0, move_distance)
     coords_list = canvas.coords(text)
     if coords_list:
-        if canvas.coords(text)[1] < red_line_y0 - red_line_width:
+        if canvas.coords(text)[1] < red_line_y0 - red_line_height:
             window.after(grade_map["move_char_time_ms"], move_down, text)
         else:
             score2 += 1
             if score2 % 5 == 0:
                 lost_game()
-                ball = ball_first(canvas)
+                ball = ball_first(canvas, grade_map["ball_color"], ball_x1, ball_y1)
             canvas.delete(text)
             canvas.update()
     else:
@@ -200,7 +202,8 @@ def hit_text(text):
     target_x, target_y = get_text_center_coords(canvas, text)
     if target_x == -1 and target_y == -1:
         return
-    ball_to(canvas, target_x, target_y, pixel=10, sleep_ms=1, ball_color=grade_map["ball_color"])
+    ball_to(canvas, target_x, target_y, grade_map["ball_color"], pixel=10, sleep_ms=1,
+            ball_x1=ball_x1, ball_y1=ball_y1)
     canvas.delete(text)
 
 
@@ -234,7 +237,7 @@ def key_pressed(event):
                         quantity = 0
                     if score >= (grade + 1) * 100:
                         winning_the_game()
-                        ball = ball_first(canvas, ball_color=grade_map["ball_color"])
+                        ball = ball_first(canvas, grade_map["ball_color"], ball_x1, ball_y1)
                         quantity = 0
                     score_label.config(text=f"得分: {score}")
                     hit_text(item)
@@ -282,7 +285,7 @@ def lost_game():
 def make_red_line():
     global red_line
     red_line = canvas.create_line(red_line_x0, red_line_y0, red_line_x1, red_line_y1,
-                                  fill='red', width=red_line_width)
+                                  fill='red', width=red_line_height)
 
 
 def winning_the_game():
@@ -306,7 +309,7 @@ def winning_the_game():
                                          True, True, music_ret_id_mid)
     grade_map = grade_list[grade]
 
-    ball = ball_first(canvas, ball_color=grade_map["ball_color"])
+    ball = ball_first(canvas, grade_map["ball_color"], ball_x1, ball_y1)
     window.after(60, restart_game)
     canvas.update()
 
@@ -323,7 +326,7 @@ def restart_game():
     canvas.delete("all")
     canvas.update()
     make_red_line()
-    ball = ball_first(canvas, ball_color=grade_map["ball_color"])
+    ball = ball_first(canvas, grade_map["ball_color"], ball_x1, ball_y1)
     quantity = 0
     generate_and_move()
 
@@ -389,20 +392,22 @@ music_file_last = resource_path("game_music_last.mp3")
 
 music_ret_id_first = play_music_by_window(win, music_file_start, 290000,
                                           True, True)
-
-start_button = Button(canvas, text='开始', font=("Arial", 30), fg='black', command=start_game)
+button_text_size = 18
+start_button = Button(canvas, text='开始', font=("Arial", button_text_size), fg='black', command=start_game)
 start_width = start_button.winfo_reqwidth()
 start_height = start_button.winfo_reqheight()
 
-close_button = Button(canvas, text='退出', font=("Arial", 30), command=close_game)
+close_button = Button(canvas, text='退出', font=("Arial", button_text_size), command=close_game)
 close_width = close_button.winfo_reqwidth()
 close_height = close_button.winfo_reqheight()
 
-pause_button = Button(canvas, text='暂停', font=("Arial", 30), fg=pause_button_text_color, command=pause_game)
+pause_button = Button(canvas, text='暂停', font=("Arial", button_text_size), fg=pause_button_text_color,
+                      command=pause_game)
 pause_width = pause_button.winfo_reqwidth()
 pause_height = pause_button.winfo_reqheight()
 
-continue_button = Button(canvas, text='继续', font=("Arial", 30), fg=continue_button_text_color, command=continue_game)
+continue_button = Button(canvas, text='继续', font=("Arial", button_text_size), fg=continue_button_text_color,
+                         command=continue_game)
 continue_width = continue_button.winfo_reqwidth()
 continue_height = continue_button.winfo_reqheight()
 

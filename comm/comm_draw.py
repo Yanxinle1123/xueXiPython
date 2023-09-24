@@ -28,8 +28,7 @@ def contains_digit(s):
     return any(char.isdigit() for char in s)
 
 
-def ball_first(canvas, ball_color='green', ball_x1=485, ball_y1=675,
-               ball_x2=515, ball_y2=705):
+def ball_first(canvas, ball_color='green', ball_x1=485, ball_y1=675):
     hex1 = ball_color
     num = contains_digit(hex1)
     if hex1[0] != '#' and num:
@@ -38,6 +37,8 @@ def ball_first(canvas, ball_color='green', ball_x1=485, ball_y1=675,
     else:
         hex2 = hex1
 
+    ball_x2 = ball_x1 + 30
+    ball_y2 = ball_y1 + 30
     # 画第一个圆形
     return canvas.create_oval(ball_x1, ball_y1, ball_x2, ball_y2, fill=hex2)
 
@@ -48,7 +49,7 @@ def change_ball_color(canvas, ball, color):
 
 
 def ball_to(canvas, target_x, target_y, ball_color='green', pixel=0.1,
-            ball_x1=485, ball_y1=700, ball_x2=515, ball_y2=730, sleep_ms=1):
+            sleep_ms=1, ball_x1=485, ball_y1=700):
     hex1 = ball_color
     num = contains_digit(hex1)
     if hex1[0] != '#' and num:
@@ -57,6 +58,8 @@ def ball_to(canvas, target_x, target_y, ball_color='green', pixel=0.1,
     else:
         hex2 = hex1
 
+    ball_x2 = ball_x1 + 30
+    ball_y2 = ball_y1 + 30
     # 画撞击的紫球
     purple_ball2 = canvas.create_oval(ball_x1, ball_y1, ball_x2, ball_y2, fill=hex2)
 
