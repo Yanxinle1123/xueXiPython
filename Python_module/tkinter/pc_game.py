@@ -10,6 +10,9 @@ import pygame
 from comm.comm_draw import ball_to, get_text_center_coords, ball_first, change_ball_color
 from comm.comm_music import play_music_by_window, quit_music, change_music
 
+# if not sys.stdout:
+#     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', buffering=1)
+
 number = 0
 yellow = '#E8BA36'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',

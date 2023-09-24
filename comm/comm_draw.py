@@ -1,6 +1,6 @@
 # import tkinter as tk
 
-from comm.common import rgb_to_hex
+# from comm.common import rgb_to_hex
 
 
 def get_text_center_coords(canvas, text_item):
