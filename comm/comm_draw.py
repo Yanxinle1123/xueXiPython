@@ -1,4 +1,6 @@
 # import tkinter as tk
+from comm.common import rgb_to_hex
+
 
 # from comm.common import rgb_to_hex
 

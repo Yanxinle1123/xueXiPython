@@ -3,7 +3,7 @@ import random
 import sys
 import uuid
 from random import randint, choice
-from tkinter import Tk, Canvas, Label, Button
+from tkinter import Tk, Canvas, Label, Button, Toplevel, HORIZONTAL, Scale
 
 import pygame
 
@@ -14,6 +14,8 @@ from comm.comm_music import play_music_by_window, quit_music, change_music
 #     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', buffering=1)
 
 number = 0
+number2 = 1
+if_game_start = False
 yellow = '#E8BA36'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
            'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -42,6 +44,22 @@ grade_list = [
     {"move_char_time_ms": 10, "other_char": 8, "gen_char_time_ms": 250,
      "ball_color": "red", "char_color": rainbow},  # 第 10 关
 ]
+
+win_size_map = [
+    {'width': 800, 'height': 600, 'button_size': 20},
+    {'width': 1024, 'height': 768, 'button_size': 30},
+    {'width': 1366, 'height': 768, 'button_size': 30},
+    {'width': 1440, 'height': 900, 'button_size': ''},
+    {'width': 2560, 'height': 1600, 'button_size': ''},
+    {'width': 2880, 'height': 1800, 'button_size': ''},
+    {'width': 3072, 'height': 1920, 'button_size': ''},
+    {'width': 2304, 'height': 1440, 'button_size': ''},
+    {'width': 1920, 'height': 1080, 'button_size': ''},
+    {'width': 5120, 'height': 2880, 'button_size': ''},
+    {'width': 4096, 'height': 2304, 'button_size': ''},
+    {'width': 1024, 'height': 768, 'button_size': ''},
+    {'width': 3456, 'height': 2234, 'button_size': ''},
+]
 color_change = {
     '1': 'red',
     '2': 'blue',
@@ -61,7 +79,11 @@ window.resizable(False, False)
 # 获取屏幕的宽度和高度
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
-
+print(screen_width)
+print(screen_height)
+# screen_width = 1728
+# screen_height = 1117
+button_text_size = 30
 # 计算窗口的坐标位置
 window_width = screen_width * 7 // 10  # 窗口的宽度
 window_height = int(screen_height * 8.4) // 10
@@ -88,7 +110,10 @@ red_line = canvas.create_line(red_line_x0, red_line_y0, red_line_x1, red_line_y1
                               fill='red', width=red_line_height)
 
 ball_x1 = red_line_x1 // 2
-ball_y1 = red_line_y1 - 30 - 15
+ball_y1 = red_line_y1 - 45
+ball_x1 = ball_x1 - 30 / 2
+print(ball_x1)
+
 print(f"ball_x1={ball_x1}|ball_y1={ball_y1}")
 ball = ball_first(canvas, grade_map["ball_color"], ball_x1, ball_y1)
 
@@ -345,7 +370,9 @@ def close_game():
 
 
 def start_game():
+    global if_game_start
     if start_button.cget('fg') != 'gray':
+        if_game_start = True
         generate_and_move()
         pause_button.config(fg='black')
         start_button.config(fg='gray')
@@ -382,6 +409,52 @@ def pause_game():
         return
 
 
+def set_up():
+    global number2, is_continue
+    if set_up_button.cget('fg') != 'gray' and number % 2 == 0:
+        set_up_button.config(fg='gray')
+        is_continue = False
+
+        def q():
+            global is_continue, if_game_start
+            if if_game_start:
+                is_continue = True
+                generate_and_move()
+            new_window.destroy()
+            set_up_button.config(fg='black')
+
+        def on_window_close():
+            set_up_button.config(fg='black')
+
+        def on_scale_changed(value):
+            # 将滑块值转换为音量（0 到 1 之间的浮点数）
+            volume = float(value) / 10
+
+            # 更新 Pygame 混音器的音量
+            pygame.mixer.music.set_volume(volume)
+
+        volume = round(pygame.mixer.music.get_volume(), 1)
+        volume = volume * 10
+
+        new_window = Toplevel(window)
+        new_window.title("设置")
+        new_window.protocol("WM_DELETE_WINDOW", on_window_close)
+        new_window.resizable(False, False)
+        new_window_height = screen_height // 2 // 2
+        new_window_height = screen_height - new_window_height
+        new_window.geometry(f'600x{new_window_height}')
+
+        scale = Scale(new_window, from_=0, to=10, orient=HORIZONTAL, length=500, sliderlength=50, width=50,
+                      command=on_scale_changed)
+        scale.set(volume)
+        scale.place(x=5, y=200)
+
+        q_button = Button(new_window, text='退出设置', font=('Arial', 20), command=q)
+        q_button.place(x=5, y=100)
+
+        number2 += 1
+
+
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative_path)
@@ -395,7 +468,6 @@ music_file_last = resource_path("game_music_last.mp3")
 
 music_ret_id_first = play_music_by_window(win, music_file_start, 290000,
                                           True, True)
-button_text_size = 18
 start_button = Button(canvas, text='开始', font=("Arial", button_text_size), fg='black', command=start_game)
 start_width = start_button.winfo_reqwidth()
 start_height = start_button.winfo_reqheight()
@@ -414,10 +486,14 @@ continue_button = Button(canvas, text='继续', font=("Arial", button_text_size)
 continue_width = continue_button.winfo_reqwidth()
 continue_height = continue_button.winfo_reqheight()
 
+set_up_button = Button(canvas, text='设置', font=("Arial", button_text_size), command=set_up)
+set_up_width = continue_button.winfo_reqwidth()
+set_up_height = continue_button.winfo_reqheight()
+
 button_width_gap = 40
 button_height_gap = 22
 start_x = (window_width - start_width - button_width_gap - close_width - button_width_gap
-           - pause_width - button_width_gap - continue_width) // 2
+           - pause_width - button_width_gap - continue_width - button_width_gap - set_up_width) // 2
 start_y = red_line_y0 + button_height_gap
 
 close_x = start_x + start_width + button_width_gap
@@ -429,10 +505,17 @@ pause_y = start_y
 continue_x = pause_x + pause_width + button_width_gap
 continue_y = start_y
 
+set_up_x = continue_x + continue_width + button_width_gap
+set_up_y = start_y
+
 start_button.place(x=start_x, y=start_y)
 close_button.place(x=close_x, y=close_y)
 pause_button.place(x=pause_x, y=pause_y)
 continue_button.place(x=continue_x, y=continue_y)
+set_up_button.place(x=set_up_x, y=set_up_y)
+
+volume = round(pygame.mixer.music.get_volume(), 1)
+print(f"Music volume: {volume}")
 
 window.bind('<Key>', key_pressed)
 window.protocol("WM_DELETE_WINDOW", on_close)

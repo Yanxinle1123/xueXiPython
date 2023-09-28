@@ -3,6 +3,7 @@
 
 block_cipher = None
 
+
 a = Analysis(
     ['pc_game.py'],
     pathex=[],
@@ -23,27 +24,27 @@ pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 exe = EXE(
     pyz,
     a.scripts,
+    a.binaries,
+    a.zipfiles,
+    a.datas,
     [],
-    exclude_binaries=True,
     name='pc_game',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
+    upx_exclude=[],
+    runtime_tmpdir=None,
     console=True,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    bundle_identifier='lele.play_char_game.app'
 )
-coll = COLLECT(
-    exe,
-    a.binaries,
-    a.zipfiles,
-    a.datas,
-    strip=False,
-    upx=True,
-    upx_exclude=[],
-    name='pc_game',
-)
+
+app = BUNDLE(exe,
+             name='play_char_game.app',
+             icon='PlayCharGamePicture.ico',
+             bundle_identifier='lele.play_char_game.app')
