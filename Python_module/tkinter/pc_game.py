@@ -14,8 +14,9 @@ from comm.comm_music import play_music_by_window, quit_music, change_music
 #     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', buffering=1)
 
 number = 0
-number2 = 1
-if_game_start = False
+number2 = 0
+if_start_game = False
+if_pause_game = False
 yellow = '#E8BA36'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
            'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -370,19 +371,21 @@ def close_game():
 
 
 def start_game():
-    global if_game_start
+    global if_start_game, is_continue
     if start_button.cget('fg') != 'gray':
-        if_game_start = True
+        if_start_game = True
+        is_continue = True
         generate_and_move()
         pause_button.config(fg='black')
         start_button.config(fg='gray')
 
 
 def continue_game():
-    global number, is_continue
+    global number, is_continue, if_pause_game
     if continue_button.cget('fg') != 'gray':
         if number % 2 != 0:
             is_continue = True
+            if_pause_game = False
             generate_and_move()
             pause_button.config(fg='black')
             continue_button.config(fg='gray')
@@ -395,9 +398,10 @@ def continue_game():
 
 
 def pause_game():
-    global number, is_continue
+    global number, is_continue, if_pause_game
     if pause_button.cget('fg') != 'gray':
         if number % 2 == 0:
+            if_pause_game = True
             is_continue = False
             pygame.mixer.music.pause()
             pause_button.config(fg='gray')
@@ -411,17 +415,26 @@ def pause_game():
 
 def set_up():
     global number2, is_continue
-    if set_up_button.cget('fg') != 'gray' and number % 2 == 0:
+    if set_up_button.cget('fg') != 'gray' and number2 % 2 == 0:
         set_up_button.config(fg='gray')
         is_continue = False
+        pygame.mixer.music.unpause()
 
         def q():
-            global is_continue, if_game_start
-            if if_game_start:
+            global is_continue, if_start_game, if_pause_game, number2
+            if if_start_game and if_pause_game:
+                pygame.mixer.music.pause()
+                pygame.mixer.music.set_volume(volume)
+                is_continue = False
+            if if_start_game and if_pause_game:
+                is_continue = True
+                generate_and_move()
+            if if_start_game:
                 is_continue = True
                 generate_and_move()
             new_window.destroy()
             set_up_button.config(fg='black')
+            number2 += 1
 
         def on_window_close():
             set_up_button.config(fg='black')

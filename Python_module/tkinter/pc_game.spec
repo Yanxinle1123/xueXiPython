@@ -3,7 +3,6 @@
 
 block_cipher = None
 
-
 a = Analysis(
     ['pc_game.py'],
     pathex=[],
