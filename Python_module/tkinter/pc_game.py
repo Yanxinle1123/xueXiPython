@@ -68,6 +68,12 @@ color_change = {
     '2': 'blue',
     '3': yellow,
 }
+key_color = {
+    'red': [],
+    'blue': [],
+    'yellow': []
+}
+key_color_index = 0
 grade = 0
 grade_map = grade_list[grade]
 
@@ -174,18 +180,31 @@ def get_text_color():
     return char_color
 
 
+def add_fixed_list(value_list, text, size=10):
+    global key_color_index
+    list_size = len(value_list)
+    if list_size < size:
+        value_list.append(text)
+    else:
+        value_list[key_color_index] = text
+        key_color_index = (key_color_index + 1) % size
+    return value_list
+
+
 def generate_and_move():
     global task_id_generate_and_move, is_continue
     if not is_game_over and is_continue:
         value = choice(letters)
         random_x = randint(20, window_width - 20)
+        char_color = get_text_color()
         text = canvas.create_text(random_x, grade_label_height + 40, text=value, font=("Arial", 24),
-                                  fill=get_text_color())
+                                  fill=char_color)
         # 为每个字母分配一个唯一的标签
         unique_tag = str(uuid.uuid4())
         canvas.itemconfig(text, tags=(unique_tag,))
         # 将字母及其标签添加到字典中
         letters_tags[text] = unique_tag
+        value_list = key_color[char_color]
         move_down(text)
         task_id_generate_and_move = window.after(grade_map["gen_char_time_ms"], generate_and_move)
 
@@ -412,6 +431,10 @@ def pause_game():
             return
     else:
         return
+
+
+def magic_ball(canvas, magic_ball_color, pause_second):
+    return
 
 
 def set_up():
