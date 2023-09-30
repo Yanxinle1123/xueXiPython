@@ -51,7 +51,7 @@ def change_ball_color(canvas, ball, color):
 
 
 def ball_to(canvas, target_x, target_y, ball_color='green', pixel=0.1,
-            sleep_ms=1, ball_x1=485, ball_y1=700):
+            sleep_ms=1, ball_x1=485, ball_y1=700, text=False):
     hex1 = ball_color
     num = contains_digit(hex1)
     if hex1[0] != '#' and num:
@@ -69,7 +69,9 @@ def ball_to(canvas, target_x, target_y, ball_color='green', pixel=0.1,
     purple_center_x, purple_center_y = (ball_x1 + ball_x2) / 2, (ball_y1 + ball_y2) / 2
 
     # 定义移动紫球的函数
-    def move_purple_ball(purple_center_x, purple_center_y):
+    text2 = text
+
+    def move_purple_ball(purple_center_x, purple_center_y, text3=text2):
         # 计算与目标位置的剩余距离
         remaining_distance_x, remaining_distance_y = target_x - purple_center_x, target_y - purple_center_y
 
@@ -88,8 +90,12 @@ def ball_to(canvas, target_x, target_y, ball_color='green', pixel=0.1,
         # 判断是否到达目标位置
         if lerp_factor == 1:
             canvas.delete(purple_ball2)
-            # 停止移动
-            return
+            if not text3:
+                return
+            else:
+                canvas.delete(text3)
+                # 停止移动
+                return
 
         # 延迟一段时间后再次调用move_purple_ball()函数
         canvas.after(sleep_ms, move_purple_ball, purple_center_x, purple_center_y)

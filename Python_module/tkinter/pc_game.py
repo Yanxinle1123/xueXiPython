@@ -1,6 +1,7 @@
 import os
 import random
 import sys
+import tkinter.font as tkfont
 import uuid
 from random import randint, choice
 from tkinter import Tk, Canvas, Label, Button, Toplevel, HORIZONTAL, Scale
@@ -17,6 +18,7 @@ number = 0
 number2 = 0
 if_start_game = False
 if_pause_game = False
+speed = 7
 yellow = '#E8BA36'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
            'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -205,7 +207,7 @@ def generate_extra_letters():
 
 
 def move_down(text):
-    global score, score2, matched_letters_set, ball
+    global score, score2, matched_letters_set, ball, is_continue
     move_distance = 1
     if not is_continue:
         move_distance = 0
@@ -231,9 +233,8 @@ def hit_text(text):
     target_x, target_y = get_text_center_coords(canvas, text)
     if target_x == -1 and target_y == -1:
         return
-    ball_to(canvas, target_x, target_y, grade_map["ball_color"], pixel=10, sleep_ms=1,
-            ball_x1=ball_x1, ball_y1=ball_y1)
-    canvas.delete(text)
+    ball_to(canvas, target_x, target_y, grade_map["ball_color"], pixel=speed, sleep_ms=1,
+            ball_x1=ball_x1, ball_y1=ball_y1, text=text)
 
 
 def is_color_change_key(key):
@@ -426,10 +427,7 @@ def set_up():
                 pygame.mixer.music.pause()
                 pygame.mixer.music.set_volume(volume)
                 is_continue = False
-            if if_start_game and if_pause_game:
-                is_continue = True
-                generate_and_move()
-            if if_start_game:
+            if if_start_game and not if_pause_game:
                 is_continue = True
                 generate_and_move()
             new_window.destroy()
@@ -437,7 +435,10 @@ def set_up():
             number2 += 1
 
         def on_window_close():
+            global number2
             set_up_button.config(fg='black')
+            new_window.destroy()
+            number2 += 1
 
         def on_scale_changed(value):
             # 将滑块值转换为音量（0 到 1 之间的浮点数）
@@ -453,17 +454,41 @@ def set_up():
         new_window.title("设置")
         new_window.protocol("WM_DELETE_WINDOW", on_window_close)
         new_window.resizable(False, False)
+        new_window.update_idletasks()
         new_window_height = screen_height // 2 // 2
         new_window_height = screen_height - new_window_height
-        new_window.geometry(f'600x{new_window_height}')
+        new_window_width = 600
+        new_window.geometry(f'{new_window_width}x{new_window_height}')
 
-        scale = Scale(new_window, from_=0, to=10, orient=HORIZONTAL, length=500, sliderlength=50, width=50,
-                      command=on_scale_changed)
-        scale.set(volume)
-        scale.place(x=5, y=200)
+        scale_music = Scale(new_window, from_=0, to=10, orient=HORIZONTAL, length=500, sliderlength=50, width=50,
+                            command=on_scale_changed)
+        scale_music_length = scale_music.cget("length")
+        scale_music_x = new_window_width // 2 - scale_music_length // 2
+        scale_music_y = 50
+        print(scale_music_length)
+        scale_music.set(volume)
+        scale_music.place(x=scale_music_x, y=scale_music_y)
 
-        q_button = Button(new_window, text='退出设置', font=('Arial', 20), command=q)
-        q_button.place(x=5, y=100)
+        q_button = Button(new_window, text='退出设置', font=('Arial', 50), command=q)
+        music_label = Label(new_window, text='音乐音量', font=('Arial', 20))
+
+        q_width = q_button.winfo_reqwidth()
+        q_button_x = new_window_width // 2 - q_width // 2
+        q_height = q_button.winfo_reqheight()
+        q_button_y = new_window_height - (q_height + q_height // 2)
+        # music_label_width = music_label.winfo_width()
+        music_label_font = tkfont.Font(font=music_label['font'])
+        music_label_width = music_label_font.measure('音乐音量 ')
+        music_label_height = music_label_font.metrics("linespace")
+
+        print(f'music_label_width = {music_label_width}')
+        # music_label_height = music_label.winfo_height()
+        music_label_x = new_window_width // 2 - music_label_width // 2
+        print(f'music_label_height = {music_label_height}')
+        music_label_y = music_label_height
+
+        q_button.place(x=q_button_x, y=q_button_y)
+        music_label.place(x=music_label_x, y=music_label_y)
 
         number2 += 1
 
