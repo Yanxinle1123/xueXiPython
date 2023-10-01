@@ -19,7 +19,7 @@ number2 = 0
 if_start_game = False
 if_pause_game = False
 speed = 7
-yellow = '#E8BA36'
+yellow = 'yellow'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
            'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
@@ -72,6 +72,11 @@ key_color = {
     'red': [],
     'blue': [],
     'yellow': []
+}
+random_char_config = {
+    'red': {'random_count': 2, 'freeze_time': 0},
+    'blue': {'random_count': 4, 'freeze_time': 3},
+    'yellow': {'random_count': 8, 'freeze_time': 0},
 }
 key_color_index = 0
 grade = 0
@@ -205,6 +210,11 @@ def generate_and_move():
         # 将字母及其标签添加到字典中
         letters_tags[text] = unique_tag
         value_list = key_color[char_color]
+        add_fixed_list(value_list, text, size=10)
+        # print(f'value_list = {value_list}')
+        # print(f'char_color = {char_color}')
+        # print(f'key_color = {key_color}')
+        # print(f'text = {text}')
         move_down(text)
         task_id_generate_and_move = window.after(grade_map["gen_char_time_ms"], generate_and_move)
 
@@ -225,10 +235,22 @@ def generate_extra_letters():
             move_down(text)
 
 
+is_freeze_var = False
+
+
+def is_freeze():
+    return is_freeze_var
+
+
+def set_freeze(freeze_var):
+    global is_freeze_var
+    is_freeze_var = freeze_var
+
+
 def move_down(text):
     global score, score2, matched_letters_set, ball, is_continue
     move_distance = 1
-    if not is_continue:
+    if not is_continue or is_freeze():
         move_distance = 0
     if text not in matched_letters_set:
         canvas.move(text, 0, move_distance)
@@ -252,8 +274,10 @@ def hit_text(text):
     target_x, target_y = get_text_center_coords(canvas, text)
     if target_x == -1 and target_y == -1:
         return
-    ball_to(canvas, target_x, target_y, grade_map["ball_color"], pixel=speed, sleep_ms=1,
+    ball_color = grade_map["ball_color"]
+    ball_to(canvas, target_x, target_y, ball_color, pixel=speed, sleep_ms=1,
             ball_x1=ball_x1, ball_y1=ball_y1, text=text)
+    magic_ball(canvas, ball_color)
 
 
 def is_color_change_key(key):
@@ -433,8 +457,20 @@ def pause_game():
         return
 
 
-def magic_ball(canvas, magic_ball_color, pause_second):
-    return
+def magic_ball(canvas_var, magic_ball_color):
+    value_list = key_color[magic_ball_color]
+    random_config = random_char_config[magic_ball_color]
+    random_count = random_config['random_count']
+    freeze_time = random_config['freeze_time']
+    random_char_color_count = min(random_count, len(value_list))
+    choice_char_list = []
+    choice_char_list.extend(random.sample(value_list, random_char_color_count))
+    for one in choice_char_list:
+        canvas_var.delete(one)
+        canvas_var.update()
+    if freeze_time > 0:
+        set_freeze(True)
+        canvas_var.after(freeze_time * 1000, set_freeze, False)
 
 
 def set_up():
