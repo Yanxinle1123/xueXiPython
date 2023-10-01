@@ -19,30 +19,30 @@ number2 = 0
 if_start_game = False
 if_pause_game = False
 speed = 7
-yellow = 'yellow'
+yellow = 'green'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
            'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 rainbow = f'red,blue,{yellow}'
 two_color = "red,blue"
 grade_list = [
-    {"move_char_time_ms": 20, "other_char": 0, "gen_char_time_ms": 600,
+    {"move_char_time_ms": 20, "other_char": 0, "gen_char_time_ms": 400,
      "ball_color": "red", "char_color": "red"},  # 第 1 关
-    {"move_char_time_ms": 15, "other_char": 0, "gen_char_time_ms": 600,
+    {"move_char_time_ms": 20, "other_char": 2, "gen_char_time_ms": 400,
      "ball_color": "red", "char_color": "red"},  # 第 2 关
     {"move_char_time_ms": 10, "other_char": 0, "gen_char_time_ms": 600,
      "ball_color": "blue", "char_color": "blue"},  # 第 3 关
-    {"move_char_time_ms": 20, "other_char": 1, "gen_char_time_ms": 500,
-     "ball_color": "blue", "char_color": two_color},  # 第 4 关
-    {"move_char_time_ms": 20, "other_char": 2, "gen_char_time_ms": 500,
+    {"move_char_time_ms": 20, "other_char": 5, "gen_char_time_ms": 200,
+     "ball_color": "green", "char_color": yellow},  # 第 4 关
+    {"move_char_time_ms": 20, "other_char": 2, "gen_char_time_ms": 300,
      "ball_color": "red", "char_color": two_color},  # 第 5 关
-    {"move_char_time_ms": 20, "other_char": 3, "gen_char_time_ms": 500,
+    {"move_char_time_ms": 10, "other_char": 3, "gen_char_time_ms": 300,
      "ball_color": "red", "char_color": two_color},  # 第 6 关
-    {"move_char_time_ms": 15, "other_char": 2, "gen_char_time_ms": 400,
+    {"move_char_time_ms": 10, "other_char": 3, "gen_char_time_ms": 200,
      "ball_color": yellow, "char_color": f"{yellow},red"},  # 第 7 关
-    {"move_char_time_ms": 15, "other_char": 3, "gen_char_time_ms": 400,
+    {"move_char_time_ms": 20, "other_char": 3, "gen_char_time_ms": 400,
      "ball_color": "blue", "char_color": rainbow},  # 第 8 关
-    {"move_char_time_ms": 10, "other_char": 5, "gen_char_time_ms": 300,
+    {"move_char_time_ms": 15, "other_char": 5, "gen_char_time_ms": 300,
      "ball_color": yellow, "char_color": rainbow},  # 第 9 关
     {"move_char_time_ms": 10, "other_char": 8, "gen_char_time_ms": 250,
      "ball_color": "red", "char_color": rainbow},  # 第 10 关
@@ -71,12 +71,12 @@ color_change = {
 key_color = {
     'red': [],
     'blue': [],
-    'yellow': []
+    yellow: []
 }
 random_char_config = {
-    'red': {'random_count': 2, 'freeze_time': 0},
-    'blue': {'random_count': 4, 'freeze_time': 3},
-    'yellow': {'random_count': 8, 'freeze_time': 0},
+    'red': {'random_count': 3, 'freeze_time': 0},
+    'blue': {'random_count': 3, 'freeze_time': 5},
+    yellow: {'random_count': 7, 'freeze_time': 0},
 }
 key_color_index = 0
 grade = 0
@@ -210,7 +210,7 @@ def generate_and_move():
         # 将字母及其标签添加到字典中
         letters_tags[text] = unique_tag
         value_list = key_color[char_color]
-        add_fixed_list(value_list, text, size=10)
+        add_fixed_list(value_list, text, size=100)
         # print(f'value_list = {value_list}')
         # print(f'char_color = {char_color}')
         # print(f'key_color = {key_color}')
@@ -458,6 +458,7 @@ def pause_game():
 
 
 def magic_ball(canvas_var, magic_ball_color):
+    global score
     value_list = key_color[magic_ball_color]
     random_config = random_char_config[magic_ball_color]
     random_count = random_config['random_count']
