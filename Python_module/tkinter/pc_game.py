@@ -481,7 +481,7 @@ def set_up():
         is_continue = False
         pygame.mixer.music.unpause()
 
-        def q():
+        def quit_set_up():
             global is_continue, if_start_game, if_pause_game, number2, speed
             if if_start_game and if_pause_game:
                 pygame.mixer.music.pause()
@@ -529,7 +529,7 @@ def set_up():
         scale_music.set(volume_var)
         scale_music.place(x=scale_music_x, y=scale_music_y)
 
-        q_button = Button(new_window, text='退出设置', font=('Arial', 50), command=q)
+        q_button = Button(new_window, text='退出设置', font=('Arial', 50), command=quit_set_up)
         music_label = Label(new_window, text='音乐音量', font=('Arial', 20))
         ball_speed_label = Label(new_window, text='球的速度', font=('Arial', 20))
 
