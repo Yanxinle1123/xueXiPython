@@ -18,7 +18,7 @@ number = 0
 number2 = 0
 if_start_game = False
 if_pause_game = False
-speed = 7
+speed = 8
 yellow = 'green'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
            'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -482,10 +482,10 @@ def set_up():
         pygame.mixer.music.unpause()
 
         def q():
-            global is_continue, if_start_game, if_pause_game, number2
+            global is_continue, if_start_game, if_pause_game, number2, speed
             if if_start_game and if_pause_game:
                 pygame.mixer.music.pause()
-                pygame.mixer.music.set_volume(volume)
+                pygame.mixer.music.set_volume(volume_var)
                 is_continue = False
             if if_start_game and not if_pause_game:
                 is_continue = True
@@ -502,13 +502,13 @@ def set_up():
 
         def on_scale_changed(value):
             # 将滑块值转换为音量（0 到 1 之间的浮点数）
-            volume = float(value) / 10
+            volume_var2 = float(value) / 10
 
             # 更新 Pygame 混音器的音量
-            pygame.mixer.music.set_volume(volume)
+            pygame.mixer.music.set_volume(volume_var2)
 
-        volume = round(pygame.mixer.music.get_volume(), 1)
-        volume = volume * 10
+        volume_var = round(pygame.mixer.music.get_volume(), 1)
+        volume_var = volume_var * 10
 
         new_window = Toplevel(window)
         new_window.title("设置")
@@ -526,11 +526,12 @@ def set_up():
         scale_music_x = new_window_width // 2 - scale_music_length // 2
         scale_music_y = 50
         print(scale_music_length)
-        scale_music.set(volume)
+        scale_music.set(volume_var)
         scale_music.place(x=scale_music_x, y=scale_music_y)
 
         q_button = Button(new_window, text='退出设置', font=('Arial', 50), command=q)
         music_label = Label(new_window, text='音乐音量', font=('Arial', 20))
+        ball_speed_label = Label(new_window, text='球的速度', font=('Arial', 20))
 
         q_width = q_button.winfo_reqwidth()
         q_button_x = new_window_width // 2 - q_width // 2
@@ -539,6 +540,8 @@ def set_up():
         # music_label_width = music_label.winfo_width()
         music_label_font = tkfont.Font(font=music_label['font'])
         music_label_width = music_label_font.measure('音乐音量 ')
+
+        # 使用 Font 对象的 metrics() 方法获取 Label 的高度
         music_label_height = music_label_font.metrics("linespace")
 
         print(f'music_label_width = {music_label_width}')
