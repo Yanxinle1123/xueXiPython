@@ -19,6 +19,8 @@ number2 = 0
 if_start_game = False
 if_pause_game = False
 speed = 8
+value_list = []
+
 yellow = 'green'
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
            'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -26,18 +28,18 @@ letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
 rainbow = f'red,blue,{yellow}'
 two_color = "red,blue"
 grade_list = [
-    {"move_char_time_ms": 20, "other_char": 0, "gen_char_time_ms": 400,
+    {"move_char_time_ms": 20, "other_char": 0, "gen_char_time_ms": 500,
      "ball_color": "red", "char_color": "red"},  # 第 1 关
-    {"move_char_time_ms": 20, "other_char": 2, "gen_char_time_ms": 400,
+    {"move_char_time_ms": 15, "other_char": 0, "gen_char_time_ms": 500,
      "ball_color": "red", "char_color": "red"},  # 第 2 关
     {"move_char_time_ms": 10, "other_char": 0, "gen_char_time_ms": 600,
      "ball_color": "blue", "char_color": "blue"},  # 第 3 关
-    {"move_char_time_ms": 20, "other_char": 5, "gen_char_time_ms": 200,
+    {"move_char_time_ms": 20, "other_char": 2, "gen_char_time_ms": 400,
      "ball_color": "green", "char_color": yellow},  # 第 4 关
     {"move_char_time_ms": 20, "other_char": 2, "gen_char_time_ms": 300,
      "ball_color": "red", "char_color": two_color},  # 第 5 关
-    {"move_char_time_ms": 10, "other_char": 3, "gen_char_time_ms": 300,
-     "ball_color": "red", "char_color": two_color},  # 第 6 关
+    {"move_char_time_ms": 20, "other_char": 5, "gen_char_time_ms": 200,
+     "ball_color": "red", "char_color": rainbow},  # 第 6 关
     {"move_char_time_ms": 10, "other_char": 3, "gen_char_time_ms": 200,
      "ball_color": yellow, "char_color": f"{yellow},red"},  # 第 7 关
     {"move_char_time_ms": 20, "other_char": 3, "gen_char_time_ms": 400,
@@ -74,9 +76,9 @@ key_color = {
     yellow: []
 }
 random_char_config = {
-    'red': {'random_count': 3, 'freeze_time': 0},
-    'blue': {'random_count': 3, 'freeze_time': 5},
-    yellow: {'random_count': 7, 'freeze_time': 0},
+    'red': {'random_count': 2, 'freeze_time': 0},
+    'blue': {'random_count': 0, 'freeze_time': 1},
+    yellow: {'random_count': 5, 'freeze_time': 0},
 }
 key_color_index = 0
 grade = 0
@@ -185,19 +187,19 @@ def get_text_color():
     return char_color
 
 
-def add_fixed_list(value_list, text, size=10):
+def add_fixed_list(value_list_var, text, size=10):
     global key_color_index
-    list_size = len(value_list)
+    list_size = len(value_list_var)
     if list_size < size:
-        value_list.append(text)
+        value_list_var.append(text)
     else:
-        value_list[key_color_index] = text
+        value_list_var[key_color_index] = text
         key_color_index = (key_color_index + 1) % size
-    return value_list
+    return value_list_var
 
 
 def generate_and_move():
-    global task_id_generate_and_move, is_continue
+    global task_id_generate_and_move, is_continue, value_list
     if not is_game_over and is_continue:
         value = choice(letters)
         random_x = randint(20, window_width - 20)
@@ -291,7 +293,7 @@ def do_color_change(key):
 
 
 def key_pressed(event):
-    global score, quantity, matched_letters_set, ball
+    global score, quantity, matched_letters_set, ball, value_list
     if is_continue:
         key = event.char.upper()
         items = canvas.find_all()
@@ -305,6 +307,8 @@ def key_pressed(event):
                 if item not in matched_letters_set:
                     score += 1
                     quantity += 1
+                    if item in value_list:
+                        value_list.remove(item)
                     if quantity >= 4:
                         generate_extra_letters()
                         quantity = 0
@@ -458,17 +462,19 @@ def pause_game():
 
 
 def magic_ball(canvas_var, magic_ball_color):
-    global score
-    value_list = key_color[magic_ball_color]
+    global score, value_list
+    value_list2 = key_color[magic_ball_color]
     random_config = random_char_config[magic_ball_color]
     random_count = random_config['random_count']
     freeze_time = random_config['freeze_time']
-    random_char_color_count = min(random_count, len(value_list))
+    random_char_color_count = min(random_count, len(value_list2))
     choice_char_list = []
-    choice_char_list.extend(random.sample(value_list, random_char_color_count))
+    choice_char_list.extend(random.sample(value_list2, random_char_color_count))
     for one in choice_char_list:
         canvas_var.delete(one)
         canvas_var.update()
+        if one in value_list:
+            value_list.remove(one)
     if freeze_time > 0:
         set_freeze(True)
         canvas_var.after(freeze_time * 1000, set_freeze, False)
@@ -540,19 +546,17 @@ def set_up():
         # music_label_width = music_label.winfo_width()
         music_label_font = tkfont.Font(font=music_label['font'])
         music_label_width = music_label_font.measure('音乐音量 ')
+        ball_speed_label_font = tkfont.Font(font=music_label['font'])
+        ball_speed_label_width = ball_speed_label_font.measure('球的速度 ')
 
         # 使用 Font 对象的 metrics() 方法获取 Label 的高度
         music_label_height = music_label_font.metrics("linespace")
-
-        print(f'music_label_width = {music_label_width}')
-        # music_label_height = music_label.winfo_height()
         music_label_x = new_window_width // 2 - music_label_width // 2
-        print(f'music_label_height = {music_label_height}')
+        ball_speed_label_x = new_window_width // 2 - ball_speed_label_width // 2
         music_label_y = music_label_height
-
         q_button.place(x=q_button_x, y=q_button_y)
         music_label.place(x=music_label_x, y=music_label_y)
-
+        ball_speed_label.place(x=ball_speed_label_x, y=400)
         number2 += 1
 
 
