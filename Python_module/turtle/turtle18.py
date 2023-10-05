@@ -1,8 +1,8 @@
 from random import choice
-from turtle import pensize, speed, color, circle, left, ht
+from turtle import pensize, color, circle, left, ht
 
 pensize(10)
-speed(10000)
+ball_speed(10000)
 c = ['red', 'orange', 'yellow', 'green', 'blue']
 for n in range(350):
     w = choice(c)

@@ -14,7 +14,7 @@ pygame.display.set_caption("Snake Game")
 
 # 设置游戏速度
 clock = pygame.time.Clock()
-speed = 1
+ball_speed = 1
 
 # 定义颜色
 white = (255, 255, 255)
@@ -83,4 +83,4 @@ while True:
     pygame.display.flip()
 
     # 控制游戏速度
-    clock.tick(speed)
+    clock.tick(ball_speed)

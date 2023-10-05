@@ -41,7 +41,7 @@ def bubble(ball_size):
 
 clock = pygame.time.Clock()
 pygame.display.set_caption(title)
-speed = 250
+ball_speed = 250
 ball_size = 250
 bubble(ball_size)
 while True:
@@ -55,16 +55,16 @@ while True:
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_EQUALS]:
-        speed += 1
+        ball_speed += 1
     elif keys[pygame.K_MINUS]:
-        speed -= 1
+        ball_speed -= 1
     elif keys[pygame.K_q]:
         pygame.quit()
         sys.exit()
-    if speed >= 501:
-        speed = 500
-    elif speed <= 9:
-        speed = 10
+    if ball_speed >= 501:
+        ball_speed = 500
+    elif ball_speed <= 9:
+        ball_speed = 10
 
     screen.fill(rgb_color)
 
@@ -83,4 +83,4 @@ while True:
         screen.blit(ball, ballrect)
 
     pygame.display.flip()
-    clock.tick(speed)
+    clock.tick(ball_speed)

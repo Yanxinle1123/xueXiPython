@@ -18,7 +18,7 @@ number = 0
 number2 = 0
 if_start_game = False
 if_pause_game = False
-speed = 8
+ball_speed = 8
 value_list = []
 
 yellow = 'green'
@@ -27,7 +27,8 @@ letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
 
 rainbow = f'red,blue,{yellow}'
 two_color = "red,blue"
-grade_list = [
+
+lower_list = [
     {"move_char_time_ms": 20, "other_char": 0, "gen_char_time_ms": 500,
      "ball_color": "red", "char_color": "red"},  # 第 1 关
     {"move_char_time_ms": 15, "other_char": 0, "gen_char_time_ms": 500,
@@ -49,6 +50,54 @@ grade_list = [
     {"move_char_time_ms": 10, "other_char": 8, "gen_char_time_ms": 250,
      "ball_color": "red", "char_color": rainbow},  # 第 10 关
 ]
+
+medium_list = [
+    {"move_char_time_ms": 15, "other_char": 0, "gen_char_time_ms": 500,
+     "ball_color": "red", "char_color": "red"},  # 第 1 关
+    {"move_char_time_ms": 10, "other_char": 0, "gen_char_time_ms": 500,
+     "ball_color": "red", "char_color": "red"},  # 第 2 关
+    {"move_char_time_ms": 10, "other_char": 0, "gen_char_time_ms": 500,
+     "ball_color": "blue", "char_color": "blue"},  # 第 3 关
+    {"move_char_time_ms": 15, "other_char": 2, "gen_char_time_ms": 400,
+     "ball_color": "green", "char_color": yellow},  # 第 4 关
+    {"move_char_time_ms": 15, "other_char": 2, "gen_char_time_ms": 300,
+     "ball_color": "red", "char_color": two_color},  # 第 5 关
+    {"move_char_time_ms": 15, "other_char": 5, "gen_char_time_ms": 200,
+     "ball_color": "red", "char_color": rainbow},  # 第 6 关
+    {"move_char_time_ms": 10, "other_char": 3, "gen_char_time_ms": 200,
+     "ball_color": yellow, "char_color": f"{yellow},red"},  # 第 7 关
+    {"move_char_time_ms": 15, "other_char": 3, "gen_char_time_ms": 400,
+     "ball_color": "blue", "char_color": rainbow},  # 第 8 关
+    {"move_char_time_ms": 10, "other_char": 5, "gen_char_time_ms": 300,
+     "ball_color": yellow, "char_color": rainbow},  # 第 9 关
+    {"move_char_time_ms": 10, "other_char": 8, "gen_char_time_ms": 250,
+     "ball_color": "red", "char_color": rainbow},  # 第 10 关
+]
+
+advanced_list = [
+    {"move_char_time_ms": 15, "other_char": 5, "gen_char_time_ms": 400,
+     "ball_color": "red", "char_color": "red"},  # 第 1 关
+    {"move_char_time_ms": 10, "other_char": 5, "gen_char_time_ms": 500,
+     "ball_color": "red", "char_color": "red"},  # 第 2 关
+    {"move_char_time_ms": 10, "other_char": 5, "gen_char_time_ms": 500,
+     "ball_color": "blue", "char_color": "blue"},  # 第 3 关
+    {"move_char_time_ms": 15, "other_char": 7, "gen_char_time_ms": 400,
+     "ball_color": "green", "char_color": yellow},  # 第 4 关
+    {"move_char_time_ms": 15, "other_char": 7, "gen_char_time_ms": 300,
+     "ball_color": "red", "char_color": two_color},  # 第 5 关
+    {"move_char_time_ms": 15, "other_char": 10, "gen_char_time_ms": 200,
+     "ball_color": "red", "char_color": rainbow},  # 第 6 关
+    {"move_char_time_ms": 10, "other_char": 8, "gen_char_time_ms": 200,
+     "ball_color": yellow, "char_color": f"{yellow},red"},  # 第 7 关
+    {"move_char_time_ms": 15, "other_char": 8, "gen_char_time_ms": 400,
+     "ball_color": "blue", "char_color": rainbow},  # 第 8 关
+    {"move_char_time_ms": 10, "other_char": 10, "gen_char_time_ms": 300,
+     "ball_color": yellow, "char_color": rainbow},  # 第 9 关
+    {"move_char_time_ms": 10, "other_char": 8, "gen_char_time_ms": 200,
+     "ball_color": "red", "char_color": rainbow},  # 第 10 关
+]
+
+what_list = lower_list
 
 win_size_map = [
     {'width': 800, 'height': 600, 'button_size': 20},
@@ -82,7 +131,7 @@ random_char_config = {
 }
 key_color_index = 0
 grade = 0
-grade_map = grade_list[grade]
+grade_map = what_list[grade]
 
 pause_button_text_color = 'gray'
 continue_button_text_color = 'gray'
@@ -277,7 +326,7 @@ def hit_text(text):
     if target_x == -1 and target_y == -1:
         return
     ball_color = grade_map["ball_color"]
-    ball_to(canvas, target_x, target_y, ball_color, pixel=speed, sleep_ms=1,
+    ball_to(canvas, target_x, target_y, ball_color, pixel=ball_speed, sleep_ms=1,
             ball_x1=ball_x1, ball_y1=ball_y1, text=text)
     magic_ball(canvas, ball_color)
 
@@ -350,7 +399,7 @@ def lost_game():
         music_ret_id_first = change_music(win, music_file_start, 290000,
                                           True, True, music_ret_id)
     grade = 0
-    grade_map = grade_list[grade]
+    grade_map = what_list[grade]
 
     score = 0
     score2 = 0
@@ -384,7 +433,7 @@ def winning_the_game():
     elif grade == 8:
         music_ret_id_last = change_music(win, music_file_last, 79000,
                                          True, True, music_ret_id_mid)
-    grade_map = grade_list[grade]
+    grade_map = what_list[grade]
 
     ball = ball_first(canvas, grade_map["ball_color"], ball_x1, ball_y1)
     window.after(60, restart_game)
@@ -481,14 +530,14 @@ def magic_ball(canvas_var, magic_ball_color):
 
 
 def set_up():
-    global number2, is_continue
+    global number2, is_continue, ball_speed, what_list
     if set_up_button.cget('fg') != 'gray' and number2 % 2 == 0:
         set_up_button.config(fg='gray')
         is_continue = False
         pygame.mixer.music.unpause()
 
         def quit_set_up():
-            global is_continue, if_start_game, if_pause_game, number2, speed
+            global is_continue, if_start_game, if_pause_game, number2, ball_speed
             if if_start_game and if_pause_game:
                 pygame.mixer.music.pause()
                 pygame.mixer.music.set_volume(volume_var)
@@ -513,6 +562,31 @@ def set_up():
             # 更新 Pygame 混音器的音量
             pygame.mixer.music.set_volume(volume_var2)
 
+        def ball_speed_function(value):
+            global ball_speed
+            ball_speed = int(value) + 8
+
+        def this_lower_list():
+            global what_list
+            what_list = lower_list
+            lower_game_button.config(fg='red')
+            medium_game_button.config(fg='black')
+            advanced_game_button.config(fg='black')
+
+        def this_medium_list():
+            global what_list
+            what_list = medium_list
+            lower_game_button.config(fg='black')
+            medium_game_button.config(fg='red')
+            advanced_game_button.config(fg='black')
+
+        def this_advanced_list():
+            global what_list
+            what_list = advanced_list
+            lower_game_button.config(fg='black')
+            medium_game_button.config(fg='black')
+            advanced_game_button.config(fg='red')
+
         volume_var = round(pygame.mixer.music.get_volume(), 1)
         volume_var = volume_var * 10
 
@@ -528,35 +602,58 @@ def set_up():
 
         scale_music = Scale(new_window, from_=0, to=10, orient=HORIZONTAL, length=500, sliderlength=50, width=50,
                             command=on_scale_changed)
+        scale_ball_speed = Scale(new_window, from_=1, to=10, orient=HORIZONTAL, length=500, sliderlength=50, width=50,
+                                 command=ball_speed_function)
+        scale_ball_speed_length = scale_music.cget("length")
         scale_music_length = scale_music.cget("length")
         scale_music_x = new_window_width // 2 - scale_music_length // 2
         scale_music_y = 50
+        scale_ball_speed_x = new_window_width // 2 - scale_ball_speed_length // 2
+        scale_ball_speed_y = 180
         print(scale_music_length)
         scale_music.set(volume_var)
         scale_music.place(x=scale_music_x, y=scale_music_y)
-
+        scale_ball_speed.place(x=scale_ball_speed_x, y=scale_ball_speed_y)
         q_button = Button(new_window, text='退出设置', font=('Arial', 50), command=quit_set_up)
+        lower_game_button = Button(new_window, text='低等难度', font=('Arial', 50), command=this_lower_list, fg='red')
+        medium_game_button = Button(new_window, text='中等难度', font=('Arial', 50), command=this_medium_list)
+        advanced_game_button = Button(new_window, text='高等难度', font=('Arial', 50), command=this_advanced_list)
         music_label = Label(new_window, text='音乐音量', font=('Arial', 20))
         ball_speed_label = Label(new_window, text='球的速度', font=('Arial', 20))
+        that_list_label = Label(new_window, text='游戏难度', font=('Arial', 20))
 
         q_width = q_button.winfo_reqwidth()
         q_button_x = new_window_width // 2 - q_width // 2
         q_height = q_button.winfo_reqheight()
         q_button_y = new_window_height - (q_height + q_height // 2)
+        lower_game_button_width = lower_game_button.winfo_reqwidth()
+        medium_game_button_width = medium_game_button.winfo_reqwidth()
+        advanced_game_button_width = advanced_game_button.winfo_reqwidth()
+        lower_game_button_x = new_window_width // 2 - lower_game_button_width // 2
+        medium_game_button_x = new_window_width // 2 - medium_game_button_width // 2
+        advanced_game_button_x = new_window_width // 2 - advanced_game_button_width // 2
         # music_label_width = music_label.winfo_width()
         music_label_font = tkfont.Font(font=music_label['font'])
         music_label_width = music_label_font.measure('音乐音量 ')
         ball_speed_label_font = tkfont.Font(font=music_label['font'])
         ball_speed_label_width = ball_speed_label_font.measure('球的速度 ')
+        that_list_label_font = tkfont.Font(font=that_list_label['font'])
+        that_list_label_width = that_list_label_font.measure('游戏难度 ')
 
         # 使用 Font 对象的 metrics() 方法获取 Label 的高度
         music_label_height = music_label_font.metrics("linespace")
         music_label_x = new_window_width // 2 - music_label_width // 2
         ball_speed_label_x = new_window_width // 2 - ball_speed_label_width // 2
         music_label_y = music_label_height
+        that_list_label_x = new_window_width // 2 - that_list_label_width // 2
         q_button.place(x=q_button_x, y=q_button_y)
         music_label.place(x=music_label_x, y=music_label_y)
-        ball_speed_label.place(x=ball_speed_label_x, y=400)
+        ball_speed_label.place(x=ball_speed_label_x, y=150)
+        scale_ball_speed.set(ball_speed - 8)
+        that_list_label.place(x=that_list_label_x, y=280)
+        lower_game_button.place(x=lower_game_button_x, y=350)
+        medium_game_button.place(x=medium_game_button_x, y=450)
+        advanced_game_button.place(x=advanced_game_button_x, y=550)
         number2 += 1
 
 
