@@ -603,7 +603,6 @@ def set_up():
         new_window.geometry(f'{new_window_width}x{new_window_height}')
 
         music_label = Label(new_window, text='音乐音量', font=('Arial', 20))
-        music_label_width = music_label.winfo_reqwidth()
         music_label_height = music_label.winfo_reqheight()
         # print(f"music_label_width={music_label_width}|music_label_height={music_label_height}")
 
@@ -626,8 +625,6 @@ def set_up():
         scale_ball_speed = Scale(new_window, from_=1, to=10, orient=HORIZONTAL,
                                  length=scale_len, sliderlength=scale_width, width=scale_width,
                                  command=ball_speed_function)
-        scale_ball_speed_length = scale_music.cget("length")
-        scale_ball_speed_width = scale_music.cget("width")
         # print(f"scale_ball_speed_length={scale_ball_speed_length}|scale_ball_speed_width={scale_ball_speed_width}")
         scale_ball_speed_x = scale_music_x
         scale_ball_speed_y = scale_music_y + scale_music_width + music_label_height + scale_height * 3
