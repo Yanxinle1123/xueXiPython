@@ -550,14 +550,6 @@ def set_up():
             set_up_button.config(fg='black')
             number2 += 1
 
-        def on_window_close():
-            global number2, is_continue
-            set_up_button.config(fg='black')
-            is_continue = True
-            generate_and_move()
-            new_window.destroy()
-            number2 += 1
-
         def on_scale_changed(value):
             # 将滑块值转换为音量（0 到 1 之间的浮点数）
             volume_var2 = float(value) / 10
