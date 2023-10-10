@@ -551,8 +551,10 @@ def set_up():
             number2 += 1
 
         def on_window_close():
-            global number2
+            global number2, is_continue
             set_up_button.config(fg='black')
+            is_continue = True
+            generate_and_move()
             new_window.destroy()
             number2 += 1
 
@@ -607,7 +609,7 @@ def set_up():
 
         new_window = Toplevel(window)
         new_window.title("设置")
-        new_window.protocol("WM_DELETE_WINDOW", on_window_close)
+        new_window.protocol("WM_DELETE_WINDOW", quit_set_up)
         new_window.resizable(False, False)
         new_window.update_idletasks()
 
