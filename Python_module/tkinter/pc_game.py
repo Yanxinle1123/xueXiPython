@@ -144,8 +144,8 @@ window.resizable(False, False)
 # 获取屏幕的宽度和高度
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
-print(screen_width)
-print(screen_height)
+# print(screen_width)
+# print(screen_height)
 # screen_width = 1728
 # screen_height = 1117
 button_text_size = 30
@@ -177,9 +177,9 @@ red_line = canvas.create_line(red_line_x0, red_line_y0, red_line_x1, red_line_y1
 ball_x1 = red_line_x1 // 2
 ball_y1 = red_line_y1 - 45
 ball_x1 = ball_x1 - 30 / 2
-print(ball_x1)
+# print(ball_x1)
 
-print(f"ball_x1={ball_x1}|ball_y1={ball_y1}")
+# print(f"ball_x1={ball_x1}|ball_y1={ball_y1}")
 ball = ball_first(canvas, grade_map["ball_color"], ball_x1, ball_y1)
 
 grade_label = Label(window, text="第 {} 关".format(grade + 1), font=("Arial", 30), bg='white')
@@ -605,7 +605,7 @@ def set_up():
         music_label = Label(new_window, text='音乐音量', font=('Arial', 20))
         music_label_width = music_label.winfo_reqwidth()
         music_label_height = music_label.winfo_reqheight()
-        print(f"music_label_width={music_label_width}|music_label_height={music_label_height}")
+        # print(f"music_label_width={music_label_width}|music_label_height={music_label_height}")
 
         scale_len = int(new_window_width * 0.95)
         scale_width = 40
@@ -616,7 +616,7 @@ def set_up():
                             command=on_scale_changed)
         scale_music_length = scale_music.cget("length")
         scale_music_width = scale_music.cget("width")
-        print(f"scale_music_length={scale_music_length}|scale_music_width={scale_music_width}")
+        # print(f"scale_music_length={scale_music_length}|scale_music_width={scale_music_width}")
         scale_music_x = new_window_width // 2 - scale_music_length // 2
         scale_music_y = music_label_height + scale_height
         scale_music.set(volume_var)
@@ -628,7 +628,7 @@ def set_up():
                                  command=ball_speed_function)
         scale_ball_speed_length = scale_music.cget("length")
         scale_ball_speed_width = scale_music.cget("width")
-        print(f"scale_ball_speed_length={scale_ball_speed_length}|scale_ball_speed_width={scale_ball_speed_width}")
+        # print(f"scale_ball_speed_length={scale_ball_speed_length}|scale_ball_speed_width={scale_ball_speed_width}")
         scale_ball_speed_x = scale_music_x
         scale_ball_speed_y = scale_music_y + scale_music_width + music_label_height + scale_height * 3
         scale_ball_speed.place(x=scale_ball_speed_x, y=scale_ball_speed_y)
@@ -737,7 +737,7 @@ continue_button.place(x=continue_x, y=continue_y)
 set_up_button.place(x=set_up_x, y=set_up_y)
 
 volume = round(pygame.mixer.music.get_volume(), 1)
-print(f"Music volume: {volume}")
+# print(f"Music volume: {volume}")
 
 window.bind('<Key>', key_pressed)
 window.protocol("WM_DELETE_WINDOW", on_close)
