@@ -14,6 +14,8 @@ from comm.comm_music import play_music_by_window, quit_music, change_music
 # if not sys.stdout:
 #     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', buffering=1)
 
+sys.setrecursionlimit(10000)  # 设置最大递归深度为5000
+
 number = 0
 number2 = 0
 if_start_game = False
