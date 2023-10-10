@@ -27,6 +27,7 @@ letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
 
 rainbow = f'red,blue,{yellow}'
 two_color = "red,blue"
+button_color = 'lower'
 
 lower_list = [
     {"move_char_time_ms": 20, "other_char": 0, "gen_char_time_ms": 500,
@@ -52,11 +53,11 @@ lower_list = [
 ]
 
 medium_list = [
-    {"move_char_time_ms": 15, "other_char": 0, "gen_char_time_ms": 500,
+    {"move_char_time_ms": 15, "other_char": 2, "gen_char_time_ms": 400,
      "ball_color": "red", "char_color": "red"},  # 第 1 关
-    {"move_char_time_ms": 10, "other_char": 0, "gen_char_time_ms": 500,
+    {"move_char_time_ms": 10, "other_char": 2, "gen_char_time_ms": 500,
      "ball_color": "red", "char_color": "red"},  # 第 2 关
-    {"move_char_time_ms": 10, "other_char": 0, "gen_char_time_ms": 500,
+    {"move_char_time_ms": 10, "other_char": 2, "gen_char_time_ms": 500,
      "ball_color": "blue", "char_color": "blue"},  # 第 3 关
     {"move_char_time_ms": 15, "other_char": 2, "gen_char_time_ms": 400,
      "ball_color": "green", "char_color": yellow},  # 第 4 关
@@ -567,28 +568,40 @@ def set_up():
             ball_speed = int(value) + 8
 
         def this_lower_list():
-            global what_list, grade_map
+            global what_list, grade_map, button_color
             what_list = lower_list
             grade_map = what_list[grade]
             lower_game_button.config(fg='red')
             medium_game_button.config(fg='black')
             advanced_game_button.config(fg='black')
+            button_color = 'lower'
 
         def this_medium_list():
-            global what_list, grade_map
+            global what_list, grade_map, button_color
             what_list = medium_list
             grade_map = what_list[grade]
             lower_game_button.config(fg='black')
             medium_game_button.config(fg='red')
             advanced_game_button.config(fg='black')
+            button_color = 'medium'
 
         def this_advanced_list():
-            global what_list, grade_map
+            global what_list, grade_map, button_color
             what_list = advanced_list
             grade_map = what_list[grade]
             lower_game_button.config(fg='black')
             medium_game_button.config(fg='black')
             advanced_game_button.config(fg='red')
+            button_color = 'advanced'
+
+        def button_color_function():
+            global button_color
+            if button_color == 'lower':
+                lower_game_button.config(fg='red')
+            elif button_color == 'medium':
+                medium_game_button.config(fg='red')
+            else:
+                advanced_game_button.config(fg='red')
 
         volume_var = round(pygame.mixer.music.get_volume(), 1) * 10
 
@@ -632,7 +645,7 @@ def set_up():
 
         game_difficult_label = Label(new_window, text='游戏难度', font=('Arial', 20))
 
-        lower_game_button = Button(new_window, text='低等难度', font=('Arial', 50), command=this_lower_list, fg='red')
+        lower_game_button = Button(new_window, text='低等难度', font=('Arial', 50), command=this_lower_list)
         medium_game_button = Button(new_window, text='中等难度', font=('Arial', 50), command=this_medium_list)
         advanced_game_button = Button(new_window, text='高等难度', font=('Arial', 50), command=this_advanced_list)
 
@@ -671,6 +684,7 @@ def set_up():
         lower_game_button.place(x=lower_game_button_x, y=350)
         medium_game_button.place(x=medium_game_button_x, y=450)
         advanced_game_button.place(x=advanced_game_button_x, y=550)
+        button_color_function()
         number2 += 1
 
 
