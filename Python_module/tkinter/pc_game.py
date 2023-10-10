@@ -100,21 +100,21 @@ advanced_list = [
 
 what_list = lower_list
 
-win_size_map = [
-    {'width': 800, 'height': 600, 'button_size': 20},
-    {'width': 1024, 'height': 768, 'button_size': 30},
-    {'width': 1366, 'height': 768, 'button_size': 30},
-    {'width': 1440, 'height': 900, 'button_size': ''},
-    {'width': 2560, 'height': 1600, 'button_size': ''},
-    {'width': 2880, 'height': 1800, 'button_size': ''},
-    {'width': 3072, 'height': 1920, 'button_size': ''},
-    {'width': 2304, 'height': 1440, 'button_size': ''},
-    {'width': 1920, 'height': 1080, 'button_size': ''},
-    {'width': 5120, 'height': 2880, 'button_size': ''},
-    {'width': 4096, 'height': 2304, 'button_size': ''},
-    {'width': 1024, 'height': 768, 'button_size': ''},
-    {'width': 3456, 'height': 2234, 'button_size': ''},
-]
+# win_size_map = [
+#     {'width': 800, 'height': 600, 'button_size': 20},
+#     {'width': 1024, 'height': 768, 'button_size': 30},
+#     {'width': 1366, 'height': 768, 'button_size': 30},
+#     {'width': 1440, 'height': 900, 'button_size': ''},
+#     {'width': 2560, 'height': 1600, 'button_size': ''},
+#     {'width': 2880, 'height': 1800, 'button_size': ''},
+#     {'width': 3072, 'height': 1920, 'button_size': ''},
+#     {'width': 2304, 'height': 1440, 'button_size': ''},
+#     {'width': 1920, 'height': 1080, 'button_size': ''},
+#     {'width': 5120, 'height': 2880, 'button_size': ''},
+#     {'width': 4096, 'height': 2304, 'button_size': ''},
+#     {'width': 1024, 'height': 768, 'button_size': ''},
+#     {'width': 3456, 'height': 2234, 'button_size': ''},
+# ]
 color_change = {
     '1': 'red',
     '2': 'blue',
