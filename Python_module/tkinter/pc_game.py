@@ -567,78 +567,99 @@ def set_up():
             ball_speed = int(value) + 8
 
         def this_lower_list():
-            global what_list
+            global what_list, grade_map
             what_list = lower_list
+            grade_map = what_list[grade]
             lower_game_button.config(fg='red')
             medium_game_button.config(fg='black')
             advanced_game_button.config(fg='black')
 
         def this_medium_list():
-            global what_list
+            global what_list, grade_map
             what_list = medium_list
+            grade_map = what_list[grade]
             lower_game_button.config(fg='black')
             medium_game_button.config(fg='red')
             advanced_game_button.config(fg='black')
 
         def this_advanced_list():
-            global what_list
+            global what_list, grade_map
             what_list = advanced_list
+            grade_map = what_list[grade]
             lower_game_button.config(fg='black')
             medium_game_button.config(fg='black')
             advanced_game_button.config(fg='red')
 
-        volume_var = round(pygame.mixer.music.get_volume(), 1)
-        volume_var = volume_var * 10
+        volume_var = round(pygame.mixer.music.get_volume(), 1) * 10
 
         new_window = Toplevel(window)
         new_window.title("设置")
         new_window.protocol("WM_DELETE_WINDOW", on_window_close)
         new_window.resizable(False, False)
         new_window.update_idletasks()
-        new_window_height = screen_height // 2 // 2
-        new_window_height = screen_height - new_window_height
-        new_window_width = 600
+
+        new_window_height = int(screen_height * 0.75)
+        new_window_width = int(screen_width * 0.3)
         new_window.geometry(f'{new_window_width}x{new_window_height}')
 
-        scale_music = Scale(new_window, from_=0, to=10, orient=HORIZONTAL, length=500, sliderlength=50, width=50,
+        music_label = Label(new_window, text='音乐音量', font=('Arial', 20))
+        music_label_width = music_label.winfo_reqwidth()
+        music_label_height = music_label.winfo_reqheight()
+        print(f"music_label_width={music_label_width}|music_label_height={music_label_height}")
+
+        scale_len = int(new_window_width * 0.95)
+        scale_width = 40
+        scale_height = 20
+
+        scale_music = Scale(new_window, from_=0, to=10, orient=HORIZONTAL,
+                            length=scale_len, sliderlength=scale_width, width=scale_width,
                             command=on_scale_changed)
-        scale_ball_speed = Scale(new_window, from_=1, to=10, orient=HORIZONTAL, length=500, sliderlength=50, width=50,
-                                 command=ball_speed_function)
-        scale_ball_speed_length = scale_music.cget("length")
         scale_music_length = scale_music.cget("length")
+        scale_music_width = scale_music.cget("width")
+        print(f"scale_music_length={scale_music_length}|scale_music_width={scale_music_width}")
         scale_music_x = new_window_width // 2 - scale_music_length // 2
-        scale_music_y = 50
-        scale_ball_speed_x = new_window_width // 2 - scale_ball_speed_length // 2
-        scale_ball_speed_y = 180
-        print(scale_music_length)
+        scale_music_y = music_label_height + scale_height
         scale_music.set(volume_var)
         scale_music.place(x=scale_music_x, y=scale_music_y)
+
+        ball_speed_label = Label(new_window, text='球的速度', font=('Arial', 20))
+        scale_ball_speed = Scale(new_window, from_=1, to=10, orient=HORIZONTAL,
+                                 length=scale_len, sliderlength=scale_width, width=scale_width,
+                                 command=ball_speed_function)
+        scale_ball_speed_length = scale_music.cget("length")
+        scale_ball_speed_width = scale_music.cget("width")
+        print(f"scale_ball_speed_length={scale_ball_speed_length}|scale_ball_speed_width={scale_ball_speed_width}")
+        scale_ball_speed_x = scale_music_x
+        scale_ball_speed_y = scale_music_y + scale_music_width + music_label_height + scale_height * 3
         scale_ball_speed.place(x=scale_ball_speed_x, y=scale_ball_speed_y)
-        q_button = Button(new_window, text='退出设置', font=('Arial', 50), command=quit_set_up)
+
+        game_difficult_label = Label(new_window, text='游戏难度', font=('Arial', 20))
+
         lower_game_button = Button(new_window, text='低等难度', font=('Arial', 50), command=this_lower_list, fg='red')
         medium_game_button = Button(new_window, text='中等难度', font=('Arial', 50), command=this_medium_list)
         advanced_game_button = Button(new_window, text='高等难度', font=('Arial', 50), command=this_advanced_list)
-        music_label = Label(new_window, text='音乐音量', font=('Arial', 20))
-        ball_speed_label = Label(new_window, text='球的速度', font=('Arial', 20))
-        that_list_label = Label(new_window, text='游戏难度', font=('Arial', 20))
 
-        q_width = q_button.winfo_reqwidth()
-        q_button_x = new_window_width // 2 - q_width // 2
-        q_height = q_button.winfo_reqheight()
-        q_button_y = new_window_height - (q_height + q_height // 2)
         lower_game_button_width = lower_game_button.winfo_reqwidth()
         medium_game_button_width = medium_game_button.winfo_reqwidth()
         advanced_game_button_width = advanced_game_button.winfo_reqwidth()
         lower_game_button_x = new_window_width // 2 - lower_game_button_width // 2
         medium_game_button_x = new_window_width // 2 - medium_game_button_width // 2
         advanced_game_button_x = new_window_width // 2 - advanced_game_button_width // 2
+
         # music_label_width = music_label.winfo_width()
         music_label_font = tkfont.Font(font=music_label['font'])
         music_label_width = music_label_font.measure('音乐音量 ')
         ball_speed_label_font = tkfont.Font(font=music_label['font'])
         ball_speed_label_width = ball_speed_label_font.measure('球的速度 ')
-        that_list_label_font = tkfont.Font(font=that_list_label['font'])
+        that_list_label_font = tkfont.Font(font=game_difficult_label['font'])
         that_list_label_width = that_list_label_font.measure('游戏难度 ')
+
+        quit_button = Button(new_window, text='退出设置', font=('Arial', 50), command=quit_set_up)
+        quit_button_width = quit_button.winfo_reqwidth()
+        quit_button_height = quit_button.winfo_reqheight()
+        quit_button_x = new_window_width // 2 - quit_button_width // 2
+        quit_button_y = new_window_height - (quit_button_height + quit_button_height // 2)
+        quit_button.place(x=quit_button_x, y=quit_button_y)
 
         # 使用 Font 对象的 metrics() 方法获取 Label 的高度
         music_label_height = music_label_font.metrics("linespace")
@@ -646,11 +667,10 @@ def set_up():
         ball_speed_label_x = new_window_width // 2 - ball_speed_label_width // 2
         music_label_y = music_label_height
         that_list_label_x = new_window_width // 2 - that_list_label_width // 2
-        q_button.place(x=q_button_x, y=q_button_y)
         music_label.place(x=music_label_x, y=music_label_y)
         ball_speed_label.place(x=ball_speed_label_x, y=150)
         scale_ball_speed.set(ball_speed - 8)
-        that_list_label.place(x=that_list_label_x, y=280)
+        game_difficult_label.place(x=that_list_label_x, y=280)
         lower_game_button.place(x=lower_game_button_x, y=350)
         medium_game_button.place(x=medium_game_button_x, y=450)
         advanced_game_button.place(x=advanced_game_button_x, y=550)
