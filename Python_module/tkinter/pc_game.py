@@ -14,7 +14,7 @@ from comm.comm_music import play_music_by_window, quit_music, change_music
 # if not sys.stdout:
 #     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', buffering=1)
 
-sys.setrecursionlimit(10000)  # 设置最大递归深度为5000
+sys.setrecursionlimit(10000)  # 设置递归深度
 
 number = 0
 number2 = 0
@@ -609,7 +609,9 @@ def set_up():
 
         new_window_height = int(screen_height * 0.75)
         new_window_width = int(screen_width * 0.3)
-        new_window.geometry(f'{new_window_width}x{new_window_height}')
+        new_window_x = screen_width // 2 - new_window_width // 2
+        new_window_y = screen_height // 2 - new_window_height // 2
+        new_window.geometry(f'{new_window_width}x{new_window_height}+{new_window_x}+{new_window_y}')
 
         music_label = Label(new_window, text='音乐音量', font=('Arial', 20))
         music_label_height = music_label.winfo_reqheight()
