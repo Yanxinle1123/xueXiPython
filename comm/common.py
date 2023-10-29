@@ -333,7 +333,6 @@ def value4(value):
                 ret = float(value)
     elif ret.isdigit():
         ret = int(ret)
-
     return ret
 
 
