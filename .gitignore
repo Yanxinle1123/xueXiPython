@@ -1061,3 +1061,9 @@
 /Python_module/tkinter/dist/pc_game.app/Contents/MacOS/Python
 /Python_module/tkinter/dist/pc_game.app/Contents/Resources/generated-4401871a120727e2d450eb70adc38f7ebf2e37c78117825af4c91ffaa2d14f90.icns
 /Python_module/tkinter/dist/pc_game.app/Contents/Info.plist
+Python_module/tkinter/dist/.DS_Store
+.DS_Store
+.__pycache__
+comm/__pycache__/*
+Python_module/tkinter/build/*
+.vscode
