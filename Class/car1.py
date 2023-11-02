@@ -1,3 +1,6 @@
+"""一个用来表示汽车的类"""
+
+
 class Car:
     def __init__(self, make, model, year):
         self.make = make
@@ -19,12 +22,11 @@ class Car:
     def increment_odometer(self, miles):
         self.odometer_reading += miles
 
+# car = Car('audi', 'a4', 2024)
+# print(f"这辆车是 {car.get_descriptive_name()}")
 
-car = Car('audi', 'a4', 2024)
-print(f"这辆车是 {car.get_descriptive_name()}")
+# car.update_odometer(25000)
+# car.read_odometer()
 
-car.update_odometer(25000)
-car.read_odometer()
-
-car.increment_odometer(100)
-car.read_odometer()
+# car.increment_odometer(100)
+# car.read_odometer()
