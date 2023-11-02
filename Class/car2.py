@@ -20,11 +20,15 @@ class Car:
         self.odometer_reading += miles
 
 
-car = Car('audi', 'a4', 2024)
-print(f"这辆车是 {car.get_descriptive_name()}")
+class ElectricCar(Car):
+    def __init__(self, make, model, year):
+        super().__init__(make, model, year)
+        self.battery_size = 40
 
-car.update_odometer(25000)
-car.read_odometer()
+    def describe_battery(self):
+        print(f"这个汽车有 {self.battery_size}-kWh 的电池容量")
 
-car.increment_odometer(100)
-car.read_odometer()
+
+leaf = ElectricCar('nissan', 'leaf', 2024)
+print(leaf.get_descriptive_name())
+print()

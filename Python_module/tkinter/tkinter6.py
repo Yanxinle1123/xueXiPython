@@ -115,6 +115,7 @@ def ping_fang():
         entry.insert(0, '|')
         entry.config(state="disabled")
     except Exception:
+        print('\a')
         tk.messagebox.showwarning('错误', '算式有误')
         entry.insert(0, '|')
         entry.config(state="disabled")
@@ -131,6 +132,7 @@ def li_fang():
         entry.insert(0, '|')
         entry.config(state="disabled")
     except Exception:
+        print('\a')
         tk.messagebox.showwarning('错误', '算式有误')
         entry.insert(0, '|')
         entry.config(state="disabled")
@@ -147,6 +149,7 @@ def ping_fang_gen():
         entry.insert(0, '|')
         entry.config(state="disabled")
     except Exception:
+        print('\a')
         tk.messagebox.showwarning('错误', '算式有误')
         entry.insert(0, '|')
         entry.config(state="disabled")
@@ -163,6 +166,7 @@ def li_fang_gen():
         entry.insert(0, jieguo)
         entry.config(state="disabled")
     except Exception:
+        print('\a')
         tk.messagebox.showwarning('错误', '算式有误')
         entry.insert(0, '|')
         entry.config(state="disabled")
@@ -180,6 +184,7 @@ def tan():
         entry.insert(0, '|')
         entry.config(state="disabled")
     except Exception:
+        print('\a')
         tk.messagebox.showwarning('错误', '算式有误')
         entry.insert(0, '|')
         entry.config(state="disabled")
@@ -207,6 +212,7 @@ def calculate_result():
             jieguo = str(value4(zheng_chu)) + '......' + str(value4(other_yu_shu))
             if jieguo != '':
                 if len(jieguo) > 24:
+                    print('\a')
                     tk.messagebox.showwarning('错误', '结果太长')
                     entry.insert(0, '|')
                     entry.config(state="disabled")
@@ -216,6 +222,7 @@ def calculate_result():
                     entry.config(state="disabled")
             else:
                 if jieguo == 'None':
+                    print('\a')
                     entry.insert(0, '无结果')
                     entry.insert(0, '|')
                     entry.config(state="disabled")
@@ -223,6 +230,7 @@ def calculate_result():
             huoqu2 = is_all_digits(expression)
             huoqu3 = contains_operator(expression)
             if huoqu2 and not huoqu3:
+                print('\a')
                 tk.messagebox.showwarning('错误', '没有运算字符')
             elif not huoqu2:
                 entry.config(state="normal")
@@ -230,10 +238,12 @@ def calculate_result():
                 result = str(value4(str(calculate(expression))))
                 sample_text = result
                 if result == 'None':
+                    print('\a')
                     entry.insert(0, '无结果')
                     entry.config(state="disabled")
                 else:
                     if len(sample_text) > 24:
+                        print('\a')
                         tk.messagebox.showwarning('错误', '结果太长')
                         entry.insert(0, '|')
                         entry.config(state="disabled")
@@ -242,6 +252,7 @@ def calculate_result():
                         entry.insert(0, sample_text)
                         entry.config(state="disabled")
     except Exception:
+        print('\a')
         tk.messagebox.showwarning('错误', '算式有误')
         entry.insert(0, '|')
         entry.config(state="disabled")
@@ -265,12 +276,14 @@ def calc(expression):
             else:
                 # entry.insert(0, '无结果')
                 # entry.config(state="disabled")
+                print('\a')
                 return '无结果'
         else:
             huoqu2 = is_all_digits(expression)
             huoqu3 = contains_operator(expression)
             if huoqu2 and not huoqu3:
                 # tk.messagebox.showwarning('错误', '没有运算字符')
+                print('\a')
                 return '没有运算字符'
             elif not huoqu2:
                 # entry.config(state="normal")
@@ -283,6 +296,7 @@ def calc(expression):
     except Exception:
         # tk.messagebox.showwarning('错误', '算式有误')
         # entry.config(state="disabled")
+        print('\a')
         return '算式有误'
 
 
@@ -297,6 +311,7 @@ def radical():
         entry.insert(0, '|')
         entry.config(state="disabled")
     except Exception:
+        print('\a')
         tk.messagebox.showwarning('错误', '算式有误')
         entry.insert(0, '|')
         entry.config(state="disabled")
