@@ -53,6 +53,7 @@ def change_ball_color(canvas, ball, color):
 def ball_to(canvas, target_x, target_y, ball_color='green', pixel=0.1,
             sleep_ms=1, ball_x1=485, ball_y1=700, text=False):
     hex1 = ball_color
+    n
     num = contains_digit(hex1)
     if hex1[0] != '#' and num:
         hex1 = hex1.upper()
