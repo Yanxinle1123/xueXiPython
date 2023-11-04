@@ -9,12 +9,13 @@ Languages curently supported :
 # How to use:
 
 -
-    1) Define a PlantUML class diagram:
+    1) 先安装: pip install textX
+    2) Define a PlantUML class diagram:
 
 PlantUML is an easy grammar that generates UML drawings : [PlantUML project](http://plantuml.com/class-diagram)
 
 -
-    2) Launch plant2code with the specified language and the diagram path as arguments (you can also specify where you
+    3) Launch plant2code with the specified language and the diagram path as arguments (you can also specify where you
        want the code to be generated)
 
 ##### python main.py python uml-v3.txt ../pc_game
@@ -24,7 +25,7 @@ $ plant2code python path/to/plantuml_diagram.txt /tmp/output
 ```
 
 -
-    3) That's it ! Your code as been generated, now you should follow the todo indications (printed as comment inside
+    4) That's it ! Your code as been generated, now you should follow the todo indications (printed as comment inside
        the code) to complete the code.
 
 # Documentation:
