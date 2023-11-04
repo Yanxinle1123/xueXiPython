@@ -53,19 +53,19 @@ def change_music(win, music_file, cycle_time_ms=290000,
     return ret_id
 
 # window = Tk()
-# music_file = "/Users/lele/lele/Python_module/tkinter/game_music_start.ogg"
-# play_music_with_window(music_file, 290000, True, True)
+# music_file = "/Users/lele/lele/Python_module/tkinter/game_music_start1.mp3"
+# play_music_by_window(window, music_file, 118000, True, True)
 # window.withdraw()
 # window.mainloop()
 #
 # window = Tk()
 # music_file = "/Users/lele/lele/Python_module/tkinter/game_music_mid_forever.mp3"
-# play_music_with_window(music_file, 62000, True, True)
+# play_music_by_window(window, music_file, 62000, True, True)
 # window.withdraw()
 # window.mainloop()
 #
 # window = Tk()
 # music_file = "/Users/lele/lele/Python_module/tkinter/game_music_last.mp3"
-# play_music_with_window(music_file, 79000, True, True)
+# play_music_by_window(window, music_file, 79000, True, True)
 # window.withdraw()
 # window.mainloop()
