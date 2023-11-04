@@ -14,6 +14,7 @@ from comm.comm_music import play_music_by_window, quit_music, change_music
 # if not sys.stdout:
 #     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', buffering=1)
 
+
 sys.setrecursionlimit(10000)  # 设置递归深度
 
 number = 0
@@ -399,7 +400,7 @@ def lost_game():
             music_ret_id = music_ret_id_mid
         else:
             music_ret_id = music_ret_id_last
-        music_ret_id_first = change_music(win, music_file_start, 290000,
+        music_ret_id_first = change_music(win, music_file_start, 118000,
                                           True, True, music_ret_id)
     grade = 0
     grade_map = what_list[grade]
@@ -428,10 +429,10 @@ def winning_the_game():
         score = 0
 
     if grade == 0:
-        music_ret_id_first = change_music(win, music_file_start, 290000,
+        music_ret_id_first = change_music(win, music_file_start, 118000,
                                           True, True, music_ret_id_last)
     elif grade == 5:
-        music_ret_id_mid = change_music(win, music_file_mid, 620000,
+        music_ret_id_mid = change_music(win, music_file_mid, 62000,
                                         True, True, music_ret_id_first)
     elif grade == 8:
         music_ret_id_last = change_music(win, music_file_last, 79000,
@@ -693,11 +694,11 @@ def resource_path(relative_path):
 
 
 win = Tk()
-music_file_start = resource_path("game_music_start.ogg")
+music_file_start = resource_path("game_music_start1.mp3")
 music_file_mid = resource_path("game_music_mid_forever.mp3")
 music_file_last = resource_path("game_music_last.mp3")
 
-music_ret_id_first = play_music_by_window(win, music_file_start, 290000,
+music_ret_id_first = play_music_by_window(win, music_file_start, 118000,
                                           True, True)
 start_button = Button(canvas, text='开始', font=("Arial", button_text_size), fg='black', command=start_game)
 start_width = start_button.winfo_reqwidth()
