@@ -1,0 +1,125 @@
+Plant:
+    '@startuml'  (classes+=Class |  packages+=Package | enums+=Enum |relations+=Relation)* '@enduml'
+;
+
+Relation:
+    (Heritage|Composition)
+;
+
+Composition:
+    contenant=[Class] ('*--'|(range_contenant=Range '*--'))   (range_contenu=Range)? contenu=[Class] (':'label=ID)?
+    |
+    contenu=[Class] (range_contenu=Range)? '--*' (range_contenant=Range)? contenant=[Class] (':'label=ID)?
+;
+
+Heritage:
+    contenant=[Class] (range_contenant=Range)? '<--' (range_contenu=Range)? contenu=[Class] (':'label=ID)?
+    |
+    contenu=[Class] (range_contenu=Range)? '-->' (range_contenant=Range)? contenant=[Class] (':'label=ID)?
+;
+
+
+Range:
+    ((Int|'*')'..'(Int|'*'))|Int|'*'
+;
+Int:
+    /[0-9]*/
+;
+
+Class:
+    type=Class_type
+    name = ID
+    (
+        '{'
+                attributes*= Attribute
+        '}'
+    )?
+;
+Enum:
+    'enum'
+    name = ID
+    (
+        '{'
+                labels*= ID
+        '}'
+    )?
+;
+Attribute:
+    Method|Value
+;
+
+Class_type:
+	'class' | 'abstract class' | 'interface'
+;
+
+Value:
+	ValueWithType|ValueWithoutType
+;
+
+ValueWithType:
+    (visibility=Visibility)?
+	(access=Access)?
+	type=ID
+	name=ID
+;
+ValueWithoutType:
+    (visibility=Visibility)?
+	(access=Access)?
+	name=ID
+;
+
+Parameter:
+    type=ID name=ID | name=ID
+;
+
+
+Method:
+	MethodWithType|MethodWithoutType
+;
+
+MethodWithType:
+	(visibility=Visibility)?
+	(access=Access)?
+	type=ID
+
+	name=ID
+	'('
+	    (params+=Parameter[','])?
+	')'
+;
+
+MethodWithoutType:
+	(visibility=Visibility)?
+	(access=Access)?
+	name=ID
+	'('
+	    (params+=Parameter[','])?
+	')'
+;
+
+Visibility:
+    '+' | '-'
+;
+
+Access:
+    '{' ('static' | 'abstract') '}'
+;
+
+
+
+
+Package:
+    'package'
+    path*=ID['.']
+    (
+    '{'
+		(
+			( classes+=Class )
+		|
+			( packages+=Package )
+		|
+			( enums+=Enum )
+		)*
+	'}'
+	)?
+;

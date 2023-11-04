@@ -1,0 +1,87 @@
+@startuml
+
+
+class Game {
+  - Config config_game
+
+  void create_game_ui()
+  void create_config_window()
+}
+
+class GameUI {
+
+void create_game_window()
+}
+
+class SettingsWindow {
+  - Config config_win
+
+  void make_button_music_volumn()
+  void make_button_game_difficulty()
+  void make_button_ball_speed()
+  void make_button_quit()
+}
+SettingsWindow  *--  Button:包含
+
+
+class Config
+
+class GameWindow{
+
+
+void create_grade()
+void create_score()
+void create_game_char()
+void create_ball()
+void create_red_line()
+void create_button()
+void play_music()
+}
+
+class Button{
+
+
+void get_x()
+void get_y()
+void make_font(String font_name,int font_size)
+void make_label()
+void place()
+void command()
+}
+
+class Ball{
+
+
+void get_x()
+void get_y()
+void get_color()
+void ball_to()
+void change_ball_color()
+
+}
+
+class RedLine
+class Score
+class Grade
+class Music
+class GameChar
+
+
+
+Game  *--  Config:包含
+SettingsWindow  *--  Config:包含
+
+Game  *--  GameUI:包含
+Game  *--  SettingsWindow:包含
+GameUI  *--  GameWindow:包含
+
+
+
+GameWindow  *--  Grade:包含
+GameWindow  *--  Score:包含
+GameWindow  *--  Ball:包含
+GameWindow  *--  RedLine:包含
+GameWindow  *--  Music:包含
+GameWindow  *--  Button:包含
+GameWindow  *--  GameChar:包含
+@enduml
