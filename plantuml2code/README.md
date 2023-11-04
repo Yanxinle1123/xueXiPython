@@ -17,6 +17,8 @@ PlantUML is an easy grammar that generates UML drawings : [PlantUML project](htt
     2) Launch plant2code with the specified language and the diagram path as arguments (you can also specify where you
        want the code to be generated)
 
+##### python main.py python uml-v3.txt ../pc_game
+
 ```sh
 $ plant2code python path/to/plantuml_diagram.txt /tmp/output
 ```
