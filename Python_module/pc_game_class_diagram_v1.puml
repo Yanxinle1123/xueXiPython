@@ -1,0 +1,125 @@
+@startuml
+skin rose
+
+class Game {
+  - Config config_game
+  - KeyPress key_press
+  - void create_game_ui()
+  - void create_config_window()
+  + void lost_game()
+  + void winning_the_game()
+  + void restart_game()
+  + void close_game()
+  + void start_game()
+  + void continue_game()
+  + void pause_game()
+
+}
+
+class GameUI {
+- void create_game_window()
+}
+
+class SettingsWindow {
+  - Config config_win
+  - void make_button_music_volume()
+  - void make_button_game_difficulty()
+  - void make_button_ball_speed()
+  - void make_button_quit()
+}
+
+
+
+class Config
+
+class GameWindow{
+  - void create_grade()
+  - void create_score()
+  - void create_game_char()
+  - void create_ball()
+  - void create_red_line()
+  - void create_button()
+  - void play_music()
+}
+
+class Button{
+  - void get_x()
+  - void get_y()
+  - void make_font(String font_name,int font_size)
+  - void make_label()
+  - void place()
+  - void command()
+}
+
+class Ball{
+  - void get_x()
+  - void get_y()
+  - void get_color()
+  - void ball_to()
+  - void change_ball_color(String color_name)
+  + void get_ball_color()
+
+}
+
+class SplitLine{
+  - void get_x()
+  - void get_y()
+}
+
+class Score{
+  - int score
+  + int get_score()
+  + void add_score(int value)
+  + void sub_score(int value)
+}
+
+class Grade{
+  - int grade
+  + int get_grade()
+  + void add_grade(int value)
+  + void sub_grade(int value)
+
+}
+class Music{
+  - String[] music_list
+  + void play_music(String music_name)
+  + void stop_music(String music_name)
+  + void change_music(String music_name)
+  + void pause_music(String music_name)
+
+}
+class GameChar{
+
+  + void generate_and_move()
+  + void generate_extra_letters()
+  + bool is_freeze()
+  + void set_freeze(int freeze_var)
+  + void move_down(String text)
+  + void hit_text(String text)
+
+}
+
+class KeyPress{
+  + bool is_color_change_key(String key)
+}
+
+Game "1" *-- "1" Config:包含
+Game “1” *-- “1” GameUI:包含
+Game “1” *-- “1” SettingsWindow:包含
+Game “1” *-- “1” KeyPress:包含
+
+
+SettingsWindow "1" *-- "*" Button:包含
+SettingsWindow "1" *-- "1" Config:包含
+
+
+GameUI "1" *-- "1" GameWindow:包含
+
+GameWindow "1" *-- "1" Grade:包含
+GameWindow "1" *-- "1" Score:包含
+GameWindow "1" *-- "2" Ball:包含
+GameWindow "1" *-- "1" SplitLine:包含
+GameWindow "1" *-- "1" Music:包含
+GameWindow "1" *-- "*" Button:包含
+GameWindow "1" *-- "*" GameChar:包含
+@enduml
