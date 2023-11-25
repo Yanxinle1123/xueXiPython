@@ -1,6 +1,5 @@
-
-                    @startuml
- 
+@startuml
+skin rose
 
 
 class Game {
@@ -22,7 +21,7 @@ class GameUI {
 }
 
 
-SettingsWindow 1 *--  * Button:包含
+SettingsWindow "1" *--  "*" Button:包含
 
 class SettingsWindow{
   - Config config_window
@@ -110,18 +109,17 @@ class KeyPress{
   + bool is_color_change_key()
 }
 
-Game            1 *--  1  Config:包含
-SettingsWindow  1 *--  1  Config:包含
-Game            1 *--  1  GameUI:包含
-Game            1 *--  1  SettingsWindow:包含
-Game            1 *--  1  KeyPress:包含
-GameUI          1 *--  1  GameWindow:包含
-GameWindow      1 *--  1  Grade:包含
-GameWindow      1 *--  1  Score:包含
-GameWindow      1 *--  2  Ball:包含
-GameWindow      1 *--  1  SeplitLine:包含
-GameWindow      1 *--  1  Music:包含
-GameWindow      1 *--  *  Button:包含
-GameWindow      1 *--  *  GameChar:包含
+Game            "1" *--  "1"  Config:包含
+SettingsWindow  "1" *--  "1"  Config:包含
+Game            "1" *--  "1"  GameUI:包含
+Game            "1" *--  "1"  SettingsWindow:包含
+Game            "1" *--  "1"  KeyPress:包含
+GameUI          "1" *--  "1"  GameWindow:包含
+GameWindow      "1" *--  "1"  Grade:包含
+GameWindow      "1" *--  "1"  Score:包含
+GameWindow      "1" *--  "2"  Ball:包含
+GameWindow      "1" *--  "1"  SeplitLine:包含
+GameWindow      "1" *--  "1"  Music:包含
+GameWindow      "1" *--  "*"  Button:包含
+GameWindow      "1" *--  "*"  GameChar:包含
 @enduml
-        

@@ -1,32 +1,127 @@
 
                     @startuml
-                    skin rose
-                    package path.to.pack{
-                        package element{
-                            class Point{
-                                + Point(int x, int y)
-                                - x
-                                - y
-                                + get_middle()
-                            }
-                        }
-                    }
-                    package geo {
-                        class Segment{
-                            + Segment( point_a, point_b)
-                        }
-                    }
-                    class Couleur{
-                        + Couleur(color)
-                        - set_new_color(color)
-                        + {static} get_rgb (color)
-                    }
-                    class Figure
-                    class Triangle
-                    Triangle --> Figure
+skin rose
 
-                    Figure "1" *-- "1" Couleur : couleur
-                    Figure "1" *-- "*" Segment : contient
-                    Point "1..*" --* "1" Segment
-                    @enduml
+
+class Game {
+  - Config config_game
+  - KeyPress key_press
+  - void create_game_ui()
+  - void create_config_window()
+  + void lost_game()
+  + void winning_the_game()
+  + void restart_game()
+  + void close_game()
+  + void start_game()
+  + void continue_game()
+  + void pause_game()
+}
+
+class GameUI {
+  - void create_game_window()
+}
+
+
+SettingsWindow "1" *--  "*" Button:包含
+
+class SettingsWindow{
+  - Config config_window
+  - void make_button_music_volumn()
+  - void make_button_game_difficulty()
+  - void make_ball_speed()
+  - void make_button_quit()
+}
+
+class Config{
+  - char[] letters
+  - map lower_list
+  - map medium_list
+  - map advanced_list
+  - map color_change
+  - map key_color
+  - map random_char_config
+}
+
+class GameWindow{
+  - void create_grade()
+  - void create_score()
+  - void create_game_char()
+  - void create_ball()
+  - void create_red_line()
+  - void creat_button()
+  - void play_music()
+}
+
+class Button{
+  - void get_x()
+  - void get_y()
+  - void make_font(String fong_name, int font_size)
+  - void make_label()
+  - void place()
+  - void command()
+}
+
+class Ball{
+  - void get_x()
+  - void get_y()
+  - void get_color()
+  - void ball_to()
+  - void change_ball_color(String color_name)
+  + void get_ball_color()
+}
+
+class SeplitLine{
+  - void get_x()
+  - void get_y()
+}
+
+class Score{
+  - int score
+  + void get_score()
+  + void add_score(int value)
+  + void sub_score(int value)
+}
+
+class Grade{
+  - int grade
+  + void get_grade()
+  + void add_grade(int value)
+  + void sub_grade(int value)
+}
+
+class Music{
+  - String[] music_list
+  + void play_music(String music_name)
+  + void stop_music(String music_name)
+  + void change_music(String music_name)
+  + void pause_music(String music_name)
+}
+
+class GameChar{
+  + void generate_and_move()
+  + void generate_extra_letters()
+  + bool is_freeze()
+  + boid set_freeze(int freeze_var)
+  + void move_down(String text)
+  + void hit_text(String text)
+}
+
+class KeyPress{
+  + bool is_color_change_key()
+}
+
+Game            "1" *--  "1"  Config:包含
+SettingsWindow  "1" *--  "1"  Config:包含
+Game            "1" *--  "1"  GameUI:包含
+Game            "1" *--  "1"  SettingsWindow:包含
+Game            "1" *--  "1"  KeyPress:包含
+GameUI          "1" *--  "1"  GameWindow:包含
+GameWindow      "1" *--  "1"  Grade:包含
+GameWindow      "1" *--  "1"  Score:包含
+GameWindow      "1" *--  "2"  Ball:包含
+GameWindow      "1" *--  "1"  SeplitLine:包含
+GameWindow      "1" *--  "1"  Music:包含
+GameWindow      "1" *--  "*"  Button:包含
+GameWindow      "1" *--  "*"  GameChar:包含
+@enduml
         
