@@ -1,5 +1,4 @@
-
-                    @startuml
+@startuml
  
 
 
@@ -33,13 +32,13 @@ class SettingsWindow{
 }
 
 class Config{
-  - char[] letters
-  - map lower_list
-  - map medium_list
-  - map advanced_list
-  - map color_change
-  - map key_color
-  - map random_char_config
+  - str letters
+  - str lower_list
+  - str medium_list
+  - str advanced_list
+  - str color_change
+  - str key_color
+  - str random_char_config
 }
 
 class GameWindow{
@@ -90,7 +89,7 @@ class Grade{
 }
 
 class Music{
-  - String[] music_list
+  - String music_list
   + void play_music(String music_name)
   + void stop_music(String music_name)
   + void change_music(String music_name)
@@ -100,14 +99,14 @@ class Music{
 class GameChar{
   + void generate_and_move()
   + void generate_extra_letters()
-  + bool is_freeze()
-  + boid set_freeze(int freeze_var)
+  + int is_freeze()
+  + int set_freeze(int freeze_var)
   + void move_down(String text)
   + void hit_text(String text)
 }
 
 class KeyPress{
-  + bool is_color_change_key()
+  + int is_color_change_key()
 }
 
 Game            1 *--  1  Config:包含
@@ -124,4 +123,3 @@ GameWindow      1 *--  1  Music:包含
 GameWindow      1 *--  *  Button:包含
 GameWindow      1 *--  *  GameChar:包含
 @enduml
-        
