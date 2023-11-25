@@ -1,0 +1,16 @@
+@startuml
+package a_simple_package{}
+package path.to.my.package1{
+    class class_inside_package
+}
+
+package another.package{
+    package inside.pack{}
+}
+
+class Point{
+    - x
+    - y
+    + get_middle()
+}
+@enduml
