@@ -1,8 +1,15 @@
+from config import Config
+
+
 class SettingsWindow:
     def __init__(self):
-        self._config_win = None
+        # TODO you should add Button elements in the list
+        self.buttons = []
+        # TODO define the parameters : 
+        self.config = Config()
+        self._config_window = None
 
-    def _make_button_music_volume(self, ):
+    def _make_button_music_volumn(self, ):
         # TODO : Complete method content
         pass
 
@@ -10,7 +17,7 @@ class SettingsWindow:
         # TODO : Complete method content
         pass
 
-    def _make_button_ball_speed(self, ):
+    def _make_ball_speed(self, ):
         # TODO : Complete method content
         pass
 

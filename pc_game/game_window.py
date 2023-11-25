@@ -1,6 +1,25 @@
+from grade import Grade
+from music import Music
+from score import Score
+from seplit_line import SeplitLine
+
+
 class GameWindow:
     def __init__(self):
-        pass
+        # TODO define the parameters : 
+        self.grade = Grade()
+        # TODO define the parameters : 
+        self.score = Score()
+        # TODO you should add Ball elements in the list up to 2 elements
+        self.balls = []
+        # TODO define the parameters : 
+        self.seplit_line = SeplitLine()
+        # TODO define the parameters : 
+        self.music = Music()
+        # TODO you should add Button elements in the list
+        self.buttons = []
+        # TODO you should add GameChar elements in the list
+        self.game_chars = []
 
     def _create_grade(self, ):
         # TODO : Complete method content
@@ -22,7 +41,7 @@ class GameWindow:
         # TODO : Complete method content
         pass
 
-    def _create_button(self, ):
+    def _creat_button(self, ):
         # TODO : Complete method content
         pass
 

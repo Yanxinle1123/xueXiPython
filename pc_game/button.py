@@ -1,3 +1,5 @@
+
+
 class Button:
     def __init__(self):
         pass
@@ -10,7 +12,7 @@ class Button:
         # TODO : Complete method content
         pass
 
-    def _make_font(self, font_name, font_size):
+    def _make_font(self, fong_name, font_size):
         # TODO : Complete method content
         pass
 

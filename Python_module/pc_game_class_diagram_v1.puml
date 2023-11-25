@@ -61,7 +61,7 @@ class Ball{
 
 }
 
-class SplitLine{
+class SeplitLine{
   - void get_x()
   - void get_y()
 }
@@ -118,7 +118,7 @@ GameUI "1" *-- "1" GameWindow:包含
 GameWindow "1" *-- "1" Grade:包含
 GameWindow "1" *-- "1" Score:包含
 GameWindow "1" *-- "2" Ball:包含
-GameWindow "1" *-- "1" SplitLine:包含
+GameWindow "1" *-- "1" SeplitLine:包含
 GameWindow "1" *-- "1" Music:包含
 GameWindow "1" *-- "*" Button:包含
 GameWindow "1" *-- "*" GameChar:包含
