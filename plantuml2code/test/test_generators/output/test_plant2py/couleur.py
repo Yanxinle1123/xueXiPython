@@ -1,3 +1,5 @@
+
+
 class Couleur:
     def __init__(self, color):
         pass
