@@ -1066,7 +1066,6 @@ Python_module/tkinter/dist/.DS_Store
 .__pycache__
 comm/__pycache__/*
 Python_module/tkinter/build/*
-.vscode
 /.idea/sonarlint/issuestore/1/a/1a333a14fc3b6f98a32096e8e68d59e485daca38
 /.idea/sonarlint/issuestore/2/e/2e13d3220fcfc7a3096a4e0c808fe0d04f9e9194
 /.idea/sonarlint/issuestore/4/4/4400a322608b05b311698905f99f043568b04d31
