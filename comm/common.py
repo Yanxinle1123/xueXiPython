@@ -8,7 +8,7 @@ import colored
 import requests
 from bs4 import BeautifulSoup
 from colored import Fore
-#
+
 
 def tuichu(input_str, tishi='已退出', tuichu_str='q'):
     if input_str == tuichu_str:
