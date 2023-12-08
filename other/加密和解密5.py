@@ -37,23 +37,27 @@ class Decrypt:
         return chr2(decrypted_text)
 
 
+def ead5():
+    a = 1
+    while True:
+        try:
+            purple_print(f"------------------------------------第 {a} 次------------------------------------")
+            encrypted_text = green_input("请输入需要加密的字符(输入q退出): ")
+            if encrypted_text == 'q':
+                orange_print("已退出")
+                break
+            encrypt = Encrypt(encrypted_text)
+            yellow_print(f"密文: {encrypt.encrypt()}")
+            decrypted_text = cyan_input("请输入需要解密的字符(输入q退出): ")
+            if decrypted_text == 'q':
+                orange_print("已退出")
+                break
+            decrypt = Decrypt(decrypted_text)
+            blue_print(f"明文: {decrypt.decrypt()}")
+            a += 1
+        except:
+            red_print("输入错误")
+
+
 orange_print("这是一个可以加密和解密的程序")
-a = 1
-while True:
-    try:
-        purple_print(f"------------------------------------第 {a} 次------------------------------------")
-        encrypted_text = green_input("请输入需要加密的字符(输入q退出): ")
-        if encrypted_text == 'q':
-            orange_print("已退出")
-            break
-        encrypt = Encrypt(encrypted_text)
-        yellow_print(f"密文: {encrypt.encrypt()}")
-        decrypted_text = cyan_input("请输入需要解密的字符(输入q退出): ")
-        if decrypted_text == 'q':
-            orange_print("已退出")
-            break
-        decrypt = Decrypt(decrypted_text)
-        blue_print(f"明文: {decrypt.decrypt()}")
-        a += 1
-    except:
-        red_print("输入错误")
+ead5()
