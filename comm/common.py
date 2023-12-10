@@ -68,32 +68,88 @@ def red_print(input_str):
     print(Fore.RGB(225, 0, 50) + input_str)
 
 
+def red_slow_print(input_str, delay=0.23):
+    for char in input_str:
+        print(Fore.RGB(225, 0, 50) + char, end='', flush=True)
+        time.sleep(delay)
+    print()
+
+
 def orange_print(input_str):
     print(Fore.RGB(255, 170, 0) + input_str)
+
+
+def orange_slow_print(input_str, delay=0.23):
+    for char in input_str:
+        print(Fore.RGB(255, 170, 0) + char, end='', flush=True)
+        time.sleep(delay)
+    print()
 
 
 def yellow_print(input_str):
     print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + input_str)
 
 
+def yellow_slow_print(input_str, delay=0.23):
+    for char in input_str:
+        print(Fore.CYAN + Fore.GREEN + Fore.RED + Fore.GREEN + Fore.BLUE + Fore.YELLOW + char, end='', flush=True)
+        time.sleep(delay)
+    print()
+
+
 def yellow_print2(input_str):
     print(Fore.RGB(225, 255, 0) + input_str)
+
+
+def yellow_slow_print2(input_str, delay=0.23):
+    for char in input_str:
+        print(Fore.RGB(225, 255, 0) + char, end='', flush=True)
+        time.sleep(delay)
+    print()
 
 
 def green_print(input_str):
     print(Fore.RGB(125, 250, 85) + input_str)
 
 
+def green_slow_print(input_str, delay=0.23):
+    for char in input_str:
+        print(Fore.RGB(125, 250, 85) + char, end='', flush=True)
+        time.sleep(delay)
+    print()
+
+
 def cyan_print(input_str):
     print(Fore.CYAN + input_str)
+
+
+def cyan_slow_print(input_str, delay=0.23):
+    for char in input_str:
+        print(Fore.CYAN + char, end='', flush=True)
+        time.sleep(delay)
+    print()
 
 
 def blue_print(input_str):
     print(Fore.RGB(50, 150, 225) + input_str)
 
 
+def blue_slow_print(input_str, delay=0.23):
+    for char in input_str:
+        print(Fore.RGB(50, 150, 225) + char, end='', flush=True)
+        time.sleep(delay)
+    print()
+
+
 def purple_print(input_str):
     print(Fore.RGB(171, 91, 187) + input_str)
+
+
+def purple_slow_print(input_str, delay=0.23):
+    for char in input_str:
+        print(Fore.RGB(171, 91, 187) + char, end='', flush=True)
+        time.sleep(delay)
+    print()
 
 
 def red_input(input_str):
@@ -101,9 +157,20 @@ def red_input(input_str):
     return result
 
 
+def red_slow_input(input_str, delay=0.23):
+    for i, char in enumerate(input_str):
+        print(Fore.RGB(225, 0, 50) + char, end='')
+        time.sleep(delay)
+    return input()
+
+
 def orange_input(input_str):
     result = input(Fore.RGB(255, 170, 0) + input_str)
     return result
+
+
+def orange_slow_input(input_str, delay=0.23):
+    pass
 
 
 def yellow_input(input_str):
@@ -111,9 +178,17 @@ def yellow_input(input_str):
     return result
 
 
+def yellow_slow_input(input_str, delay=0.23):
+    pass
+
+
 def yellow_input2(input_str):
     result = input(Fore.RGB(225, 255, 0) + input_str)
     return result
+
+
+def yellow_slow_input(input_str, delay=0.23):
+    pass
 
 
 def green_input(input_str):
@@ -121,9 +196,17 @@ def green_input(input_str):
     return result
 
 
+def green_slow_input(input_str, delay=0.23):
+    pass
+
+
 def cyan_input(input_str):
     result = input(Fore.CYAN + input_str)
     return result
+
+
+def cyan_slow_input(input_str, delay=0.23):
+    pass
 
 
 def blue_input(input_str):
@@ -131,9 +214,17 @@ def blue_input(input_str):
     return result
 
 
+def blue_slow_input(input_str, delay=0.23):
+    pass
+
+
 def purple_input(input_str):
     result = input(Fore.RGB(171, 91, 187) + input_str)
     return result
+
+
+def purple_slow_input(input_str, delay=0.23):
+    pass
 
 
 def is_chinese_start(s):
