@@ -18,7 +18,7 @@ model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
-model.fit(x_train, y_train, epochs=500)
+model.fit(x_train, y_train, epochs=5000)
 model.evaluate(x_test, y_test, verbose=2)
 
 probability_model = tf.keras.Sequential([
