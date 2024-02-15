@@ -2,7 +2,7 @@ import math
 import tkinter as tk
 import tkinter.messagebox
 
-from comm.common import *
+from comm.common import remove_character, value4, delete_str, calculate, erase, MoveRight, MoveLeft
 
 pi = 3.141592653589793
 delayed_task = None
@@ -15,66 +15,97 @@ def contains_operator(s):
 
 def check_button_text(text):
     if text == "0":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 0\n数字按钮")
     elif text == "1":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 1\n数字按钮")
     elif text == "2":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 2\n数字按钮")
     elif text == "3":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 3\n数字按钮")
     elif text == "4":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 4\n数字按钮")
     elif text == "5":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 5\n数字按钮")
     elif text == "6":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 6\n数字按钮")
     elif text == "7":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 7\n数字按钮")
     elif text == "8":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 8\n数字按钮")
     elif text == "9":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 9\n数字按钮")
     elif text == "+":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 +\n运算按钮\n运算加法")
     elif text == "-":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 -\n运算按钮\n运算减法")
     elif text == "*":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 *\n运算按钮\n运算乘法")
     elif text == "/":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 /\n运算按\n运算除法")
     elif text == ".":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 .\n显示一个小数点")
     elif text == "//":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 //\n运算按钮\n求余数")
     elif text == "%//":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 %//\n运算按钮\n求余数和整数，如(23......2)")
     elif text == "π":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 π\n输入pi(3.14159.......)")
     elif text == "√":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 √\n运算按钮\n开方运算")
     elif text == "%":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 %\n运算按钮\n求整数")
     elif text == "x²":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 x²\n运算按钮\n求所显示数的平方值")
     elif text == "x³":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 x³\n运算按钮\n求所显示数的立方值")
     elif text == "³√":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 ³√\n运算按钮\n求所显示数的立方根")
     elif text == "²√":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 ²√\n运算按钮\n求所显示数的平方根")
     elif text == "=":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 =\n运算按钮\n求所显示算式的结果")
     elif text == "C":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 C \n删除文本框里的所有字符")
     elif text == "tan":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 tan\n运算按钮\n求所显示数的正切值")
     elif text == "←":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 ←\n向左移动光标")
     elif text == "→":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 →\n向右移动光标")
     elif text == "⌫":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 ⌫\n删除光标后面的一个字符")
     elif text == "退\n出\n计\n算\n器":
+        window.bell()
         tk.messagebox.showinfo("提示", "按钮 退出计算器\n退出程序")
 
 
@@ -116,6 +147,7 @@ def ping_fang():
         entry.config(state="disabled")
     except Exception:
         print('\a')
+        window.bell()
         tk.messagebox.showwarning('错误', '算式有误')
         entry.insert(0, '|')
         entry.config(state="disabled")
@@ -132,6 +164,7 @@ def li_fang():
         entry.insert(0, '|')
         entry.config(state="disabled")
     except Exception:
+        window.bell()
         print('\a')
         tk.messagebox.showwarning('错误', '算式有误')
         entry.insert(0, '|')
@@ -150,6 +183,7 @@ def ping_fang_gen():
         entry.config(state="disabled")
     except Exception:
         print('\a')
+        window.bell()
         tk.messagebox.showwarning('错误', '算式有误')
         entry.insert(0, '|')
         entry.config(state="disabled")
@@ -167,6 +201,7 @@ def li_fang_gen():
         entry.config(state="disabled")
     except Exception:
         print('\a')
+        window.bell()
         tk.messagebox.showwarning('错误', '算式有误')
         entry.insert(0, '|')
         entry.config(state="disabled")
@@ -185,6 +220,7 @@ def tan():
         entry.config(state="disabled")
     except Exception:
         print('\a')
+        window.bell()
         tk.messagebox.showwarning('错误', '算式有误')
         entry.insert(0, '|')
         entry.config(state="disabled")
@@ -212,6 +248,7 @@ def calculate_result():
             jieguo = str(value4(zheng_chu)) + '......' + str(value4(other_yu_shu))
             if jieguo != '':
                 if len(jieguo) > 24:
+                    window.bell()
                     print('\a')
                     tk.messagebox.showwarning('错误', '结果太长')
                     entry.insert(0, '|')
@@ -222,6 +259,7 @@ def calculate_result():
                     entry.config(state="disabled")
             else:
                 if jieguo == 'None':
+                    window.bell()
                     print('\a')
                     entry.insert(0, '无结果')
                     entry.insert(0, '|')
@@ -230,6 +268,7 @@ def calculate_result():
             huoqu2 = is_all_digits(expression)
             huoqu3 = contains_operator(expression)
             if huoqu2 and not huoqu3:
+                window.bell()
                 print('\a')
                 tk.messagebox.showwarning('错误', '没有运算字符')
             elif not huoqu2:
@@ -238,11 +277,13 @@ def calculate_result():
                 result = str(value4(str(calculate(expression))))
                 sample_text = result
                 if result == 'None':
+                    window.bell()
                     print('\a')
                     entry.insert(0, '无结果')
                     entry.config(state="disabled")
                 else:
                     if len(sample_text) > 24:
+                        window.bell()
                         print('\a')
                         tk.messagebox.showwarning('错误', '结果太长')
                         entry.insert(0, '|')
@@ -253,6 +294,7 @@ def calculate_result():
                         entry.config(state="disabled")
     except Exception:
         print('\a')
+        window.bell()
         tk.messagebox.showwarning('错误', '算式有误')
         entry.insert(0, '|')
         entry.config(state="disabled")
@@ -277,12 +319,14 @@ def calc(expression):
                 # entry.insert(0, '无结果')
                 # entry.config(state="disabled")
                 print('\a')
+                window.bell()
                 return '无结果'
         else:
             huoqu2 = is_all_digits(expression)
             huoqu3 = contains_operator(expression)
             if huoqu2 and not huoqu3:
                 # tk.messagebox.showwarning('错误', '没有运算字符')
+                window.bell()
                 print('\a')
                 return '没有运算字符'
             elif not huoqu2:
@@ -296,6 +340,7 @@ def calc(expression):
     except Exception:
         # tk.messagebox.showwarning('错误', '算式有误')
         # entry.config(state="disabled")
+        window.bell()
         print('\a')
         return '算式有误'
 
@@ -312,6 +357,7 @@ def radical():
         entry.config(state="disabled")
     except Exception:
         print('\a')
+        window.bell()
         tk.messagebox.showwarning('错误', '算式有误')
         entry.insert(0, '|')
         entry.config(state="disabled")
