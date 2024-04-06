@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 
 char = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'i', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
@@ -38,7 +40,7 @@ while running:
                 print("Button 3 clicked!")
                 screen.fill((225, 255, 0))
             elif button_rect4.collidepoint(pos):
-                pygame.quit()
+                sys.exit()
 
     # 创建三个不同大小的字体对象
     font1 = pygame.font.SysFont("Arial", 40)

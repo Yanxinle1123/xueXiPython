@@ -30,7 +30,7 @@ from game.古诗填空 import gushiyouxi
 from game.成语填空游戏 import cheng_yu_tian_kong
 from other.computer import computer
 from other.位置 import address
-from other.加密和解密 import ead
+from other.加密和解密1 import ead
 from other.加密和解密3 import ead3
 from other.时间 import shijian
 from other.查询日历 import rili
@@ -202,7 +202,7 @@ def python():
                   Fore.RGB(125, 250, 85) + '               {} ↵ '.format(a))
             print('\033[31m\033[1m建议输入 / 查询指令\033[0m')
             words = ["time", "date", "address", "game", "calc", "area", "q", "quit", "exit", "ead", "pi", "volume",
-                     "trans", "goodbye", "calendar", 'mult-table', 'weather']
+                     "trans", "goodbye", "calendar", 'mult-table', 'weather', "help"]
             closest = find_closest_word(huoqu, words)
             print(Fore.RED + "\033[1m与", Fore.RGB(225, 255, 0) + huoqu, Fore.RED + '\033[1m最接近的指令是',
                   Fore.RGB(225, 255, 0) + closest)

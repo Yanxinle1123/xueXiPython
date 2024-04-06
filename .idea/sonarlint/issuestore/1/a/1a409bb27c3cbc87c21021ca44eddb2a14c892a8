@@ -1,3 +1,2 @@
 
-Ipython:S1481"%Remove the unused local variable "i".(ÍÎÕ±şÿÿÿÿ8½­âø·1
-xpython:S3776"TRefactor this function to reduce its Cognitive Complexity from 22 to the 15 allowed.(ÇÈ½…øÿÿÿÿ8¾­âø·1
+Opython:S1481"+Replace the unused loop index "i" with "_".(ÍÎÕ±şÿÿÿÿ8½­âø·1
