@@ -1,7 +1,7 @@
 import turtle
 
 turtle.pensize(3)
-turtle.speed(1000)
+turtle.speed(0)
 turtle.bgcolor("black")
 colors = ["red", "green", "blue", "yellow"]
 for i in range(500):

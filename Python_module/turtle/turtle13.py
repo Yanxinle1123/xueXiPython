@@ -1,7 +1,7 @@
 import turtle
 
 turtle.bgcolor("black")
-turtle.speed(1000)
+turtle.speed(0)
 turtle.hideturtle()
 turtle.pensize(10)
 turtle.pencolor("blue")

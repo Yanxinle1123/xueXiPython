@@ -1,7 +1,7 @@
 import turtle
 
 turtle.pensize(4)
-turtle.speed(1000)
+turtle.speed(0)
 turtle.bgcolor('black')
 turtle.pencolor('white')
 for i in range(3600):

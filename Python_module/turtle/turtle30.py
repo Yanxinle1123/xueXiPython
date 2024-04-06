@@ -2,7 +2,7 @@ import math
 import random
 import turtle
 
-turtle.speed(1000000)
+turtle.speed(0)
 turtle.pensize(10)
 turtle.up()
 turtle.goto(0, 145)

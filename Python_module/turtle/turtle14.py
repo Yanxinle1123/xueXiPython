@@ -1,7 +1,7 @@
 import turtle
 
 t = turtle
-t.speed(99999)
+t.speed(0)
 t.hideturtle()
 t.pencolor("brown")
 t.pensize(3)

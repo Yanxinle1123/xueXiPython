@@ -1,6 +1,6 @@
 import turtle
 
-turtle.speed(99999999999999999999)
+turtle.speed(0)
 turtle.bgcolor('black')
 turtle.width(1)
 sides = 3

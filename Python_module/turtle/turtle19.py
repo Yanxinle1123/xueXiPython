@@ -1,7 +1,7 @@
-from turtle import *
+from turtle import Turtle
 
 turtle = Turtle(visible=False)
-turtle.speed(10000)
+turtle.speed(0)
 turtle.color("blue", "pink")
 
 for i in range(400):

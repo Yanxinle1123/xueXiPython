@@ -1,5 +1,6 @@
 import turtle
 
+turtle.speed(0)
 turtle.bgcolor('white')
 turtle.width(2)
 sides = 5
