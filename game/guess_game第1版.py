@@ -1,14 +1,14 @@
 import random
 
-from comm.common import tuichu
-
 
 def guess_game():
     number = random.randint(0, 9)
     print('现在是一个猜数游戏!')
     while True:
         guess_str = input('请输入一个数 (输入q退出) : ')
-        tuichu(guess_str)
+        if guess_str == 'q':
+            print("游戏结束")
+            break
         try:
             guess = int(guess_str)
             if guess == number:
