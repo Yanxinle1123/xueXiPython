@@ -8,6 +8,7 @@ import colored
 import requests
 from bs4 import BeautifulSoup
 from colored import Fore
+from googletrans import Translator
 
 
 def tuichu(input_str, tishi='已退出', tuichu_str='q'):
@@ -610,3 +611,9 @@ def rainbow_anim_print(value, delay=0.25, loop=1, final=' ', color='#BBBBBB'):
         print(colored.Fore.RGB(187, 187, 187) + f"\r{final}\b", end='', flush=True)
     else:
         print(colored.Fore.RGB(187, 187, 187) + f"\r{final}\n", end='', flush=True)
+
+
+def translate_text(text, src='zh-cn', dest='en'):
+    translator = Translator()
+    translation = translator.translate(text, src=src, dest=dest)
+    return translation.text

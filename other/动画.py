@@ -1,6 +1,6 @@
 import time
 
-characters = ["|", "/", "-", "\\"]
+characters = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏']
 while True:
     try:
         for char in characters:
