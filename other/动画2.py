@@ -42,7 +42,7 @@ def show_progress(text, characters, switch_interval, task_func, *args, **kwargs)
 
 
 if __name__ == "__main__":
-    chinese_text = (
+    english_text = (
         "Python is a high-level, interpreted programming language that has gained immense popularity since"
         " its creation by Guido van Rossum and its first release in 1991. Known for its simplicity and"
         " readability, Python has become a favorite among both beginners and experienced developers."
@@ -76,7 +76,7 @@ if __name__ == "__main__":
         None,
         0.25,
         translate_text,
-        chinese_text,
+        english_text,
         src='en',
         dest='zh-cn'
     )
